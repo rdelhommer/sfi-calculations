@@ -1,15 +1,14 @@
 import './app.scss';
+import { ITabConfig } from '../resources/elements/tabs/tab/tab';
 
 export class App { 
-  test: boolean = false
+  testTab: ITabConfig = {
+    name: 'test',
+    title: 'Hello Tab!'
+  }
 
-  attached() {
-    setTimeout(() => {
-      this.test = !this.test
-    }, 5000);
-
-    setTimeout(() => {
-      this.test = !this.test
-    }, 10000);
+  anotherTab: ITabConfig = {
+    name: 'another',
+    title: 'Another Tab!'
   }
 }

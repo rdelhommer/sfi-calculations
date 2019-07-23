@@ -1,0 +1,15 @@
+<template>
+  <div class="tabs">
+    <div class="tabs__selector-container">
+      <button class="tabs__selector"
+        repeat.for="tab of tabs"
+        click.delegate="changePage(tab)"
+      >
+        <h2>${tab.config.title}</h2>
+      </button>
+    </div>
+    <div class="tabs__content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
