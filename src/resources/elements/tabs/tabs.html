@@ -1,7 +1,9 @@
 <template>
   <div class="tabs">
     <div class="tabs__selector-container">
-      <button class="tabs__selector"
+      <button 
+        class="tabs__selector"
+        class.bind="tab.isActive ? 'tabs__selector--active' : null"
         repeat.for="tab of tabs"
         click.delegate="changePage(tab)"
       >

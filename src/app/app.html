@@ -1,10 +1,24 @@
 <template>
-  <tabs>
-    <tab config.bind="testTab">
-      Tab Content!
-    </tab>
-    <tab config.bind="anotherTab">
-      The other tab!
-    </tab>
-  </tabs>
+  <div class="app">
+    <tabs>
+      <tab config.bind="dataTab">
+        Data
+      </tab>
+      <tab config.bind="readingsTab">
+        Readings
+      </tab>
+      <tab config.bind="reportTab">
+        Report
+      </tab>
+      <tab config.bind="printTab">
+        Print
+      </tab>
+      <tab config.bind="successionTab">
+        Succession
+      </tab>
+      <tab config.bind="usageTab">
+        <usage></usage>
+      </tab>
+    </tabs>
+  </div>
 </template>
