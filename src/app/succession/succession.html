@@ -1,0 +1,27 @@
+<template>
+  <h2>RANGES/MINIMUM/MAXIMUM Plant Succession Requirements</h2>
+  <table>
+    <tr>
+      <th>Plants in the Stage of Succession</th>
+      <th>Bacteria</th>
+      <th>Fungi</th>
+      <th>F:B</th>
+      <th>Actinobacteria</th>
+      <th>Oomycetes</th>
+      <th>Flagellates and Amoebae Numbers per g</th>
+      <th>Ciliates</th>
+      <th>Nematode Numbers per g</th>
+    </tr>
+    <tr repeat.for="row of rows">
+      <td><strong>${row.plant}</strong></td>
+      <td>${row.bacteria}</td>
+      <td>${row.fungi}</td>
+      <td>${row.fungi}</td>
+      <td>${row.actinobacteria}</td>
+      <td>${row.oomycetes}</td>
+      <td>${row.flagellatesAndAmoebae}</td>
+      <td>${row.ciliates}</td>
+      <td><span innerhtml.bind="row.nematode"></span></td>
+    </tr>
+  </table>
+</template>
