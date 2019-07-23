@@ -24,14 +24,6 @@ module.exports = {
 
   tsRule: { test: /\.ts?$/, loader: "awesome-typescript-loader" },
   htmlRule: { test: /\.html$/, use: 'html-loader' },
-  faLoaders: [{ 
-    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-    loader: "url-loader?limit=10000&mimetype=application/font-woff" 
-  },
-  { 
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-    loader: "file-loader" 
-  }],
 
   // NOTE: What does this do?
   jsPre: { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },

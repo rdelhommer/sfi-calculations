@@ -1,18 +1,17 @@
-import 'font-awesome/css/font-awesome.css';
-
 import { Aurelia, PLATFORM } from 'aurelia-framework'
+import { globalResources } from './config/resource.config';
+import { configureRootContainer } from './config/container.config';
 
 export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
+    .globalResources(globalResources)
     .plugin(PLATFORM.moduleName('aurelia-validation'))
-    .plugin(PLATFORM.moduleName('@aurelia-ux/core'))
-    .plugin(PLATFORM.moduleName('@aurelia-ux/slider'))
-    .plugin(PLATFORM.moduleName('au-fa-check'), {
-    })
+
+  configureRootContainer(aurelia.container);
 
   aurelia.start()
     .then(() => {
-      aurelia.setRoot(PLATFORM.moduleName('app'))
+      aurelia.setRoot(PLATFORM.moduleName('app/app'))
     });
 }

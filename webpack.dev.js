@@ -8,6 +8,14 @@ module.exports = merge(common.config, {
   module: {
     rules: [
       {
+        test: /\.scss$/,
+        use: [
+            "style-loader", // creates style nodes from JS strings
+            "css-loader", // translates CSS into CommonJS
+            "sass-loader" // compiles Sass to CSS, using Node Sass by default
+        ]
+      },
+      {
         test: /\.css$/i,
         loader: 'css-loader',
         issuer: /\.html?$/i
@@ -20,7 +28,7 @@ module.exports = merge(common.config, {
       common.htmlRule,
       common.tsRule,
       common.jsPre
-    ].concat(common.faLoaders)
+    ]
   },
   plugins: [
     new WebpackShellPlugin({

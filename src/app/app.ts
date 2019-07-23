@@ -1,3 +1,5 @@
+import './app.scss';
+
 export class App { 
   test: boolean = false
 
