@@ -1,0 +1,157 @@
+<template>
+  <h2>Data</h2>
+
+  <form-wrap>
+    <form-section>
+      <h3 slot="title">
+        Profile
+      </h3>
+
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.name"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Name
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.organization"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Organization
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.street"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Address
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.additional"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Unit/Apt
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.city"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            City
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.state"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            State
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.zip"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Zip Code
+          </div>
+        </form-group>
+        <form-group 
+            type="email"
+            orientation="horizontal" 
+            model.bind="profile.email"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Email
+          </div>
+        </form-group>
+        <form-group 
+            type="phone"
+            orientation="horizontal" 
+            model.bind="profile.phone"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Phone
+          </div>
+        </form-group>
+    </form-section>
+    <form-section>
+      <h3 slot="title">
+        Sample Information
+      </h3>
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.name"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Name
+        </div>
+      </form-group>
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.type"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Type
+        </div>
+      </form-group>
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.plant"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Plant Present/Desired
+        </div>
+      </form-group>
+      <form-group-select 
+          from-enum.bind="Succession"
+          orientation="horizontal"
+          model.bind="sample.succession"
+          placeholder="Please Select"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Plant Succession
+        </div>
+      </form-group-select>
+      <form-group 
+        orientation="horizontal" 
+        model.bind="sample.dateCollected"
+        on-changed.call="saveTab()">
+      <div slot="label">
+        Date Collected
+      </div>
+    </form-group>
+    <form-group 
+        orientation="horizontal" 
+        model.bind="sample.dateObserved"
+        on-changed.call="saveTab()">
+      <div slot="label">
+        Date Observed
+      </div>
+    </form-group>
+    <form-group 
+        orientation="horizontal" 
+        model.bind="sample.observedBy"
+        on-changed.call="saveTab()">
+      <div slot="label">
+        Observed by
+      </div>
+    </form-group>						
+    <form-group-textarea
+        orientation="horizontal" 
+        model.bind="sample.notes"
+        on-changed.call="saveTab()">
+      <div slot="label">
+        Notes
+      </div>
+    </form-group-textarea>
+    </form-section>
+  </form-wrap>
+</template>

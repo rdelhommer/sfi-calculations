@@ -1,8 +1,13 @@
 <template>
   <div class="app">
+    <button 
+      class="button--clear-session"
+      click.delegate="startNewSession()">
+      New Session
+    </button>
     <tabs>
       <tab config.bind="dataTab">
-        Data
+        <data-tab></data-tab>
       </tab>
       <tab config.bind="readingsTab">
         <reading-tab></reading-tab>

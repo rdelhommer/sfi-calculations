@@ -1,6 +1,9 @@
 import './app.scss';
 import { ITabConfig } from '../resources/elements/tabs/tab/tab';
+import { ISession } from '../services/session/session.service';
+import { inject } from 'aurelia-framework';
 
+@inject(ISession)
 export class App { 
   dataTab: ITabConfig = {
     name: 'data',
@@ -40,5 +43,14 @@ export class App {
   settingsTab: ITabConfig = {
     name: 'settings',
     title: 'Settings'
+  }
+
+  constructor(
+    private session: ISession
+  ) { }
+
+  startNewSession() {
+    this.session.clear();
+    window.location.reload();
   }
 }

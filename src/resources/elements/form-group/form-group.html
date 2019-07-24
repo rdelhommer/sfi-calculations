@@ -33,6 +33,9 @@
         disabled.bind="isDisabled" 
         aria-disabled.bind="isDisabled"
         change.delegate="onChanged()"/>
+      <div if.bind="type === 'display'">
+        ${model}
+      </div>
     </div>
     <small id.bind="id + 'Help'" class="form-group__help">
       <slot name="help"></slot>
