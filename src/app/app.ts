@@ -36,4 +36,9 @@ export class App {
     name: 'usage',
     title: 'Spreadsheet Usage'
   }
+
+  settingsTab: ITabConfig = {
+    name: 'settings',
+    title: 'Settings'
+  }
 }

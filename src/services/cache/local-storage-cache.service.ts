@@ -18,6 +18,7 @@ export class LocalStorageCache implements ICache {
   clear(mode?: ICache.Mode) {
     if (!mode) {
       return Object.keys(localStorage)
+        .filter(k => !k.startsWith(`${ICache.Mode.Permanent}+`))
         .forEach(k => localStorage.removeItem(k))
     }
 

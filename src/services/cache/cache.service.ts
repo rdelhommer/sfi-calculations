@@ -7,6 +7,7 @@ export abstract class ICache {
 
 export namespace ICache {
   export enum Mode {
-    Global = 'global'
+    Global = 'global',
+    Permanent = 'permanent'
   }
 }

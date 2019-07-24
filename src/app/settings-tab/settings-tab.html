@@ -1,0 +1,89 @@
+<template>
+  <div class="settings-tab">
+    <h2>Settings</h2>
+    <div>
+      <form-wrap>
+        <form-header>
+          <h3 slot="title">
+            Profile
+            <span show.bind="showSaveSuccessful"> - Saved!</span>
+          </h3>
+        </form-header>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.name">
+          <div slot="label">
+            Name
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.organization">
+          <div slot="label">
+            Organization
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.street">
+          <div slot="label">
+            Address
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.additional">
+          <div slot="label">
+            Unit/Apt
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.city">
+          <div slot="label">
+            City
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.state">
+          <div slot="label">
+            State
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.zip">
+          <div slot="label">
+            Zip Code
+          </div>
+        </form-group>
+        <form-group 
+            type="email"
+            orientation="horizontal" 
+            model.bind="profile.email">
+          <div slot="label">
+            Email
+          </div>
+        </form-group>
+        <form-group 
+            type="phone"
+            orientation="horizontal" 
+            model.bind="profile.phone">
+          <div slot="label">
+            Phone
+          </div>
+        </form-group>
+        <button
+            type="submit"
+            click.delegate="saveProfile()">
+          Save
+        </button>
+        <button
+            click.delegate="cancelChanges()">
+          Cancel
+        </button>
+      </form-wrap>
+    </div>
+  </div>
+</template>

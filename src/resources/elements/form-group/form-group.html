@@ -1,0 +1,41 @@
+<template>
+  <div class="form-group" class.bind="isDisabled ? 'form-group--disabled' : ''">
+    <div class="form-group--${orientation}">
+      <label for.one-time="id">
+          <slot name="label"></slot>
+      </label>
+
+      <input 
+        if.bind="type === 'phone'" 
+        type="tel" 
+        class="form-group__control" 
+        id.one-time="id" 
+        name.one-time="id"
+        aria-describedby.bind="id + 'Help'"
+        autocomplete 
+        autofocus.bind="autofocus"
+        value.bind="model"
+        disabled.bind="isDisabled" 
+        aria-disabled.bind="isDisabled"
+        change.delegate="onChanged()"/>
+
+      <input 
+        if.bind="type !== 'phone'" 
+        type.bind="type" 
+        class="form-group__control" 
+        id.one-time="id" 
+        name.one-time="id" 
+        aria-describedby.bind="id + 'Help'" 
+        placeholder.bind="placeholder"
+        value.bind="model"
+        autocomplete 
+        autofocus.bind="autofocus"
+        disabled.bind="isDisabled" 
+        aria-disabled.bind="isDisabled"
+        change.delegate="onChanged()"/>
+    </div>
+    <small id.bind="id + 'Help'" class="form-group__help">
+      <slot name="help"></slot>
+    </small>
+  </div>
+</template>

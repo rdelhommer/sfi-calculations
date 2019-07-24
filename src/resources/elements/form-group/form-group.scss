@@ -1,0 +1,17 @@
+.form-group {
+  &--horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    label {
+      margin-bottom: 0px;
+    }
+  }
+
+  &--disabled {
+    input, select, textarea {
+      cursor: not-allowed;
+    }
+  }
+}
