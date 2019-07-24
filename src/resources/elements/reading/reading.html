@@ -35,8 +35,15 @@
           </td>
           <td class.one-time="reading.isField ? 'reading__section--right' : ''">
             <input 
+              if.one-time="!reading.isField"
               value.bind="reading.diameterMeasurements[$index]"
               change.delegate="onDiameterChanged(reading)" 
+              type="number"
+              step=".01"/>
+            <input 
+              if.one-time="reading.isField"
+              value.bind="reading.lengthMeasurements[$index]"
+              change.delegate="onLengthChanged(reading)" 
               type="number"
               step=".01"/>
           </td>

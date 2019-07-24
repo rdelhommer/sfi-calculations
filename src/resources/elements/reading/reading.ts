@@ -1,7 +1,9 @@
 import './reading.scss'
-import { autoinject } from 'aurelia-framework';
+import { autoinject, inject } from 'aurelia-framework';
+import { ISession } from '../../../services/session/session.service';
+import { LocalStorageSession } from '../../../services/session/local-storage-session.service';
 
-interface IOrganismReading {
+export interface IOrganismReading {
   type: string
   numMeasurements: number
   organism: string
@@ -41,6 +43,8 @@ class OrganismReading implements IOrganismReading {
       .filter(x => !Number.isNaN(x))
       .reduce((a, b) => a + b)
     
+    if (this.isField) return
+    
     this.updateCalculatedVolumeValues()
   }
 
@@ -77,7 +81,7 @@ class OrganismReading implements IOrganismReading {
   }
 }
 
-@autoinject
+@inject(ISession)
 export class Reading {
 
   readings: OrganismReading[] = [
@@ -113,18 +117,19 @@ export class Reading {
     })
   ]
 
-  constructor() {
-
-  }
-
-  bind() {
-  }
+  constructor(
+    private session: ISession
+  ) { }
 
   onLengthChanged(reading: OrganismReading) {
     reading.updateCalculatedLengthValues();
+    
+    this.session.saveReadingTab(this.readings);
   }
 
   onDiameterChanged(reading: OrganismReading) {
     reading.updateCalculatedDiameterValues();
+
+    this.session.saveReadingTab(this.readings);
   }
 }
