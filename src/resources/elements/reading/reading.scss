@@ -1,0 +1,55 @@
+@import '../../../sass/mixins.scss';
+
+.reading {
+  display: flex;
+
+  input {
+    width: 60px;
+  }
+
+  &__organism-header {
+    margin: 0px;
+  }
+
+  &__type {
+    background: lightgray;
+
+    div {
+      transform: rotate(270deg);
+    }
+  }
+
+  &__inputs {
+    border: 2px solid;
+  }
+
+  &__calculations {
+    border: 2px solid;
+  }
+
+  &__section {
+    &--bottom {
+      border-bottom: 3px solid;
+    }
+
+    &--left {
+      border-left: 3px solid;
+    }
+
+    &--right {
+      border-right: 3px solid;
+    }
+
+    &--top {
+      border-top: 3px solid;
+    }
+  }
+
+  &__cell--no-border {
+    border: none;
+  }
+
+  table {
+    border: none;
+  }
+}

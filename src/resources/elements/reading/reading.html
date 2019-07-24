@@ -1,0 +1,85 @@
+<template>
+  <div class="reading">
+    <div repeat.for="reading of readings">
+      <table>
+        <tr>
+          <th class="reading__section--top reading__section--left reading__section--right" colspan.one-time="reading.isField ? 3 : 4">
+            <h4 class="reading__organism-header">${reading.organism}</h4>
+          </th>
+        </tr>
+        <tr>
+          <td class="reading__type reading__section--left reading__section--bottom" rowspan.bind="reading.numMeasurements + 1">
+            <div if.one-time="reading.isField">Field</div>
+            <div if.one-time="!reading.isField">Total</div>
+          </td>
+          <td>
+            <span if.one-time="!reading.isField">Length</span>
+          </td>
+          <td class.one-time="reading.isField ? 'reading__section--right' : ''">
+            <span if.one-time="reading.isField">Length</span>
+            <span if.one-time="!reading.isField">Diameter</span>
+          </td>
+          <td class="reading__section--right" if.one-time="!reading.isField">
+            Volume
+          </td>
+        </tr>
+        <tr repeat.for="msmt of reading.numMeasurements">
+          <td class.one-time="msmt == reading.numMeasurements - 1 && reading.isField ? 'reading__section--bottom' : ''">
+            <span if.one-time="reading.isField">${msmt + 1}</span>
+            <input 
+              if.one-time="!reading.isField" 
+              value.bind="reading.lengthMeasurements[$index]"
+              change.delegate="onLengthChanged(reading)" 
+              type="number"
+              step=".01"/>
+          </td>
+          <td class.one-time="reading.isField ? 'reading__section--right' : ''">
+            <input 
+              value.bind="reading.diameterMeasurements[$index]"
+              change.delegate="onDiameterChanged(reading)" 
+              type="number"
+              step=".01"/>
+          </td>
+          <td class="reading__section--right" if.one-time="!reading.isField">
+            ${reading.calculatedVolume[$index] | toFixed:1}
+          </td>
+        </tr>
+        <tr>
+          <td class="reading__cell--no-border"></td>
+          <td class.one-time="!reading.isField ? 'reading__section--left reading__section--bottom' : 'reading__section--right reading__cell--no-border'" class="reading__section--top">
+            <div if.one-time="reading.isField"></div>
+            <div if.one-time="!reading.isField">
+              ${reading.totalLength | toFixed:2}
+              <br/>
+              Total
+              <br/>
+              Length
+            </div>
+          </td>
+          <td class="reading__section--bottom reading__section--top"
+            class.one-time="reading.isField ? 'reading__section--right reading__section--left' : ''">
+            <div if.one-time="reading.isField">
+              ${reading.totalLength | toFixed:2}
+              <br/>
+              Total
+            </div>
+            <div if.one-time="!reading.isField">
+              ${reading.averageDiameter | toFixed:1}
+              <br/>
+              Average
+              <br/>
+              Diameter
+            </div>
+          </td>
+          <td if.one-time="!reading.isField" class="reading__section--bottom reading__section--top reading__section--right">
+            ${reading.totalVolume | toFixed:2}
+            <br/>
+            Total
+            <br/>
+            Volume
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>
