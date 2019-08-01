@@ -1,15 +1,17 @@
-import { IOrganismReading } from "../../resources/elements/reading/reading";
-import { IProfileModel } from "../../app/settings-tab/settings-tab";
-import { IDataModel } from "../../app/data-tab/data-tab";
+import { ISampleModel } from "../../models/sample.model";
+import { IProfileModel } from "../../models/profile.model";
+import { IOrganismReading } from "../../models/reading.model";
 
 export abstract class ISession {
   abstract clear(): void
   
-  abstract saveReadingTab(readings: IOrganismReading[]): void
+  abstract saveReadings(readingNumber: number, readings: IOrganismReading[]): void
+  abstract loadReadings(readingNumber: number): IOrganismReading[]
+  abstract loadAllReadings(): IOrganismReading[][]
 
-  abstract saveDataTab(data: IDataModel): void
-  abstract getDataTab(): IDataModel
+  abstract saveSample(sample: ISampleModel): void
+  abstract loadSample(): ISampleModel
 
   abstract saveProfile(profile: IProfileModel): void
-  abstract getProfile(): IProfileModel
+  abstract loadProfile(): IProfileModel
 }

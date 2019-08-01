@@ -9,7 +9,7 @@
 
         <form-group 
             orientation="horizontal" 
-            model.bind="profile.name"
+            model.bind="observer.name"
             on-changed.call="saveTab()">
           <div slot="label">
             Name
@@ -17,7 +17,7 @@
         </form-group>
         <form-group 
             orientation="horizontal" 
-            model.bind="profile.organization"
+            model.bind="observer.organization"
             on-changed.call="saveTab()">
           <div slot="label">
             Organization
@@ -25,7 +25,7 @@
         </form-group>
         <form-group 
             orientation="horizontal" 
-            model.bind="profile.address.street"
+            model.bind="observer.address.lineOne"
             on-changed.call="saveTab()">
           <div slot="label">
             Address
@@ -33,40 +33,16 @@
         </form-group>
         <form-group 
             orientation="horizontal" 
-            model.bind="profile.address.additional"
+            model.bind="observer.address.lineTwo"
             on-changed.call="saveTab()">
           <div slot="label">
-            Unit/Apt
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="profile.address.city"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            City
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="profile.address.state"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            State
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="profile.address.zip"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            Zip Code
+            
           </div>
         </form-group>
         <form-group 
             type="email"
             orientation="horizontal" 
-            model.bind="profile.email"
+            model.bind="observer.email"
             on-changed.call="saveTab()">
           <div slot="label">
             Email
@@ -75,7 +51,7 @@
         <form-group 
             type="phone"
             orientation="horizontal" 
-            model.bind="profile.phone"
+            model.bind="observer.phone"
             on-changed.call="saveTab()">
           <div slot="label">
             Phone
@@ -121,37 +97,198 @@
         </div>
       </form-group-select>
       <form-group 
-        orientation="horizontal" 
-        model.bind="sample.dateCollected"
-        on-changed.call="saveTab()">
-      <div slot="label">
-        Date Collected
-      </div>
-    </form-group>
-    <form-group 
-        orientation="horizontal" 
-        model.bind="sample.dateObserved"
-        on-changed.call="saveTab()">
-      <div slot="label">
-        Date Observed
-      </div>
-    </form-group>
-    <form-group 
-        orientation="horizontal" 
-        model.bind="sample.observedBy"
-        on-changed.call="saveTab()">
-      <div slot="label">
-        Observed by
-      </div>
-    </form-group>						
-    <form-group-textarea
-        orientation="horizontal" 
-        model.bind="sample.notes"
-        on-changed.call="saveTab()">
-      <div slot="label">
-        Notes
-      </div>
-    </form-group-textarea>
+          orientation="horizontal" 
+          model.bind="sample.dateCollected"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Date Collected
+        </div>
+      </form-group>
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.dateObserved"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Date Observed
+        </div>
+      </form-group>
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.observedBy"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Observed by
+        </div>
+      </form-group>						
+      <form-group-textarea
+          orientation="horizontal" 
+          model.bind="sample.notes"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Notes
+        </div>
+      </form-group-textarea>
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.mainDilution"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Main Dilution
+        </div>
+      </form-group>	
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.bacteriaDilution"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Bacteria Dilution
+        </div>
+      </form-group>	
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.fieldsPerReading"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Fields per Reading
+        </div>
+      </form-group>	
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.dropsPerSample"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Drops per Sample
+        </div>
+      </form-group>	
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.dropsPerMl"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Drops per ml
+        </div>
+      </form-group>	
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.coverslipSize"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Coverslip Size
+        </div>
+      </form-group>	
+      <form-group 
+          orientation="horizontal" 
+          model.bind="sample.eyepieceFieldSize"
+          on-changed.call="saveTab()">
+        <div slot="label">
+          Eyepiece Field Size
+        </div>
+      </form-group>	
     </form-section>
   </form-wrap>
+  <div> <!--if.bind="canViewData">-->
+    <table>
+      <thead>
+        <tr>
+          <th colspan="7"></th>
+          <th>Mean</th>
+          <th>StDev</th>
+          <th>Dilution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Total # Per Slide</th>
+          <td colspan="9"></td>
+        </tr>
+        <tr>
+          <th>Nematodes</th>
+          <td colspan="6">Do not use this row --></td>
+        </tr>
+        <tr repeat.for="calc of nematodeCalcs">
+          <th>${calc.header}</th>
+          <td>
+            <input 
+                value.bind="calc.mean"
+                type="number"/>
+          </td>
+          <td colspan="5"></td>
+          <td>${calc.mean}</td>
+          <td><!-- This one is empty since it's a single reading --></td>
+          <td>${sample.mainDilution}</td>
+        </tr>
+        <tr>
+          <th></th>
+          <td colspan="6"></td> 
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th>Readings #</th>
+          <td repeat.for="reading of readings">${$index + 1}</td>
+        </tr>
+        <tr>
+          <th></th>
+          <td colspan="9"></td>
+        </tr>
+        <tbody repeat.for="calc of organismCalcs">
+          <tr>
+            <th>${calc.header}</th>
+            <td repeat.for="reading of organismReadings[calc.header]">
+              <input 
+                  value.bind="reading.totalLength"
+                  change.delegate="updateReadingCalc(calc)"
+                  type="number"
+                  step=".01" />
+            </td>
+            <td></td>
+            <td>${calc.lengthMean}</td>
+            <td>${calc.lengthStDev}</td>
+            <td>${sample.mainDilution}</td>
+        </tr>
+          <tr if.one-time="!calc.isField">
+            <th>Diameter</th>
+            <td repeat.for="reading of organismReadings[calc.header]">
+              <input 
+                  value.bind="reading.averageDiameter"
+                  change.delegate="updateReadingCalc(calc)"
+                  type="number"
+                  step=".01" />
+            </td>
+            <td></td>
+            <td>${calc.diameterMean}</td>
+            <td>${calc.diameterStDev}</td>
+            <td></td>
+          </tr>
+          <tr if.one-time="!calc.isField">
+            <th>Color</th>
+            <td repeat.for="reading of organismReadings[calc.header]">TODO: SELECT</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr if.one-time="calc.hasExpanded">
+            <th>Readings Expanded -></th>
+            <td repeat.for="reading of organismReadings[calc.header]"></td>
+            <td>Length in cm</td>
+            <td>TODO</td>
+            <td>TODO</td>
+            <td></td>
+          </tr>
+          <tr if.one-time="!calc.isField">
+            <th>Do not use this row --></th>
+            <td repeat.for="reading of organismReadings[calc.header]">
+              ${reading.totalLength * reading.averageDiameter}
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+        
+      </tbody>
+    </table>
+  </div>
 </template>

@@ -1,9 +1,10 @@
 import { inject } from "aurelia-framework";
-import { IOrganismReading } from "../../resources/elements/reading/reading";
 import { ICache } from "../cache/cache.service";
 import { ISession } from "./session.service";
-import { IProfileModel } from "../../app/settings-tab/settings-tab";
-import { IDataModel } from "../../app/data-tab/data-tab";
+import { ISampleModel, Sample } from "../../models/sample.model";
+import { IProfileModel, Profile } from "../../models/profile.model";
+import { IOrganismReading, OrganismReading } from "../../models/reading.model";
+import { DEFAULT_READINGS } from "../../util/constants";
 
 @inject(ICache)
 export class LocalStorageSession implements ISession {
@@ -16,28 +17,41 @@ export class LocalStorageSession implements ISession {
     this.cache.clear();
   }
 
-  saveReadingTab(readings: IOrganismReading[]): void {
-    this.cache.set(ICache.Mode.Global, 'readingTab', readings)
+  saveReadings(readingNumber: number, readings: IOrganismReading[]): void {
+    this.cache.set(ICache.Mode.Global, `readingTab-${readingNumber}`, readings)
   }
 
-  saveDataTab(data: IDataModel): void {
-    this.cache.set(ICache.Mode.Global, 'dataTab', data)
+  loadReadings(readingNumber: number): IOrganismReading[] {
+    let raw = this.cache.get(ICache.Mode.Global, `readingTab-${readingNumber}`)
+    return raw == null ? DEFAULT_READINGS : raw.map(x => new OrganismReading(x));
   }
 
-  getDataTab(): IDataModel {
-    let profile = this.cache.get(ICache.Mode.Permanent, 'profile');
-    return this.cache.get(ICache.Mode.Global, 'dataTab') ||
-      {
-        profile,
-        sample: { }
-      }
+  loadAllReadings(): IOrganismReading[][] {
+    let ret = []
+    for (let i = 1; i < 6; i++) {
+      ret.push(this.loadReadings(i))
+    }
+
+    return ret
+  }
+
+  saveSample(sample: ISampleModel): void {
+    this.cache.set(ICache.Mode.Global, 'sample', sample)
+  }
+
+  loadSample(): ISampleModel {
+    let observer = this.cache.get(ICache.Mode.Permanent, 'profile');
+    let rawSample = this.cache.get(ICache.Mode.Global, 'sample') || { observer }
+
+    return new Sample(rawSample)
   }
 
   saveProfile(profile: IProfileModel): void {
     this.cache.set(ICache.Mode.Permanent, 'profile', profile)
   }
 
-  getProfile(): IProfileModel {
-    return this.cache.get(ICache.Mode.Permanent, 'profile') || { address: { } }
+  loadProfile(): IProfileModel {
+    let raw = this.cache.get(ICache.Mode.Permanent, 'profile') || { }
+    return new Profile(raw);
   }
 }

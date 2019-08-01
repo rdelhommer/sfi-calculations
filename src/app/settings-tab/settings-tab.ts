@@ -1,37 +1,22 @@
 import './settings-tab.scss'
 import { inject, TaskQueue } from 'aurelia-framework';
 import { ISession } from '../../services/session/session.service';
+import { IProfileModel, Profile } from '../../models/profile.model';
+import { IStateManager } from '../../services/state/state-manager.service';
 
-export interface IAddress {
-  street?: string
-  additional?: string
-  city?: string
-  state?: string
-  zip?: string
-}
-
-export interface IProfileModel {
-  name?: string
-  organization?: string
-  address: IAddress
-  email?: string
-  phone?: string
-}
-
-@inject(ISession, TaskQueue)
+@inject(ISession, IStateManager)
 export class SettingsTab {
 
   showSaveSuccessful: boolean
-  profile: IProfileModel = {
-    address: { }
-  }
+  profile: IProfileModel
 
   constructor(
-    private session: ISession
+    private session: ISession,
+    private stateManager: IStateManager
   ) { }
 
   bind() {
-    this.profile = this.session.getProfile();
+    this.profile = this.session.loadProfile();
   }
 
   saveProfile() {
@@ -41,9 +26,11 @@ export class SettingsTab {
     setTimeout(() => {
       this.showSaveSuccessful = false
     }, 3000);
+
+    this.stateManager.profileUpdated();
   }
 
   cancelChanges() {
-    this.profile = this.session.getProfile();
+    this.profile = this.session.loadProfile();
   }
 }

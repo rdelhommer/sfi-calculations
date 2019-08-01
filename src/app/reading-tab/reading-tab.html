@@ -1,6 +1,6 @@
 <template>
   <div repeat.for="i of 5">
     <h2>Reading #${i + 1}</h2>
-    <reading></reading>
+    <reading reading-number.bind="i + 1"></reading>
   </div>
 </template>

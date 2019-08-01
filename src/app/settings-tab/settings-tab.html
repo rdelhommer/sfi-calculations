@@ -25,38 +25,14 @@
         </form-group>
         <form-group 
             orientation="horizontal" 
-            model.bind="profile.address.street">
+            model.bind="profile.address.lineOne">
           <div slot="label">
             Address
           </div>
         </form-group>
         <form-group 
             orientation="horizontal" 
-            model.bind="profile.address.additional">
-          <div slot="label">
-            Unit/Apt
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="profile.address.city">
-          <div slot="label">
-            City
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="profile.address.state">
-          <div slot="label">
-            State
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="profile.address.zip">
-          <div slot="label">
-            Zip Code
-          </div>
+            model.bind="profile.address.lineTwo">
         </form-group>
         <form-group 
             type="email"

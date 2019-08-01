@@ -1,3 +1,5 @@
+@import '../sass/variables.scss';
+
 .app {
   .tabs {
     width: 100%;
@@ -9,4 +11,21 @@
     right: 10px;
     z-index: 999;
   }
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: $spacing-base;
+  text-align: center;
+}
+
+td {
+  white-space: nowrap;
 }

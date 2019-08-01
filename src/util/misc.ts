@@ -10,3 +10,22 @@ export function newGuid() {
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
 }
+
+export function mean(array: number[]): number {
+  var i,total = 0;
+  for(i=0;i<array.length;i+=1){
+      total+=array[i];
+  }
+  return total/array.length;
+}
+
+export function stDev(array: number[]){
+  var i, _mean = 0, diffSqredArr = [];
+  _mean = mean(array);
+  for(i=0;i<array.length;i+=1){
+      diffSqredArr.push(Math.pow((array[i]-_mean),2));
+  }
+  return (Math.sqrt(diffSqredArr.reduce(function(firstEl, nextEl){
+           return firstEl + nextEl;
+         })/array.length));
+};

@@ -6,22 +6,28 @@
       New Session
     </button>
     <tabs>
-      <tab config.bind="dataTab">
+      <tab config.bind="dataTab" 
+          if.bind="isProfileValid">
         <data-tab></data-tab>
       </tab>
-      <tab config.bind="readingsTab">
+      <tab config.bind="readingsTab"
+          if.bind="isProfileValid && isSampleValid">
         <reading-tab></reading-tab>
       </tab>
-      <tab config.bind="reportTab">
+      <tab config.bind="reportTab"
+          if.bind="isProfileValid && isSampleValid">
         Report
       </tab>
-      <tab config.bind="printTab">
+      <tab config.bind="printTab"
+          if.bind="isProfileValid && isSampleValid">
         Print
       </tab>
-      <tab config.bind="successionTab">
+      <tab config.bind="successionTab"
+          if.bind="isProfileValid">
         <succession></succession>
       </tab>
-      <tab config.bind="usageTab">
+      <tab config.bind="usageTab"
+          if.bind="isProfileValid">
         <usage></usage>
       </tab>
       <tab config.bind="settingsTab">
