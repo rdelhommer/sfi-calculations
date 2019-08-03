@@ -7,6 +7,7 @@ import { ISampleInfoModel, Sample } from '../../models/sample.model';
 import { IOrganismReading } from '../../models/reading.model';
 import { IStateManager } from '../../services/state/state-manager.service';
 import { mean, stDev } from '../../util/misc';
+import { FOV_DIAMETER_MM } from '../../util/constants';
 
 interface ISingleReadingCalc {
   header: string
@@ -54,6 +55,7 @@ export class DataTab {
   PathogenicBacteria = PathogenicBacteria
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
+  FOV_DIAMETER_MM = FOV_DIAMETER_MM
 
   nematodeCalcs: ISingleReadingCalc[]
   organismReadings: { [key: string]: IOrganismReading[] } 
@@ -135,10 +137,11 @@ export class DataTab {
 
     calc.lengthMean = mean(normalizedLengths)
     calc.lengthStDev = stDev(normalizedLengths)
+
+    
   }
 
   updateBacteriaObsCalc() {
-    console.log(this.bacteriaObs.fieldPercentage);
     this.bacteriaObs.results = this.bacteriaObs.readings
       .map(x => {
         if (!this.bacteriaObs.fieldPercentage || !x) return 0

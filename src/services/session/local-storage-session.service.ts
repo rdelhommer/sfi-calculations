@@ -4,7 +4,7 @@ import { ISession } from "./session.service";
 import { ISampleModel, Sample } from "../../models/sample.model";
 import { IProfileModel, Profile } from "../../models/profile.model";
 import { IOrganismReading, OrganismReading } from "../../models/reading.model";
-import { DEFAULT_READINGS } from "../../util/constants";
+import { defaultReadingFactory } from "../../util/constants";
 
 @inject(ICache)
 export class LocalStorageSession implements ISession {
@@ -23,7 +23,7 @@ export class LocalStorageSession implements ISession {
 
   loadReadings(readingNumber: number): IOrganismReading[] {
     let raw = this.cache.get(ICache.Mode.Global, `readingTab-${readingNumber}`)
-    return raw == null ? DEFAULT_READINGS : raw.map(x => new OrganismReading(x));
+    return raw == null ? defaultReadingFactory() : raw.map(x => new OrganismReading(x));
   }
 
   loadAllReadings(): IOrganismReading[][] {

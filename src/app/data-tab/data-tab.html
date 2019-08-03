@@ -242,8 +242,8 @@
                 step=".01" />
           </td>
           <td></td>
-          <td>${calc.lengthMean == null ? '--' : calc.lengthMean}</td>
-          <td>${calc.lengthStDev == null ? '--' : calc.lengthStDev}</td>
+          <td>${calc.lengthMean == null ? '--' : calc.lengthMean | toFixed:2}</td>
+          <td>${calc.lengthStDev == null ? '--' : calc.lengthStDev | toFixed:2}</td>
           <td>${sample.mainDilution}</td>
       </tr>
         <tr if.one-time="!calc.isField">
@@ -256,8 +256,8 @@
                 step=".01" />
           </td>
           <td></td>
-          <td>${calc.diameterMean == null ? '--' : calc.diameterMean}</td>
-          <td>${calc.diameterStDev == null ? '--' : calc.diameterStDev}</td>
+          <td>${calc.diameterMean == null ? '--' : calc.diameterMean | toFixed:2}</td>
+          <td>${calc.diameterStDev == null ? '--' : calc.diameterStDev | toFixed:2}</td>
           <td></td>
         </tr>
         <tr if.one-time="!calc.isField">
@@ -285,14 +285,14 @@
           <th>Readings Expanded -></th>
           <td repeat.for="reading of organismReadings[calc.header]"></td>
           <td>Length in cm</td>
-          <td>TODO</td>
-          <td>TODO</td>
+          <td>${calc.lengthMean == null ?  '--' : calc.lengthMean * FOV_DIAMETER_MM / 10 | toFixed:2}</td>
+          <td>${calc.lengthStDev == null ? '--' : calc.lengthStDev * FOV_DIAMETER_MM / 10 | toFixed:2}</td>
           <td></td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Do not use this row --></th>
           <td repeat.for="reading of organismReadings[calc.header]">
-            ${reading.totalLength * reading.averageDiameter}
+            ${(reading.totalLength * reading.averageDiameter) | toFixed:2}
           </td>
           <td></td>
           <td></td>
