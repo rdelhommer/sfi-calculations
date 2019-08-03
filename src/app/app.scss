@@ -28,4 +28,9 @@ th, td {
 
 td {
   white-space: nowrap;
+
+  select {
+    min-width: 140px;
+    width: 100%;
+  }
 }

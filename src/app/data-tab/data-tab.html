@@ -213,82 +213,238 @@
                 type="number"/>
           </td>
           <td colspan="5"></td>
-          <td>${calc.mean}</td>
+          <td>${calc.mean == null ? '--' : calc.mean}</td>
           <td><!-- This one is empty since it's a single reading --></td>
-          <td>${sample.mainDilution}</td>
+          <td>
+            ${sample.mainDilution}</td>
         </tr>
         <tr>
           <th></th>
           <td colspan="6"></td> 
         </tr>
       </tbody>
+      <tr>
+        <th>Readings #</th>
+        <td repeat.for="reading of readings">${$index + 1}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td colspan="9"></td>
+      </tr>
+      <tbody repeat.for="calc of organismCalcs">
+        <tr>
+          <th>${calc.header}</th>
+          <td repeat.for="reading of organismReadings[calc.header]">
+            <input 
+                value.bind="reading.totalLength"
+                change.delegate="updateReadingCalc(calc)"
+                type="number"
+                step=".01" />
+          </td>
+          <td></td>
+          <td>${calc.lengthMean == null ? '--' : calc.lengthMean}</td>
+          <td>${calc.lengthStDev == null ? '--' : calc.lengthStDev}</td>
+          <td>${sample.mainDilution}</td>
+      </tr>
+        <tr if.one-time="!calc.isField">
+          <th>Diameter</th>
+          <td repeat.for="reading of organismReadings[calc.header]">
+            <input 
+                value.bind="reading.averageDiameter"
+                change.delegate="updateReadingCalc(calc)"
+                type="number"
+                step=".01" />
+          </td>
+          <td></td>
+          <td>${calc.diameterMean == null ? '--' : calc.diameterMean}</td>
+          <td>${calc.diameterStDev == null ? '--' : calc.diameterStDev}</td>
+          <td></td>
+        </tr>
+        <tr if.one-time="!calc.isField">
+          <th>Color</th>
+          <td repeat.for="reading of organismReadings[calc.header]">
+            <form-group-select 
+                if.bind="calc.header === 'Fungi'"
+                from-enum.bind="FungalColor"
+                orientation="horizontal"
+                placeholder="Please Select">
+            </form-group-select>
+            <form-group-select 
+                if.bind="calc.header !== 'Fungi'"
+                from-enum.bind="OomyceteColor"
+                orientation="horizontal"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr if.one-time="calc.hasExpanded">
+          <th>Readings Expanded -></th>
+          <td repeat.for="reading of organismReadings[calc.header]"></td>
+          <td>Length in cm</td>
+          <td>TODO</td>
+          <td>TODO</td>
+          <td></td>
+        </tr>
+        <tr if.one-time="!calc.isField">
+          <th>Do not use this row --></th>
+          <td repeat.for="reading of organismReadings[calc.header]">
+            ${reading.totalLength * reading.averageDiameter}
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
       <tbody>
         <tr>
-          <th>Readings #</th>
-          <td repeat.for="reading of readings">${$index + 1}</td>
+          <th></th>
+          <td colspan="7">
+            Bacteria: How much of the each field did you count?
+          </td>
+          <td colspan="3">
+            <form-group-select 
+                from-enum.bind="FieldPercentage"
+                orientation="horizontal"
+                model.bind="bacteriaObs.fieldPercentage"
+                placeholder="Please Select"
+                on-changed.call="updateBacteriaObsCalc()"
+                >
+            </form-group-select>
+          </td>
         </tr>
         <tr>
-          <th></th>
-          <td colspan="9"></td>
+          <th>Readings #</th>
+          <td repeat.for="i of bacteriaObs.readings.length">${i + 1}</td>
+          <td colspan="2"></td>
+          <td repeat.for="i of bacteriaObs.results.length">${i + 1}</td>
         </tr>
-        <tbody repeat.for="calc of organismCalcs">
-          <tr>
-            <th>${calc.header}</th>
-            <td repeat.for="reading of organismReadings[calc.header]">
-              <input 
-                  value.bind="reading.totalLength"
-                  change.delegate="updateReadingCalc(calc)"
-                  type="number"
-                  step=".01" />
-            </td>
-            <td></td>
-            <td>${calc.lengthMean}</td>
-            <td>${calc.lengthStDev}</td>
-            <td>${sample.mainDilution}</td>
+        <tr>
+          <th>Bacteria</th>
+          <td repeat.for="reading of bacteriaObs.readings">
+            <input 
+                change.delegate="updateBacteriaObsCalc()"
+                value.bind="bacteriaObs.readings[$index]"
+                type="number" />
+          </td>
+          <td colspan="2"></td>
+          <td repeat.for="result of bacteriaObs.results">
+            ${ result == null ? '--' : result }
+          </td>
         </tr>
-          <tr if.one-time="!calc.isField">
-            <th>Diameter</th>
-            <td repeat.for="reading of organismReadings[calc.header]">
-              <input 
-                  value.bind="reading.averageDiameter"
-                  change.delegate="updateReadingCalc(calc)"
-                  type="number"
-                  step=".01" />
-            </td>
-            <td></td>
-            <td>${calc.diameterMean}</td>
-            <td>${calc.diameterStDev}</td>
-            <td></td>
-          </tr>
-          <tr if.one-time="!calc.isField">
-            <th>Color</th>
-            <td repeat.for="reading of organismReadings[calc.header]">TODO: SELECT</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr if.one-time="calc.hasExpanded">
-            <th>Readings Expanded -></th>
-            <td repeat.for="reading of organismReadings[calc.header]"></td>
-            <td>Length in cm</td>
-            <td>TODO</td>
-            <td>TODO</td>
-            <td></td>
-          </tr>
-          <tr if.one-time="!calc.isField">
-            <th>Do not use this row --></th>
-            <td repeat.for="reading of organismReadings[calc.header]">
-              ${reading.totalLength * reading.averageDiameter}
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-        
+        <tr>
+          <th>Aerobic Bacteria</th>
+          <td>
+            <form-group-select 
+                from-enum.bind="YesNo"
+                orientation="horizontal"
+                model.bind="bacteriaObs.aerobicBacteriaObserved"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td colspan="6">
+            If yes, bacterial shapes observed:
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="AerobicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.aerobicBacteria[0]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="AerobicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.aerobicBacteria[1]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="AerobicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.aerobicBacteria[2]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+        </tr>
+        <tr>
+          <th>Anaerobic Bacteria</th>
+          <td>
+            <form-group-select 
+                from-enum.bind="YesNo"
+                orientation="horizontal"
+                model.bind="bacteriaObs.anaerobicBacteriaObserved"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td colspan="6">
+            If yes, bacterial shapes observed:
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="AnaerobicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.anaerobicBacteria[0]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="AnaerobicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.anaerobicBacteria[1]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Pathogenic Bacteria</th>
+          <td>
+            <form-group-select 
+                from-enum.bind="YesNo"
+                orientation="horizontal"
+                model.bind="bacteriaObs.pathogenicBacteriaObserved"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td colspan="6">
+            If yes, bacterial shapes observed:
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="PathogenicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.pathogenicBacteria[0]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="PathogenicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.pathogenicBacteria[1]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+          <td>
+            <form-group-select 
+                from-enum.bind="PathogenicBacteria"
+                orientation="horizontal"
+                model.bind="bacteriaObs.pathogenicBacteria[2]"
+                placeholder="Please Select">
+            </form-group-select>
+          </td>
+        </tr>
       </tbody>
+
     </table>
   </div>
 </template>

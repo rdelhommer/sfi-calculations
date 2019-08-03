@@ -1,7 +1,7 @@
 import './data-tab.scss'
 import { ISession } from '../../services/session/session.service';
 import { inject, observable } from 'aurelia-framework';
-import { Succession } from '../../util/enums';
+import { Succession, AerobicBacteria, PathogenicBacteria, AnaerobicBacteria, FieldPercentage, YesNo, FungalColor, OomyceteColor } from '../../util/enums';
 import { IProfileModel } from '../../models/profile.model';
 import { ISampleInfoModel, Sample } from '../../models/sample.model';
 import { IOrganismReading } from '../../models/reading.model';
@@ -24,6 +24,20 @@ interface IMultiReadingCalc {
   diameterStDev?: number
 }
 
+interface IBacteriaObs {
+  fieldPercentage: FieldPercentage
+  readings: number[]
+  results: number[]
+  aerobicBacteria: AerobicBacteria[]
+  anaerobicBacteria: AnaerobicBacteria[]
+  pathogenicBacteria: PathogenicBacteria[]
+  aerobicBacteriaObserved: YesNo
+  anaerobicBacteriaObserved: YesNo
+  pathogenicBacteriaObserved: YesNo
+  mean?: number
+  stDev?: number
+}
+
 @inject(ISession, IStateManager)
 export class DataTab {
   
@@ -33,10 +47,18 @@ export class DataTab {
   canViewData: boolean
 
   Succession = Succession
+  FieldPercentage = FieldPercentage
+  YesNo = YesNo
+  AerobicBacteria = AerobicBacteria
+  AnaerobicBacteria = AnaerobicBacteria
+  PathogenicBacteria = PathogenicBacteria
+  FungalColor = FungalColor
+  OomyceteColor = OomyceteColor
 
   nematodeCalcs: ISingleReadingCalc[]
   organismReadings: { [key: string]: IOrganismReading[] } 
   organismCalcs: IMultiReadingCalc[]
+  bacteriaObs: IBacteriaObs
 
   constructor(
     private session: ISession,
@@ -80,6 +102,18 @@ export class DataTab {
         hasExpanded: x === 'Actinobacteria' || x === 'Oomycetes' || x === 'Fungi',
         isField: this.organismReadings[x][0].isField
       }))
+
+    this.bacteriaObs = {
+      readings: new Array(5),
+      results: new Array(5),
+      aerobicBacteria: new Array(3),
+      anaerobicBacteria: new Array(2),
+      pathogenicBacteria: new Array(3),
+      fieldPercentage: this.FieldPercentage.Whole,
+      aerobicBacteriaObserved: null,
+      anaerobicBacteriaObserved: null,
+      pathogenicBacteriaObserved: null,
+    }
   }
 
   saveTab() {
@@ -101,5 +135,27 @@ export class DataTab {
 
     calc.lengthMean = mean(normalizedLengths)
     calc.lengthStDev = stDev(normalizedLengths)
+  }
+
+  updateBacteriaObsCalc() {
+    console.log(this.bacteriaObs.fieldPercentage);
+    this.bacteriaObs.results = this.bacteriaObs.readings
+      .map(x => {
+        if (!this.bacteriaObs.fieldPercentage || !x) return 0
+
+        switch(this.bacteriaObs.fieldPercentage) {
+          case this.FieldPercentage.Whole:
+            return Number(x);
+          case this.FieldPercentage.Half:
+            return Number(x) * 2;
+          case this.FieldPercentage.Quarter:
+            return Number(x) * 4;
+          default:
+            return 0;
+        }
+      })
+
+    this.bacteriaObs.mean = mean(this.bacteriaObs.results)
+    this.bacteriaObs.stDev = stDev(this.bacteriaObs.results)
   }
 }

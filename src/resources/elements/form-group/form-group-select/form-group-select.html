@@ -8,9 +8,9 @@
           class="custom-select" 
           value.bind="model" 
           disabled.bind="isDisabled"
-          change.delegate="onChanged()">
+          change.delegate="_onChanged()">
         <option if.bind="placeholder" value.bind="null">${placeholder}</option>
-        <option repeat.for="opt of selectOptions" value.bind="opt.value">${opt.name}</option>
+        <option repeat.for="opt of selectOptions" value.bind="opt.name">${opt.name}</option>
       </select>
     </div>
     <small id.bind="id + 'Help'" class="form-group__help">
