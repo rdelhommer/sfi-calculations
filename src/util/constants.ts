@@ -1,6 +1,8 @@
 import { OrganismReading } from "../models/reading.model";
 
 export const FOV_DIAMETER_MM = .45
+export const FOV_AREA_MM_SQUARED = 3.14159 * (FOV_DIAMETER_MM/2)^2
+export const DROPS_PER_ML = 20
 
 export function defaultReadingFactory() {
   return [

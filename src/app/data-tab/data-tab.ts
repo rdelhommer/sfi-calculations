@@ -7,23 +7,8 @@ import { ISampleInfoModel, Sample } from '../../models/sample.model';
 import { IOrganismReading } from '../../models/reading.model';
 import { IStateManager } from '../../services/state/state-manager.service';
 import { mean, stDev } from '../../util/misc';
-import { FOV_DIAMETER_MM } from '../../util/constants';
-
-interface ISingleReadingCalc {
-  header: string
-  mean?: number
-  stdev?: number
-}
-
-interface IMultiReadingCalc {
-  header: string
-  isField: boolean
-  hasExpanded: boolean
-  lengthMean?: number
-  lengthStDev?: number
-  diameterMean?: number
-  diameterStDev?: number
-}
+import { FOV_DIAMETER_MM, DROPS_PER_ML } from '../../util/constants';
+import { IOrganismData, NematodeData, ActinobacteriaData, MultiReadingData, DiameterReadingData, CountingData } from '../../models/organism.model';
 
 interface IBacteriaObs {
   fieldPercentage: FieldPercentage
@@ -37,10 +22,15 @@ interface IBacteriaObs {
   pathogenicBacteriaObserved: YesNo
   mean?: number
   stDev?: number
+  meanNumBacteriaPerG?: number
+  stDevNumBacteriaPerG?: number
+  meanResult?: number
+  stDevResult?: number
 }
 
 @inject(ISession, IStateManager)
 export class DataTab {
+  headerLeft: number
   
   observer: IProfileModel
   sample: ISampleInfoModel
@@ -56,11 +46,13 @@ export class DataTab {
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
   FOV_DIAMETER_MM = FOV_DIAMETER_MM
+  DROPS_PER_ML = DROPS_PER_ML
 
-  nematodeCalcs: ISingleReadingCalc[]
+  nematodeCalcs: IOrganismData[]
   organismReadings: { [key: string]: IOrganismReading[] } 
-  organismCalcs: IMultiReadingCalc[]
+  organismCalcs: IOrganismData[]
   bacteriaObs: IBacteriaObs
+  fbRatio: number
 
   constructor(
     private session: ISession,
@@ -76,15 +68,12 @@ export class DataTab {
 
     this.canViewData = this.observer.isValid && this.sample.isValid
 
-    this.nematodeCalcs = [{
-      header: 'Bacterial-feeding'
-    }, {
-      header: 'Fungal-feeding'
-    }, {
-      header: 'Predatory'
-    }, {
-      header: 'Root-feeding'
-    }]
+    this.nematodeCalcs = [
+      new NematodeData('Bacterial-feeding', this.sample),
+      new NematodeData('Fungal-feeding', this.sample),
+      new NematodeData('Predatory', this.sample),
+      new NematodeData('Root-feeding', this.sample)
+    ]
 
     this.organismReadings = { }
     this.readings.forEach((r) => {
@@ -99,11 +88,17 @@ export class DataTab {
     })
 
     this.organismCalcs = Object.keys(this.organismReadings)
-      .map(x => ({
-        header: x,
-        hasExpanded: x === 'Actinobacteria' || x === 'Oomycetes' || x === 'Fungi',
-        isField: this.organismReadings[x][0].isField
-      }))
+      .map(x => {
+        switch(x) {
+          case 'Actinobacteria':
+            return new ActinobacteriaData(this.sample)
+          case 'Fungi':
+          case 'Oomycetes':
+            return new DiameterReadingData(x, this.sample)
+          default:
+            return new CountingData(x, this.sample)
+        }
+      })
 
     this.bacteriaObs = {
       readings: new Array(5),
@@ -128,19 +123,6 @@ export class DataTab {
     this.stateManager.sampleInfoUpdated()
   }
 
-  updateReadingCalc(calc: IMultiReadingCalc & ISingleReadingCalc) {
-    let readings = this.organismReadings[calc.header]
-    let normalizedLengths = readings.map(x => {
-      let length = x.totalLength == null ? 0 : x.totalLength
-      return length / this.sample.fieldsPerReading
-    })
-
-    calc.lengthMean = mean(normalizedLengths)
-    calc.lengthStDev = stDev(normalizedLengths)
-
-    
-  }
-
   updateBacteriaObsCalc() {
     this.bacteriaObs.results = this.bacteriaObs.readings
       .map(x => {
@@ -160,5 +142,22 @@ export class DataTab {
 
     this.bacteriaObs.mean = mean(this.bacteriaObs.results)
     this.bacteriaObs.stDev = stDev(this.bacteriaObs.results)
+    this.bacteriaObs.meanNumBacteriaPerG = this.bacteriaObs.mean * this.sample.bacteriaDilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    this.bacteriaObs.meanResult = this.bacteriaObs.meanNumBacteriaPerG * 0.000002
+    this.bacteriaObs.stDevNumBacteriaPerG = this.bacteriaObs.stDev * this.sample.bacteriaDilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    this.bacteriaObs.stDevResult = this.bacteriaObs.stDevNumBacteriaPerG * 0.000002
+  }
+
+  updateCalc(data: IOrganismData) {
+    data.update();
+
+    let actinobacteriaData = this.organismCalcs.find(x => x.organismName === 'Actinobacteria')
+    let fungiData = this.organismCalcs.find(x => x.organismName === 'Fungi')
+
+    this.fbRatio = fungiData.meanResult / (actinobacteriaData.meanResult + this.bacteriaObs.meanResult)
+  }
+
+  handleScroll($event) {
+    this.headerLeft = $event.srcElement.scrollLeft
   }
 }

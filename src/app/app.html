@@ -5,10 +5,10 @@
       click.delegate="startNewSession()">
       New Session
     </button>
-    <tabs>
+    <tabs view-model.ref="tabsRef">
       <tab config.bind="dataTab" 
           if.bind="isProfileValid">
-        <data-tab></data-tab>
+        <data-tab view-model.ref="dataTabRef"></data-tab>
       </tab>
       <tab config.bind="readingsTab"
           if.bind="isProfileValid && isSampleValid">

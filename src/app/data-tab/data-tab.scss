@@ -1,1 +1,26 @@
 @import '../../sass/variables.scss';
+
+.data-tab {
+  &__fixed-columns {
+    position: absolute;
+    left: 500;  
+    z-index: 999;
+    background: white;  
+  }
+
+  tr {
+    height: 45px;
+
+    &:hover {
+      background: lightgray;
+    }
+  }
+
+  tbody {
+    tr {
+      th {
+        min-width: 250px;
+      }
+    }
+  }
+}

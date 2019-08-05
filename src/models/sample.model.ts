@@ -1,6 +1,7 @@
 import { Succession } from "../util/enums";
 import { IProfileModel, Profile } from "./profile.model";
 import { IModel } from "./base.model";
+import { FOV_AREA_MM_SQUARED } from "../util/constants";
 
 export interface ISampleInfoModel extends IModel {
   name: string
@@ -17,6 +18,8 @@ export interface ISampleInfoModel extends IModel {
   dropsPerSample: number
   dropsPerMl: number
   coverslipSize: string
+  coverslipArea: number
+  coverslipNumFields: number
   eyepieceFieldSize: number
 }
 
@@ -47,6 +50,22 @@ export class SampleInfo implements ISampleInfoModel {
     this.dropsPerMl = this.dropsPerMl == null ? 20 : this.dropsPerMl
     this.coverslipSize = this.coverslipSize || '18x18'
     this.eyepieceFieldSize = this.eyepieceFieldSize == null ? 18 : this.eyepieceFieldSize
+  }
+
+  get coverslipArea() {
+    if (!this.coverslipSize || this.coverslipSize === '') return null
+
+    let dimensions =this.coverslipSize.toLowerCase()
+      .split('x')
+      .map(x => Number(x));
+
+    if (dimensions.length === 0 || dimensions.some(x => Number.isNaN(x))) return null
+
+    return dimensions[0] * dimensions[1]
+  }
+
+  get coverslipNumFields() {
+    return this.coverslipArea / FOV_AREA_MM_SQUARED
   }
 
   get isValid(): boolean {

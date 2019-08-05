@@ -12,15 +12,26 @@ export class Tabs {
   @children('tab') tabs: Tab[]
 
   activeTab: Tab
+  onScrollDelegates: { [key: string]: (($event) => void)[]} = {}
 
   constructor() {
 
+  }
+
+  handleScroll($event) {
+    this.onScrollDelegates[this.activeTab.config.name]
+      .forEach(x => x($event))
+  }
+
+  onScroll(tab: string, callback: ($event) => void) {
+    this.onScrollDelegates[tab].push(callback);
   }
 
   bind() {
   }
 
   attached() {
+    this.tabs.forEach(x => this.onScrollDelegates[x.config.name] = [])
     this.changePage(this.tabs[0])
   }
 

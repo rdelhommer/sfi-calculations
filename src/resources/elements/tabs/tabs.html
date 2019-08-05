@@ -10,7 +10,7 @@
         <h2>${tab.config.title}</h2>
       </button>
     </div>
-    <div class="tabs__content">
+    <div class="tabs__content" scroll.trigger="handleScroll($event) & debounce:50">
       <slot></slot>
     </div>
   </div>

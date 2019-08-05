@@ -1,11 +1,16 @@
 import './app.scss';
 import { ITabConfig } from '../resources/elements/tabs/tab/tab';
 import { ISession } from '../services/session/session.service';
-import { inject } from 'aurelia-framework';
+import { inject, TaskQueue } from 'aurelia-framework';
 import { IStateManager } from '../services/state/state-manager.service';
+import { DataTab } from './data-tab/data-tab';
+import { Tabs } from '../resources/elements/tabs/tabs';
 
-@inject(ISession, IStateManager)
+@inject(ISession, IStateManager, TaskQueue)
 export class App { 
+  dataTabRef: DataTab
+  tabsRef: Tabs
+
   dataTab: ITabConfig = {
     name: 'data',
     title: 'Microscope Data Spreadsheet'
@@ -51,7 +56,8 @@ export class App {
 
   constructor(
     private session: ISession,
-    private stateManager: IStateManager
+    private stateManager: IStateManager,
+    private taskQueue: TaskQueue
   ) { }
 
   activate() {
@@ -60,6 +66,12 @@ export class App {
     
     this.stateManager.onProfileUpdated(() => this.checkProfileValidity())
     this.stateManager.onSampleInfoUpdated(() => this.checkSampleValidity())
+  }
+
+  attached() {
+    this.taskQueue.queueMicroTask(() => {
+      this.tabsRef.onScroll(this.dataTab.name, this.dataTabRef.handleScroll.bind(this.dataTabRef))
+    })
   }
 
   checkProfileValidity() {
