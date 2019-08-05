@@ -5,6 +5,7 @@ import { ISampleModel, Sample } from "../../models/sample.model";
 import { IProfileModel, Profile } from "../../models/profile.model";
 import { IOrganismReading, OrganismReading } from "../../models/reading.model";
 import { defaultReadingFactory } from "../../util/constants";
+import { IDataModel, DataModel } from "../../models/data.model";
 
 @inject(ICache)
 export class LocalStorageSession implements ISession {
@@ -53,5 +54,17 @@ export class LocalStorageSession implements ISession {
   loadProfile(): IProfileModel {
     let raw = this.cache.get(ICache.Mode.Permanent, 'profile') || { }
     return new Profile(raw);
+  }
+
+  saveData(data: IDataModel): void {
+    this.cache.set(ICache.Mode.Global, 'data', data);
+  }
+
+  loadData(): IDataModel {
+    let rawData = this.cache.get(ICache.Mode.Global, 'data');
+
+    return !!rawData 
+     ? new DataModel(rawData)
+     : null
   }
 }

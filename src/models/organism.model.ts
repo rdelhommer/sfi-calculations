@@ -3,6 +3,21 @@ import { ISampleModel, ISampleInfoModel } from "./sample.model";
 import { mean, stDev } from "../util/misc";
 import { computedFrom } from "aurelia-binding";
 
+function initData(ret: IOrganismData, init: Partial<IOrganismData>): IOrganismData {
+  Object.keys(init).forEach(k => {
+    if (Array.isArray(init[k])) {
+      init[k].forEach((x, i) => {
+        ret[k][i] = init[k][i]
+      })
+      ret[k]
+    } else {
+      ret[k] = init[k]
+    }
+  })
+
+  return ret;
+}
+
 export interface IOrganismData {
   organismName: string
   lengths: number[]
@@ -30,8 +45,8 @@ export class NematodeData implements IOrganismData {
   lengthMeanCm: number;
   lengthStDevCm: number;
   meanResult: number;
-  lengths: number[]
-  diameters?: number[]
+  lengths: number[] = new Array(1)
+  diameters?: number[] = new Array(1)
   
   lengthStDevMm: number = 0;
   lengthMeanCmPerG: number;
@@ -44,6 +59,11 @@ export class NematodeData implements IOrganismData {
   isField: boolean = false;
   isCounting: boolean = false;
 
+  static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
+    let ret = new NematodeData(init.organismName, sample);
+    return initData(ret, init);
+  }
+
   constructor(public organismName: string, sample: ISampleInfoModel) {
     this.dilution = sample.mainDilution
   }
@@ -55,7 +75,7 @@ export class NematodeData implements IOrganismData {
   }
 
   get _lengthMeanMm(): number {
-    return (<any>this.lengths).blah;
+    return this.lengths[0];
   }
 
   get _lengthMeanCm(): number {
@@ -139,6 +159,11 @@ export class ActinobacteriaData extends MultiReadingData {
     super('Actinobacteria', sample);
   }
 
+  static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
+    let ret = new ActinobacteriaData(sample);
+    return initData(ret, init);
+  }
+
   update() {
     super.update()
 
@@ -182,6 +207,11 @@ export class DiameterReadingData extends MultiReadingData {
     sample: ISampleInfoModel
   ) { 
     super(organismName, sample);
+  }
+
+  static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
+    let ret = new DiameterReadingData(init.organismName, sample);
+    return initData(ret, init);
   }
 
   // TODO: Not sure what this is
@@ -255,6 +285,11 @@ export class CountingData extends MultiReadingData {
     sample: ISampleInfoModel
   ) { 
     super(organismName, sample);
+  }
+
+  static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
+    let ret = new CountingData(init.organismName, sample);
+    return initData(ret, init);
   }
 
   update() {

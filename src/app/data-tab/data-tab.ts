@@ -10,7 +10,7 @@ import { mean, stDev } from '../../util/misc';
 import { FOV_DIAMETER_MM, DROPS_PER_ML } from '../../util/constants';
 import { IOrganismData, NematodeData, ActinobacteriaData, MultiReadingData, DiameterReadingData, CountingData } from '../../models/organism.model';
 
-interface IBacteriaObs {
+export interface IBacteriaObs {
   fieldPercentage: FieldPercentage
   readings: number[]
   results: number[]
@@ -60,13 +60,27 @@ export class DataTab {
   ) { }
 
   bind() {
+    let savedData = this.session.loadData();
+
+    if (savedData) {
+      this.observer = savedData.observer
+      this.sample = savedData.sample
+      this.nematodeCalcs = savedData.nematodeCalcs
+      this.organismCalcs = savedData.organismCalcs
+      this.bacteriaObs = savedData.bacteriaObs
+    } else {
+      this.initData()
+    }
+    
+    this.canViewData = this.observer.isValid && this.sample.isValid
+  }
+
+  initData() {
     let model = this.session.loadSample();
 
     this.observer = model.observer
     this.sample = model.sample
     this.readings = this.session.loadAllReadings();
-
-    this.canViewData = this.observer.isValid && this.sample.isValid
 
     this.nematodeCalcs = [
       new NematodeData('Bacterial-feeding', this.sample),
@@ -146,6 +160,14 @@ export class DataTab {
     this.bacteriaObs.meanResult = this.bacteriaObs.meanNumBacteriaPerG * 0.000002
     this.bacteriaObs.stDevNumBacteriaPerG = this.bacteriaObs.stDev * this.sample.bacteriaDilution * DROPS_PER_ML * this.sample.coverslipNumFields
     this.bacteriaObs.stDevResult = this.bacteriaObs.stDevNumBacteriaPerG * 0.000002
+
+    this.session.saveData({
+      bacteriaObs: this.bacteriaObs,
+      nematodeCalcs: this.nematodeCalcs,
+      observer: this.observer,
+      organismCalcs: this.organismCalcs,
+      sample: this.sample
+    })
   }
 
   updateCalc(data: IOrganismData) {
@@ -155,6 +177,14 @@ export class DataTab {
     let fungiData = this.organismCalcs.find(x => x.organismName === 'Fungi')
 
     this.fbRatio = fungiData.meanResult / (actinobacteriaData.meanResult + this.bacteriaObs.meanResult)
+
+    this.session.saveData({
+      bacteriaObs: this.bacteriaObs,
+      nematodeCalcs: this.nematodeCalcs,
+      observer: this.observer,
+      organismCalcs: this.organismCalcs,
+      sample: this.sample
+    })
   }
 
   handleScroll($event) {
