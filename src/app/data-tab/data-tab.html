@@ -267,10 +267,11 @@
           <th>Total # Per Slide</th>
           <td colspan="17"></td>
           <td><strong>Nematode numbers/g or ml</td></strong>
+          <td colspan="2"></td>
         </tr>
         <tr>
           <th>Nematodes</th>
-          <td colspan="16">Do not use this row --></td>
+          <td colspan="20">Do not use this row --></td>
         </tr>
         <tr repeat.for="calc of nematodeCalcs">
           <th>${calc.organismName}</th>
@@ -288,15 +289,17 @@
           </td>
           <td></td>
           <td>${calc.meanResult | toFixed:1}</td>
+          <td colspan="2"></td>
         </tr>
         <tr>
           <th></th>
-          <td colspan="16"></td> 
+          <td colspan="20"></td> 
         </tr>
       </tbody>
       <tr>
         <th>Readings #</th>
         <td repeat.for="reading of readings">${$index + 1}</td>
+        <td colspan="15"></td> 
       </tr>
       <tbody repeat.for="calc of organismCalcs">
         <tr>
@@ -322,6 +325,7 @@
           <td>${calc.dilution}</td>
           <td>${calc.lengthMeanCmPerG | toFixed:0}</td>
           <td>${calc.meanResult | toFixed:2}</td>
+          <td colspan="2"></td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Diameter</th>
@@ -332,7 +336,7 @@
                 type="number"
                 step=".01" />
           </td>
-          <td colspan="11"></td>
+          <td colspan="15"></td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Color</th>
@@ -353,6 +357,7 @@
           <td colspan="11"></td>
           <td><strong>Average Diameter in cm</strong></td>
           <td><strong>Average Diameter in um</strong></td>
+          <td colspan="2"></td>
         </tr>
         <tr if.one-time="calc.hasExpanded">
           <th>Readings Expanded -></th>
@@ -363,13 +368,14 @@
           <td></td>
           <td if.bind="!calc.isField">${calc.averageDiameterCm | toFixed:5}</td>
           <td if.bind="!calc.isField">${calc.averageDiameterUm | toFixed:1}</td>
+          <td colspan.bind="calc.isField ? 4 : 2"></td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Do not use this row --></th>
           <td repeat.for="reading of calc.diameters">
             ${(calc.lengths[$index] * reading) | toFixed:2}
           </td>
-          <td colspan="11"></td>
+          <td colspan="15"></td>
         </tr>
       </tbody>
       <tbody>
@@ -388,12 +394,14 @@
                 >
             </form-group-select>
           </td>
+          <td colspan="10"></td>
         </tr>
         <tr>
           <th>Readings #</th>
           <td repeat.for="i of bacteriaObs.readings.length">${i + 1}</td>
           <td colspan="2"></td>
           <td repeat.for="i of bacteriaObs.results.length">${i + 1}</td>
+          <td colspan="8"></td>
         </tr>
         <tr>
           <th>Bacteria</th>
@@ -454,6 +462,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
+          <td colspan="10"></td>
         </tr>
         <tr>
           <th>Anaerobic Bacteria</th>
@@ -484,7 +493,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td></td>
+          <td colspan="11"></td>
         </tr>
         <tr>
           <th>Pathogenic Bacteria</th>
@@ -523,6 +532,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
+          <td colspan="10"></td>
         </tr>
         <tr>
           <th>&nbsp;</th>
