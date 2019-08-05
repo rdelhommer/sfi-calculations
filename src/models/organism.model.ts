@@ -20,6 +20,7 @@ export interface IOrganismData {
   dilution: number
   hasExpanded: boolean
   isField:  boolean
+  isCounting: boolean
 
   update(): void 
 }
@@ -41,6 +42,7 @@ export class NematodeData implements IOrganismData {
   dilution: number ;
   hasExpanded: boolean = false;
   isField: boolean = false;
+  isCounting: boolean = false;
 
   constructor(public organismName: string, sample: ISampleInfoModel) {
     this.dilution = sample.mainDilution
@@ -80,8 +82,9 @@ export abstract class MultiReadingData implements IOrganismData {
   abstract stDevResult: number;
   abstract averageDiameterCm: number;
   abstract averageDiameterUm: number;
-  abstract hasExpanded: boolean = false;
-  abstract isField: boolean = false;
+  abstract hasExpanded: boolean;
+  abstract isField: boolean;
+  abstract isCounting: boolean;
   
   constructor(
     public organismName: string,
@@ -128,6 +131,7 @@ export class ActinobacteriaData extends MultiReadingData {
   averageDiameterUm: number = 0;
   hasExpanded: boolean = true;
   isField: boolean = true;
+  isCounting: boolean = false;
 
   constructor(
     sample: ISampleInfoModel
@@ -171,6 +175,7 @@ export class DiameterReadingData extends MultiReadingData {
   averageDiameterUm: number;
   hasExpanded: boolean = true;
   isField: boolean = false;
+  isCounting: boolean = false;
 
   constructor(
     organismName: string,
@@ -243,6 +248,7 @@ export class CountingData extends MultiReadingData {
   lengthStDevCmPerG: number = 0
   hasExpanded: boolean = false;
   isField: boolean = true;
+  isCounting: boolean = true;
 
   constructor(
     organismName: string,

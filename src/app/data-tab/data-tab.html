@@ -339,9 +339,9 @@
               class="data-tab__td--border-left data-tab__td--border-right">
           </td>
           <td colspan="11"></td>
-          <td><strong>Length in cm of ${calc.organismName}/g</strong></td>
+          <td><strong if.bind="!calc.isCounting">Length in cm of ${calc.organismName}/g</strong></td>
           <td><strong>Micrograms of ${calc.organismName}/g or ml</strong></td>
-          <td><strong>Length in cm of ${calc.organismName}/g</strong></td>
+          <td><strong if.bind="!calc.isCounting">Length in cm of ${calc.organismName}/g</strong></td>
           <td><strong>Micrograms of ${calc.organismName}/g or ml</strong></td>
         </tr>
         <tr>
@@ -349,8 +349,8 @@
           <td repeat.for="reading of calc.lengths"
               class="data-tab__td--border-left data-tab__td--border-right">
             <input 
-                value.bind="reading"
-                change.delegate="calc.update()"
+                value.bind="calc.lengths[$index]"
+                change.delegate="updateCalc(calc)"
                 type="number"
                 step=".01" 
                 min="0"/>
@@ -365,10 +365,10 @@
                 change.delegate="updateCalc(calc)"
                 min="0"/>
           </td>
-          <td>${calc.lengthMeanCmPerG | toFixed:0}</td>
+          <td><span if.bind="!calc.isCounting">${calc.lengthMeanCmPerG | toFixed:0}</span></td>
           <td class="data-tab__td--mean">${calc.meanResult | toFixed:2}</td>
           <td></td>
-          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--stdev">${calc.stDevResult | toFixed:2}</td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Diameter</th>
@@ -376,7 +376,7 @@
               class="data-tab__td--border-left data-tab__td--border-right">
             <input 
                 value.bind="reading"
-                change.delegate="calc.update()"
+                change.delegate="updateCalc(calc)"
                 type="number"
                 step=".01"
                 min="0" />
