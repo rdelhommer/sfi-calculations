@@ -282,17 +282,22 @@
         </tr>
         <tr repeat.for="calc of nematodeCalcs">
           <th>${calc.organismName}</th>
-          <td>
+          <td class="data-tab__td--border">
             <input 
-                value.bind="calc.lengths.blah"
+                value.bind="calc.lengths[0]"
                 type="number"
-                change.delegate="updateCalc(calc)"/>
+                change.delegate="updateCalc(calc)"
+                min="0"/>
           </td>
           <td colspan="12"></td>
           <td class="data-tab__td--mean">${calc.lengthMeanMm}</td>
           <td class="data-tab__td--stdev"><!-- This one is empty since it's a single reading --></td>
           <td class="data-tab__td--dilution">
-            ${calc.dilution}
+            <input 
+                value.bind="calc.dilution"
+                type="number"
+                change.delegate="updateCalc(calc)"
+                min="0"/>
           </td>
           <td></td>
           <td class="data-tab__td--mean">${calc.meanResult | toFixed:1}</td>
@@ -313,7 +318,10 @@
       </tbody>
       <tr>
         <th>Readings #</th>
-        <td repeat.for="reading of readings">${$index + 1}</td>
+        <td repeat.for="reading of readings"
+            class="data-tab__td--border-top data-tab__td--border-left data-tab__td--border-right">
+          ${$index + 1}
+        </td>
         <td colspan="8"></td> 
         <td class="data-tab__td--mean"></td>
         <td class="data-tab__td--stdev"></td>
@@ -326,7 +334,11 @@
       <tbody repeat.for="calc of organismCalcs">
         <tr class="data-tab__row--green">
           <th>&nbsp;</th>
-          <td colspan="16"></td>
+          <td 
+              repeat.for="i of calc.lengths.length" 
+              class="data-tab__td--border-left data-tab__td--border-right">
+          </td>
+          <td colspan="11"></td>
           <td><strong>Length in cm of ${calc.organismName}/g</strong></td>
           <td><strong>Micrograms of ${calc.organismName}/g or ml</strong></td>
           <td><strong>Length in cm of ${calc.organismName}/g</strong></td>
@@ -334,17 +346,25 @@
         </tr>
         <tr>
           <th>${calc.organismName}</th>
-          <td repeat.for="reading of calc.lengths">
+          <td repeat.for="reading of calc.lengths"
+              class="data-tab__td--border-left data-tab__td--border-right">
             <input 
                 value.bind="reading"
                 change.delegate="calc.update()"
                 type="number"
-                step=".01" />
+                step=".01" 
+                min="0"/>
           </td>
           <td colspan="8"></td>
           <td class="data-tab__td--mean">${calc.lengthMeanMm | toFixed:2}</td>
           <td class="data-tab__td--stdev">${calc.lengthStDevMm | toFixed:2}</td>
-          <td class="data-tab__td--dilution">${calc.dilution}</td>
+          <td class="data-tab__td--dilution">
+            <input 
+                value.bind="calc.dilution"
+                type="number"
+                change.delegate="updateCalc(calc)"
+                min="0"/>
+          </td>
           <td>${calc.lengthMeanCmPerG | toFixed:0}</td>
           <td class="data-tab__td--mean">${calc.meanResult | toFixed:2}</td>
           <td></td>
@@ -352,12 +372,14 @@
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Diameter</th>
-          <td repeat.for="reading of calc.diameters">
+          <td repeat.for="reading of calc.diameters"
+              class="data-tab__td--border-left data-tab__td--border-right">
             <input 
                 value.bind="reading"
                 change.delegate="calc.update()"
                 type="number"
-                step=".01" />
+                step=".01"
+                min="0" />
           </td>
           <td colspan="8"></td>
           <td class="data-tab__td--mean"></td>
@@ -370,7 +392,8 @@
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Color</th>
-          <td repeat.for="reading of calc.lengths">
+          <td repeat.for="reading of calc.lengths"
+              class="data-tab__td--border-left data-tab__td--border-right">
             <form-group-select 
                 if.bind="calc.organismName === 'Fungi'"
                 from-enum.bind="FungalColor"
@@ -395,7 +418,10 @@
         </tr>
         <tr if.one-time="calc.hasExpanded">
           <th>Readings Expanded -></th>
-          <td colspan.bind="calc.lengths.length + 7"></td>
+          <td repeat.for="i of calc.lengths.length"
+              class="data-tab__td--border-left data-tab__td--border-right">
+          </td>
+          <td colspan="7"></td>
           <td><strong>Length in cm</strong></td>
           <td class="data-tab__td--mean">${calc.lengthMeanCm | toFixed:2}</td>
           <td class="data-tab__td--stdev">${calc.lengthStDevCm | toFixed:2}</td>
@@ -409,7 +435,8 @@
         </tr>
         <tr if.one-time="!calc.isField" class="data-tab__row--gray">
           <th>Do not use this row --></th>
-          <td repeat.for="reading of calc.diameters">
+          <td repeat.for="reading of calc.diameters"
+              class="data-tab__td--border-left data-tab__td--border-right">
             ${(calc.lengths[$index] * reading) | toFixed:2}
           </td>
           <td colspan="8"></td>
@@ -425,9 +452,10 @@
       <tbody>
         <tr>
           <th></th>
-          <td colspan="7">
-            Bacteria: How much of the each field did you count?
+          <td colspan="5" class="data-tab__td--left data-tab__td--border-top">
+            <strong>Bacteria: How much of the each field did you count?</strong>
           </td>
+          <td colspan="2"></td>
           <td colspan="3">
             <form-group-select 
                 from-enum.bind="FieldPercentage"
@@ -449,21 +477,31 @@
         </tr>
         <tr class="data-tab__row--green">
           <th>Readings #</th>
-          <td repeat.for="i of bacteriaObs.readings.length">${i + 1}</td>
+          <td repeat.for="i of bacteriaObs.readings.length"
+              class="data-tab__td--border-top data-tab__td--border-left data-tab__td--border-right">${i + 1}</td>
           <td colspan="2"></td>
-          <td repeat.for="i of bacteriaObs.results.length">${i + 1}</td>
-          <td colspan="8"></td>
+          <td repeat.for="i of bacteriaObs.results.length"
+              class="data-tab__td--border-top data-tab__td--border-left data-tab__td--border-right">${i + 1}</td>
+          <td colspan="4"></td>
+          <td><strong>Number of Bacteria/g</strong></td>
+          <td><strong>Micrograms of Bacteria/g or ml</strong></td>
+          <td><strong>Number of Bacteria/g</strong></td>
+          <td><strong>Micrograms of Bacteria/g or ml</strong></td>
         </tr>
         <tr>
           <th>Bacteria</th>
-          <td repeat.for="reading of bacteriaObs.readings">
+          <td repeat.for="reading of bacteriaObs.readings"
+              class="data-tab__td--border-bottom data-tab__td--border-left data-tab__td--border-right">
             <input 
                 change.delegate="updateBacteriaObsCalc()"
                 value.bind="bacteriaObs.readings[$index]"
-                type="number" />
+                type="number"
+                min="0" />
           </td>
-          <td colspan="2" class="data-tab__td--right">Results:</td>
-          <td repeat.for="result of bacteriaObs.results">
+          <td></td>
+          <td class="data-tab__td--right">Results:</td>
+          <td repeat.for="result of bacteriaObs.results"
+              class="data-tab__td--border-bottom data-tab__td--border-left data-tab__td--border-right">
             ${result}
           </td>
           <td></td>
@@ -485,10 +523,10 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="6">
+          <td colspan="6" class="data-tab__td--right">
             If yes, bacterial shapes observed:
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="AerobicBacteria"
                 orientation="horizontal"
@@ -496,7 +534,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="AerobicBacteria"
                 orientation="horizontal"
@@ -504,7 +542,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="AerobicBacteria"
                 orientation="horizontal"
@@ -512,7 +550,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="7"></td>
+          <td colspan="4"></td>
           <td class="data-tab__td--mean"></td>
           <td></td>
           <td class="data-tab__td--stdev"></td>
@@ -527,10 +565,10 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="6">
+          <td colspan="6" class="data-tab__td--right">
             If yes, bacterial shapes observed:
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="AnaerobicBacteria"
                 orientation="horizontal"
@@ -538,7 +576,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="AnaerobicBacteria"
                 orientation="horizontal"
@@ -546,7 +584,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="8"></td>
+          <td colspan="6"></td>
           <td class="data-tab__td--mean"></td>
           <td></td>
           <td class="data-tab__td--stdev"></td>
@@ -561,10 +599,10 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="6">
+          <td colspan="6" class="data-tab__td--right">
             If yes, bacterial shapes observed:
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="PathogenicBacteria"
                 orientation="horizontal"
@@ -572,7 +610,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="PathogenicBacteria"
                 orientation="horizontal"
@@ -580,7 +618,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td>
+          <td colspan="2">
             <form-group-select 
                 from-enum.bind="PathogenicBacteria"
                 orientation="horizontal"
@@ -588,7 +626,7 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="7"></td>
+          <td colspan="4"></td>
           <td class="data-tab__td--mean"></td>
           <td></td>
           <td class="data-tab__td--stdev"></td>

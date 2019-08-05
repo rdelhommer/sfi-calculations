@@ -9,6 +9,26 @@
     text-align: right;
   }
 
+  &__td--border {
+    border: solid!important;
+  }
+
+  &__td--border-left {
+    border-left: solid!important;
+  }
+
+  &__td--border-right {
+    border-right: solid!important;
+  }
+
+  &__td--border-top {
+    border-top: solid!important;
+  }
+
+  &__td--border-bottom {
+    border-bottom: solid!important;
+  }
+
   &__td--mean {
     background: lightgray;
   }
@@ -46,6 +66,7 @@
 
   td {
     min-width: 70px;
+    border: none;
   }
 
   tr {
@@ -64,6 +85,7 @@
     tr {
       th {
         min-width: 250px;
+        border: none;
       }
     }
   }
