@@ -190,7 +190,7 @@
     <table class="data-tab__fixed-columns" css="left:${headerLeft}px">
       <tr><th>&nbsp;</th></tr>
       <tbody class="fixed-columns">
-        <tr>
+        <tr class="data-tab__row--green">
           <th>Total # Per Slide</th>
         </tr>
         <tr>
@@ -204,7 +204,7 @@
           <th>Readings #</th>
         </tr>
         <tbody repeat.for="calc of organismCalcs">
-          <tr>
+          <tr class="data-tab__row--green">
             <th>&nbsp;</th>
           </tr>
           <tr>
@@ -219,14 +219,14 @@
           <tr if.one-time="calc.hasExpanded">
             <th>Readings Expanded -></th>
           </tr>
-          <tr if.one-time="!calc.isField">
+          <tr if.one-time="!calc.isField" class="data-tab__row--gray">
             <th>Do not use this row --></th>
           </tr>
         </tbody>
         <tr>
           <th>&nbsp;</th>
         </tr>
-        <tr>
+        <tr class="data-tab__row--green">
           <th>Readings #</th>
         </tr>
         <tr>
@@ -241,7 +241,7 @@
         <tr>
           <th>Pathogenic Bacteria</th>
         </tr>
-        <tr>
+        <tr class="data-tab__row--green">
           <th>&nbsp;</th>
         </tr>
         <tr>
@@ -253,17 +253,17 @@
       <thead>
         <tr>
           <th colspan="14"></th>
-          <th>Mean</th>
-          <th>StDev</th>
-          <th>Dilution</th>
+          <th class="data-tab__td--mean">Mean</th>
+          <th class="data-tab__td--stdev">StDev</th>
+          <th class="data-tab__td--dilution">Dilution</th>
           <th></th>
-          <th>Mean Results</th>
+          <th class="data-tab__td--mean">Mean Results</th>
           <th></th>
-          <th>Standard Deviation Results</th>
+          <th class="data-tab__td--stdev">Standard Deviation Results</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="data-tab__row--green">
           <th>Total # Per Slide</th>
           <td colspan="17"></td>
           <td><strong>Nematode numbers/g or ml</td></strong>
@@ -271,7 +271,14 @@
         </tr>
         <tr>
           <th>Nematodes</th>
-          <td colspan="20">Do not use this row --></td>
+          <td colspan="13" class="data-tab__td--left data-tab__td--gray">Do not use this row --></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--dilution"></td>
+          <td class="data-tab__td--standard"></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--standard"></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr repeat.for="calc of nematodeCalcs">
           <th>${calc.organismName}</th>
@@ -282,27 +289,42 @@
                 change.delegate="updateCalc(calc)"/>
           </td>
           <td colspan="12"></td>
-          <td>${calc.lengthMeanMm}</td>
-          <td><!-- This one is empty since it's a single reading --></td>
-          <td>
+          <td class="data-tab__td--mean">${calc.lengthMeanMm}</td>
+          <td class="data-tab__td--stdev"><!-- This one is empty since it's a single reading --></td>
+          <td class="data-tab__td--dilution">
             ${calc.dilution}
           </td>
           <td></td>
-          <td>${calc.meanResult | toFixed:1}</td>
-          <td colspan="2"></td>
+          <td class="data-tab__td--mean">${calc.meanResult | toFixed:1}</td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr>
           <th></th>
-          <td colspan="20"></td> 
+          <td colspan="13"></td> 
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--dilution"></td>
+          <td></td>
+          <td class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
       </tbody>
       <tr>
         <th>Readings #</th>
         <td repeat.for="reading of readings">${$index + 1}</td>
-        <td colspan="15"></td> 
+        <td colspan="8"></td> 
+        <td class="data-tab__td--mean"></td>
+        <td class="data-tab__td--stdev"></td>
+        <td class="data-tab__td--dilution"></td>
+        <td></td>
+        <td class="data-tab__td--mean"></td>
+        <td></td>
+        <td class="data-tab__td--stdev"></td>
       </tr>
       <tbody repeat.for="calc of organismCalcs">
-        <tr>
+        <tr class="data-tab__row--green">
           <th>&nbsp;</th>
           <td colspan="16"></td>
           <td><strong>Length in cm of ${calc.organismName}/g</strong></td>
@@ -320,12 +342,13 @@
                 step=".01" />
           </td>
           <td colspan="8"></td>
-          <td>${calc.lengthMeanMm | toFixed:2}</td>
-          <td>${calc.lengthStDevMm | toFixed:2}</td>
-          <td>${calc.dilution}</td>
+          <td class="data-tab__td--mean">${calc.lengthMeanMm | toFixed:2}</td>
+          <td class="data-tab__td--stdev">${calc.lengthStDevMm | toFixed:2}</td>
+          <td class="data-tab__td--dilution">${calc.dilution}</td>
           <td>${calc.lengthMeanCmPerG | toFixed:0}</td>
-          <td>${calc.meanResult | toFixed:2}</td>
-          <td colspan="2"></td>
+          <td class="data-tab__td--mean">${calc.meanResult | toFixed:2}</td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Diameter</th>
@@ -336,7 +359,14 @@
                 type="number"
                 step=".01" />
           </td>
-          <td colspan="15"></td>
+          <td colspan="8"></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--dilution"></td>
+          <td></td>
+          <td class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Color</th>
@@ -354,28 +384,42 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="11"></td>
+          <td colspan="8"></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--dilution"></td>
           <td><strong>Average Diameter in cm</strong></td>
-          <td><strong>Average Diameter in um</strong></td>
-          <td colspan="2"></td>
+          <td class="data-tab__td--mean"><strong>Average Diameter in um</strong></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr if.one-time="calc.hasExpanded">
           <th>Readings Expanded -></th>
           <td colspan.bind="calc.lengths.length + 7"></td>
-          <td>Length in cm</td>
-          <td>${calc.lengthMeanCm | toFixed:2}</td>
-          <td>${calc.lengthStDevCm | toFixed:2}</td>
-          <td></td>
+          <td><strong>Length in cm</strong></td>
+          <td class="data-tab__td--mean">${calc.lengthMeanCm | toFixed:2}</td>
+          <td class="data-tab__td--stdev">${calc.lengthStDevCm | toFixed:2}</td>
+          <td class="data-tab__td--dilution"></td>
           <td if.bind="!calc.isField">${calc.averageDiameterCm | toFixed:5}</td>
-          <td if.bind="!calc.isField">${calc.averageDiameterUm | toFixed:1}</td>
-          <td colspan.bind="calc.isField ? 4 : 2"></td>
+          <td if.bind="!calc.isField" class="data-tab__td--mean">${calc.averageDiameterUm | toFixed:1}</td>
+          <td if.bind="calc.isField"></td>
+          <td if.bind="calc.isField" class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
-        <tr if.one-time="!calc.isField">
+        <tr if.one-time="!calc.isField" class="data-tab__row--gray">
           <th>Do not use this row --></th>
           <td repeat.for="reading of calc.diameters">
             ${(calc.lengths[$index] * reading) | toFixed:2}
           </td>
-          <td colspan="15"></td>
+          <td colspan="8"></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--dilution"></td>
+          <td class="data-tab__td--standard"></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--standard"></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
       </tbody>
       <tbody>
@@ -394,9 +438,16 @@
                 >
             </form-group-select>
           </td>
-          <td colspan="10"></td>
+          <td colspan="3"></td>
+          <td class="data-tab__td--mean"></td>
+          <td class="data-tab__td--stdev"></td>
+          <td class="data-tab__td--dilution"></td>
+          <td></td>
+          <td class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
-        <tr>
+        <tr class="data-tab__row--green">
           <th>Readings #</th>
           <td repeat.for="i of bacteriaObs.readings.length">${i + 1}</td>
           <td colspan="2"></td>
@@ -411,19 +462,18 @@
                 value.bind="bacteriaObs.readings[$index]"
                 type="number" />
           </td>
-          <td></td>
-          <td>Results:</td>
+          <td colspan="2" class="data-tab__td--right">Results:</td>
           <td repeat.for="result of bacteriaObs.results">
             ${result}
           </td>
           <td></td>
-          <td>${bacteriaObs.mean | toFixed:2}</td>
-          <td>${bacteriaObs.stDev | toFixed:2}</td>
-          <td>${sample.bacteriaDilution}</td>
+          <td class="data-tab__td--mean">${bacteriaObs.mean | toFixed:2}</td>
+          <td class="data-tab__td--stdev">${bacteriaObs.stDev | toFixed:2}</td>
+          <td class="data-tab__td--dilution">${sample.bacteriaDilution}</td>
           <td>${bacteriaObs.meanNumBacteriaPerG | toFixed:0}</td>
-          <td>${bacteriaObs.meanResult | toFixed:0}</td>
+          <td class="data-tab__td--mean">${bacteriaObs.meanResult | toFixed:0}</td>
           <td>${bacteriaObs.stDevNumBacteriaPerG | toFixed:0}</td>
-          <td>${bacteriaObs.stDevResult | toFixed:0}</td>
+          <td class="data-tab__td--stdev">${bacteriaObs.stDevResult | toFixed:0}</td>
         </tr>
         <tr>
           <th>Aerobic Bacteria</th>
@@ -462,7 +512,10 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="10"></td>
+          <td colspan="7"></td>
+          <td class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr>
           <th>Anaerobic Bacteria</th>
@@ -493,7 +546,10 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="11"></td>
+          <td colspan="8"></td>
+          <td class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
         <tr>
           <th>Pathogenic Bacteria</th>
@@ -532,21 +588,24 @@
                 placeholder="Please Select">
             </form-group-select>
           </td>
-          <td colspan="10"></td>
+          <td colspan="7"></td>
+          <td class="data-tab__td--mean"></td>
+          <td></td>
+          <td class="data-tab__td--stdev"></td>
         </tr>
-        <tr>
+        <tr class="data-tab__row--green">
           <th>&nbsp;</th>
           <td colspan="20"></td>
         </tr>
         <tr>
           <th>F:B Ratio</th>
-          <td colspan="17">
+          <td colspan="17" class="data-tab__td--left data-tab__td--gray">
             Do not use this row -->
           </td>
-          <td>
+          <td class="data-tab__td--mean">
             ${fbRatio | toFixed:2}
           </td>
-          <td colspan="2"></td>
+          <td colspan="2" class="data-tab__td--standard"></td>
         </tr>
       </tbody>
 

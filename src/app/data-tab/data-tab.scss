@@ -1,6 +1,42 @@
 @import '../../sass/variables.scss';
 
 .data-tab {
+  &__td--left {
+    text-align: left;
+  }
+
+  &__td--right {
+    text-align: right;
+  }
+
+  &__td--mean {
+    background: lightgray;
+  }
+
+  &__td--stdev {
+    background: palegreen;
+  }
+
+  &__td--dilution {
+    background: lightsteelblue;
+  }
+
+  &__td--standard {
+    background: white;
+  }
+
+  &__td--gray {
+    background: gray;
+  }
+
+  &__row--green {
+    background: mediumaquamarine;
+  }
+
+  &__row--gray {
+    background: gray;
+  }
+
   &__fixed-columns {
     position: absolute;
     left: 500;  
@@ -8,11 +44,19 @@
     background: white;  
   }
 
+  td {
+    min-width: 70px;
+  }
+
   tr {
     height: 45px;
 
     &:hover {
-      background: lightgray;
+      background: lightblue!important;
+
+      td {
+        background: unset;
+      }
     }
   }
 
