@@ -60,11 +60,12 @@ export class DataTab {
   ) { }
 
   bind() {
-    let savedData = this.session.loadData();
+    let sample = this.session.loadSample()
+    this.observer = sample.observer
+    this.sample = sample.sample
 
+    let savedData = this.session.loadData(this.sample);
     if (savedData) {
-      this.observer = savedData.observer
-      this.sample = savedData.sample
       this.nematodeCalcs = savedData.nematodeCalcs
       this.organismCalcs = savedData.organismCalcs
       this.bacteriaObs = savedData.bacteriaObs
@@ -164,10 +165,10 @@ export class DataTab {
     this.session.saveData({
       bacteriaObs: this.bacteriaObs,
       nematodeCalcs: this.nematodeCalcs,
-      observer: this.observer,
       organismCalcs: this.organismCalcs,
-      sample: this.sample
     })
+
+    this.stateManager.dataTabUpdated()
   }
 
   updateCalc(data: IOrganismData) {
@@ -181,10 +182,10 @@ export class DataTab {
     this.session.saveData({
       bacteriaObs: this.bacteriaObs,
       nematodeCalcs: this.nematodeCalcs,
-      observer: this.observer,
       organismCalcs: this.organismCalcs,
-      sample: this.sample
     })
+
+    this.stateManager.dataTabUpdated()
   }
 
   handleScroll($event) {

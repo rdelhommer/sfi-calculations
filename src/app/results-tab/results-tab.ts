@@ -6,6 +6,7 @@ import { IOrganismData, ActinobacteriaData, NematodeData } from '../../models/or
 import { BacteriaResult, ActinobacteriaResult, FungiResult, FbResult, GoodProtozoaResult, NematodeResult, RootNematodeResult, OomyceteResult, CiliateResult } from '../../util/enums';
 import { bacteriaResultDisplay, actinobacteriaResultDisplay, fungiResultDisplay, fbResultDisplay, goodProtozoaResultDisplay, bacteriaNematodeResultDisplay, fungalNematodeResultDisplay, predatoryNematodeResultDisplay, oomyceteResultDisplay, ciliateResultDisplay, rootNematodeResultDisplay } from '../../util/result-displays';
 import { inject } from 'aurelia-framework';
+import { ISampleInfoModel } from '../../models/sample.model';
 
 export interface IResultsModel {
   bacteriaResult: BacteriaResult
@@ -23,6 +24,8 @@ export interface IResultsModel {
 
 @inject(ISession, IStateManager)
 export class ResultsTab {
+  sample: ISampleInfoModel
+
   data: IDataModel
   actinobacteriaData: IOrganismData
   fungiData: IOrganismData
@@ -87,7 +90,8 @@ export class ResultsTab {
   }
 
   bind() {
-    this.data = this.session.loadData();
+    this.sample = this.session.loadSample().sample
+    this.data = this.session.loadData(this.sample);
 
     if (this.data) {
       this.setOrgModels();

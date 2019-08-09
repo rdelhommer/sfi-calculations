@@ -1,7 +1,7 @@
 import { inject } from "aurelia-framework";
 import { ICache } from "../cache/cache.service";
 import { ISession } from "./session.service";
-import { ISampleModel, Sample } from "../../models/sample.model";
+import { ISampleModel, Sample, ISampleInfoModel } from "../../models/sample.model";
 import { IProfileModel, Profile } from "../../models/profile.model";
 import { IOrganismReading, OrganismReading } from "../../models/reading.model";
 import { defaultReadingFactory } from "../../util/constants";
@@ -61,11 +61,11 @@ export class LocalStorageSession implements ISession {
     this.cache.set(ICache.Mode.Global, 'data', data);
   }
 
-  loadData(): IDataModel {
+  loadData(sample: ISampleInfoModel): IDataModel {
     let rawData = this.cache.get(ICache.Mode.Global, 'data');
 
     return !!rawData 
-     ? new DataModel(rawData)
+     ? new DataModel(rawData, sample)
      : null
   }
 

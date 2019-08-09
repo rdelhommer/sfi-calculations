@@ -1,0 +1,21 @@
+<template>
+  <tr>
+    <td>
+      ${data.organismName}
+    </td>
+    <td repeat.for="length of data.lengths">
+      ${length}
+    </td>
+    <td if.bind="data.lengths !== 5" colspan.bind="5 - data.lengths"></td>
+    <td>${data.meanResult}</td>
+    <td>${data.stDevResult}</td>
+  </tr>
+  <tr if.bind="!data.isField">
+      <td repeat.for="diameter of data.diameters">
+        ${diameter}
+      </td>
+      <td>
+        ${data.averageDiameterUm}
+      </td>
+  </tr>
+</template>

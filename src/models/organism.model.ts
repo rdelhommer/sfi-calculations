@@ -60,7 +60,12 @@ export class NematodeData implements IOrganismData {
   isCounting: boolean = false;
 
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
-    let ret = new NematodeData(init.organismName, sample);
+    let sampleClone = { ...sample }
+    if (init.dilution != null) {
+      sampleClone.mainDilution = init.dilution
+    }
+
+    let ret = new NematodeData(init.organismName, sampleClone);
     return initData(ret, init);
   }
 
@@ -160,7 +165,12 @@ export class ActinobacteriaData extends MultiReadingData {
   }
 
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
-    let ret = new ActinobacteriaData(sample);
+    let sampleClone = { ...sample }
+    if (init.dilution != null) {
+      sampleClone.mainDilution = init.dilution
+    }
+
+    let ret = new ActinobacteriaData(sampleClone);
     return initData(ret, init);
   }
 
@@ -210,7 +220,12 @@ export class DiameterReadingData extends MultiReadingData {
   }
 
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
-    let ret = new DiameterReadingData(init.organismName, sample);
+    let sampleClone = { ...sample }
+    if (init.dilution != null) {
+      sampleClone.mainDilution = init.dilution
+    }
+
+    let ret = new DiameterReadingData(init.organismName, sampleClone);
     return initData(ret, init);
   }
 
@@ -288,7 +303,12 @@ export class CountingData extends MultiReadingData {
   }
 
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
-    let ret = new CountingData(init.organismName, sample);
+    let sampleClone = { ...sample }
+    if (init.dilution != null) {
+      sampleClone.mainDilution = init.dilution
+    }
+
+    let ret = new CountingData(init.organismName, sampleClone);
     return initData(ret, init);
   }
 
