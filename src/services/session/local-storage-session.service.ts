@@ -6,6 +6,7 @@ import { IProfileModel, Profile } from "../../models/profile.model";
 import { IOrganismReading, OrganismReading } from "../../models/reading.model";
 import { defaultReadingFactory } from "../../util/constants";
 import { IDataModel, DataModel } from "../../models/data.model";
+import { IResultsModel } from "../../app/results-tab/results-tab";
 
 @inject(ICache)
 export class LocalStorageSession implements ISession {
@@ -66,5 +67,13 @@ export class LocalStorageSession implements ISession {
     return !!rawData 
      ? new DataModel(rawData)
      : null
+  }
+
+  saveResults(results: IResultsModel): void {
+    this.cache.set(ICache.Mode.Global, 'results', results);
+  }
+
+  loadResults(): IResultsModel {
+    return this.cache.get(ICache.Mode.Global, 'results');
   }
 }

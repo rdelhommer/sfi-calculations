@@ -23,11 +23,6 @@ export class App {
 
   resultsTab: ITabConfig = {
     name: 'results',
-    title: 'Results Fill Sheet'
-  }
-
-  reportTab: ITabConfig = {
-    name: 'report',
     title: 'Report'
   }
 

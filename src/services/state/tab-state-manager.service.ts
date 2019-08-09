@@ -6,7 +6,8 @@ import { inject } from "aurelia-framework";
 enum Events {
   ProfileUpdated = 'profile-updated',
   ReadingsUpdated = 'readings-updated',
-  SampleInfoUpdated = 'sample-info-updated'
+  SampleInfoUpdated = 'sample-info-updated',
+  DataTabUpdated = 'data-tab-updated'
 }
 
 @inject(EventAggregator)
@@ -38,5 +39,13 @@ export class TabStateManager implements IStateManager {
 
   onSampleInfoUpdated(callback: () => void): Disposable {
     return this.eventAggregator.subscribe(Events.SampleInfoUpdated, callback);
+  }
+
+  dataTabUpdated(): void {
+    this.eventAggregator.publish(Events.DataTabUpdated);
+  }
+
+  onDataTabUpdated(callback: () => void): Disposable {
+    return this.eventAggregator.subscribe(Events.DataTabUpdated, callback);
   }
 }

@@ -1,0 +1,11 @@
+<template>
+    <span if.bind="!isEditing">${displayMap[model]}</span>
+    <form-group-select 
+        if.bind="isEditing"
+        from-enum.bind="enum"
+        model.bind="model"
+        placeholder="Please Select">
+    </form-group-select>
+    <br/>
+    <button click.delegate="toggleEdit()">${isEditing ? 'Save' : 'Edit'}</button>
+</template>

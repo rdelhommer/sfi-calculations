@@ -14,9 +14,9 @@
           if.bind="isProfileValid && isSampleValid">
         <reading-tab></reading-tab>
       </tab>
-      <tab config.bind="reportTab"
+      <tab config.bind="resultsTab"
           if.bind="isProfileValid && isSampleValid">
-        Report
+        <results-tab></results-tab>
       </tab>
       <tab config.bind="printTab"
           if.bind="isProfileValid && isSampleValid">

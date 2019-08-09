@@ -2,6 +2,7 @@ import { ISampleModel } from "../../models/sample.model";
 import { IProfileModel } from "../../models/profile.model";
 import { IOrganismReading } from "../../models/reading.model";
 import { IDataModel } from "../../models/data.model";
+import { IResultsModel } from "../../app/results-tab/results-tab";
 
 export abstract class ISession {
   abstract clear(): void
@@ -18,4 +19,7 @@ export abstract class ISession {
 
   abstract saveProfile(profile: IProfileModel): void
   abstract loadProfile(): IProfileModel
+
+  abstract saveResults(reults: IResultsModel): void
+  abstract loadResults(): IResultsModel
 }

@@ -51,3 +51,64 @@ export enum FungalColor {
 export enum OomyceteColor {
   C = 'C'
 }
+
+export enum BacteriaResult {
+    None = 'None Detected',
+    Low = 'Low',
+    Okay = 'Okay',
+    Good = 'Good',
+    High = 'High'
+}
+
+export enum ActinobacteriaResult {
+  None = 'None Detected',
+  Low = 'Low',
+  Good = 'Good',
+  High = 'High'
+}
+
+export enum FungiResult {
+  None = 'None Detected',
+  Low = 'Low',
+  GoodBut = 'Good, but highly variable',
+  Good = 'Good'
+}
+
+export enum FbResult {
+  LowBacteria = 'Low Bacteria',
+  HighBacteria = 'High Bacteria',
+  LowBacteriaLowFungi = 'Low Bacteria, Low Fungi',
+  LowFungi = 'Low Fungi',
+  LowFungiHighBacteria = 'Low Fungi, High Bacteria',
+  Minimum = 'Minimum Met'
+}
+
+export enum GoodProtozoaResult {
+  None = 'None Detected',
+  Low = 'Low',
+  GoodBut = 'Good, but highly variable',
+  Good = 'Good'
+}
+
+export enum NematodeResult {
+  None = 'None Detected',
+  Low = 'Low',
+  Good = 'Good'
+}
+
+export enum RootNematodeResult {
+  None = 'None Detected',
+  High = 'High'
+}
+
+export enum OomyceteResult {
+  None = 'None Detected',
+  Present = 'Present',
+  High = 'High'
+}
+
+export enum CiliateResult {
+  None = 'None Detected',
+  Present = 'Present',
+  High = 'High'
+}

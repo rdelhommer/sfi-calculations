@@ -9,4 +9,7 @@ export abstract class IStateManager {
   
   abstract sampleInfoUpdated(): void;
   abstract onSampleInfoUpdated(callback: () => void): Disposable;
+
+  abstract dataTabUpdated(): void;
+  abstract onDataTabUpdated(callback: () => void): Disposable;
 }

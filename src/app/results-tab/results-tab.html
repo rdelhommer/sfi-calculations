@@ -1,0 +1,243 @@
+<template class="results-tab">
+  <h2>Microscope Data Spreadsheet Usage</h2>
+  <ol>
+    <li>
+      Review the <strong>Sample Results</strong> compared to the plant succession for the <strong>Recommended Range</strong>, <strong>Minimum Value</strong>, and <strong>Maximum Value</strong>.
+    </li>
+    <li>
+      Choose the best answer from the <strong>Dropdown Options</strong> by comparing the recommended plant succession with the <strong>Sample Results</strong>.
+    </li>
+    <li>
+      You can view and change the automated answers below the chart in the descriptions to your personal preference.
+    </li>
+    <li>
+      Please note that the <strong>Samples Results</strong> are rounded numbers from the results in the <strong>Microscope Data Spreadsheet</strong>.
+    </li>
+  </ol>
+  
+  <h3>
+    Beneficial Microorganisms
+  </h3>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Recommended Range</th>
+        <th>Sample Results</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2">Bacteria (um/g)</td>
+        <td rowspan="2">300 - 1,000</td>
+        <td>${data.bacteriaObs.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="BacteriaResult"
+              on-save.call="saveResults()"
+              model.bind="model.bacteriaResult"
+              display-map.bind="bacteriaResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>${data.bacteriaObs.stDevResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Actinobacteria (um/g)</td>
+        <td rowspan="2">1 - 6</td>
+        <td>${actinobacteriaData.meanResult | toFixed:1}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="ActinobacteriaResult"
+              on-save.call="saveResults()"
+              model.bind="model.actinobacteriaResult"
+              display-map.bind="actinobacteriaResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>${actinobacteriaData.stDevResult | toFixed:1}</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Fungi (um/g)</td>
+        <td rowspan="2">150 - 500</td>
+        <td>${fungiData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="FungiResult"
+              on-save.call="saveResults()"
+              model.bind="model.fungiResult"
+              display-map.bind="fungiResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>${fungiData.stDevResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td>F:B Ratio</td>
+        <td>0.5:1 - 0.8:1</td>
+        <td>
+          ${(fungiData.meanResult / (actinobacteriaData.meanResult + data.bacteriaObs.meanResult)) | toFixed:2}
+        </td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="FbResult"
+              on-save.call="saveResults()"
+              model.bind="model.fbResult"
+              display-map.bind="fbResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr></tr>
+      <tr>
+        <td></td>
+        <td><strong>Minimum Value</strong></td>
+      </tr>
+      <tr>
+        <td>
+          <u><strong>TOTAL</strong> <i>Protozoa</i></u>
+        </td>
+        <td>&gt;50,000</td>
+        <td>${(flagellateData.meanResult + amoebaeData.meanResult) | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="GoodProtozoaResult"
+              on-save.call="saveResults()"
+              model.bind="model.goodProtozoaResult"
+              display-map.bind="goodProtozoaResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2">Flagellate (#/g)</td>
+        <td rowspan="2"><i>(See Total)</i></td>
+        <td>${flagellateData.meanResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td>${flagellateData.stDevResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Amoebae (#/g)</td>
+        <td rowspan="2"><i>(See Total)</i></td>
+        <td>${amoebaeData.meanResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td>${amobaeData.stDevResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <u>Nematodes</u>
+      </tr>
+      <tr>
+        <td>Bacterial-feeding (#/g)</td>
+        <td>100</td>
+        <td>${bacteriaNematodeData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="NematodeResult"
+              on-save.call="saveResults()"
+              model.bind="model.bacteriaNematodeResult"
+              display-map.bind="bacteriaNematodeResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>Fungal-feeding (#/g)</td>
+        <td>10</td>
+        <td>${fungalNematodeData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="NematodeResult"
+              on-save.call="saveResults()"
+              model.bind="model.fungalNematodeResult"
+              display-map.bind="fungalNematodeResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>Predatory (#/g)</td>
+        <td>1</td>
+        <td>${predatoryNematodeData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="NematodeResult"
+              on-save.call="saveResults()"
+              model.bind="model.predatoryNematodeResult"
+              display-map.bind="predatoryNematodeResultDisplay">
+          </editable>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Detrimental Microorganisms</h3>
+  <table>
+    <thead>
+      <th>
+        <u><i>Disease-Causing Fungi</i></u>
+      </th>
+      <th>
+        Maximum Value
+      </th>
+      <th>Sample Results</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2">Oomycetes (um/g)</td>
+        <td rowspan="2">0</td>
+        <td>${oomycetesData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown" rowspan="2">
+          <editable
+              enum.bind="OomyceteResult"
+              on-save.call="saveResults()"
+              model.bind="model.oomyceteResult"
+              display-map.bind="oomyceteResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>${oomycetesData.stDevResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td>
+          <u><i>Protozoa</i></u>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2">Ciliates (um/g)</td>
+        <td rowspan="2">0</td>
+        <td>${ciliatesData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown" rowspan="2">
+          <editable
+              enum.bind="CiliateResult"
+              on-save.call="saveResults()"
+              model.bind="model.ciliateResult"
+              display-map.bind="ciliateResultDisplay">
+          </editable>
+        </td>
+      </tr>
+      <tr>
+        <td>${ciliatesData.stDevResult | toFixed:0}</td>
+      </tr>
+      <tr>
+        <td>
+          <u><i>Nematode</i></u>
+        </td>
+      </tr>
+      <tr>
+        <td>Root-feeding (#/g)</td>
+        <td>0</td>
+        <td>${rootNematodeData.meanResult | toFixed:0}</td>
+        <td class="results-tab__dropdown">
+          <editable
+              enum.bind="RootNematodeResult"
+              on-save.call="saveResults()"
+              model.bind="model.rootNematodeResult"
+              display-map.bind="rootNematodeResultDisplay">
+          </editable>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
