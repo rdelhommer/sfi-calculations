@@ -1,3 +1,123 @@
 <template>
-  TODO
+  <table>
+    <tr>
+      <td>
+        <strong>Organization:</strong>  
+      </td>
+      <td>
+        ${observer.organization}
+      </td>
+      <td>
+        <strong>Sample Type:</strong>
+      </td>
+      <td>
+        ${sample.type}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Date Observed:</strong>  
+      </td>
+      <td>
+        ${sample.dateObserved}
+      </td>
+      <td>
+        <strong>Plants Present/Desired:</strong>
+      </td>
+      <td>
+        ${sample.plant}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Plant Succession:</strong>  
+      </td>
+      <td>
+        ${sample.succession}
+      </td>
+    </tr>
+  </table>
+
+  <h2>Beneficial</h2>
+  <div class="simple-data__row">
+    <div class="simple-data__header"></div>
+    <div class="simple-data__number simple-data__col-header" repeat.for="i of 5">
+      Reading ${i + 1}
+    </div>
+    <div class="simple-data__number simple-data__col-header">
+      Mean
+    </div>
+    <div class="simple-data__number simple-data__col-header">
+      StDev
+    </div>
+  </div>
+  <simple-data data.bind="actinobacteriaData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <simple-data data.bind="fungiData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      F:B Biomass
+    </div>
+    <div class="simple-data__number" repeat.for="i of 5">
+    </div>
+    <div class="simple-data__number simple-data__number--mean">
+      ${fungiData.meanResult / (actinobacteriaData.meanResult + bacteriaObs.meanResult)}
+    </div>
+    <div class="simple-data__number">
+    </div>
+  </div>
+  <simple-data data.bind="flagellateData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <simple-data data.bind="amoebaeData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>Nematode</strong>
+    </div>
+  </div>
+  <simple-data data.bind="bacteriaNematodeData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <simple-data data.bind="fungalNematodeData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <simple-data data.bind="predatoryNematodeData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <u>Detrimental</u>
+    </div>
+  </div>
+  <simple-data data.bind="oomycetesData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <simple-data data.bind="ciliatesData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>Nematode</strong>
+    </div>
+  </div>
+  <simple-data data.bind="rootNematodeData" profile.bind="observer" sample.bind="sample"></simple-data>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>Aerobic Bacteria</strong>
+    </div>
+    <div class="simple-data__number">
+      ${data.bacteriaObs.aerobicBacteriaObserved || 'No'}
+    </div>
+  </div>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>Anaerobic Bacteria</strong>
+    </div>
+    <div class="simple-data__number">
+      ${data.bacteriaObs.anaerobicBacteriaObserved || 'No'}
+    </div>
+  </div>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>Pathogenic Bacteria</strong>
+    </div>
+    <div class="simple-data__number">
+      ${data.bacteriaObs.pathogenicBacteriaObserved || 'No'}
+    </div>
+  </div>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>Notes</strong>
+    </div>
+    <div>
+      ${sample.notes}
+    </div>
+  </tr>
 </template>

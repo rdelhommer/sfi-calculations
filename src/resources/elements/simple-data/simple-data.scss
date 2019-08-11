@@ -1,0 +1,33 @@
+.simple-data {
+  &__row {
+    display: flex;
+    flex-direction: row;
+
+    div:not(.simple-data__header) {
+      border-bottom: solid;
+    }
+
+    div {
+      line-height: 40px;
+    }
+  }
+
+  &__col-header {
+    border: solid;
+    box-sizing: border-box;
+  }
+
+  &__header {
+    width: 200px;
+    text-align: center;
+  }
+
+  &__number {
+    width: 100px;
+    text-align: center;
+
+    &--mean {
+      border-left: solid;
+    }
+  }
+}

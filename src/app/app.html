@@ -1,10 +1,20 @@
 <template>
   <div class="app">
-    <button 
-      class="button--clear-session"
-      click.delegate="startNewSession()">
-      New Session
-    </button>
+    <div class="action-buttons">
+      <button if.bind="tabsRef.activeTab.config.name === 'data' || tabsRef.activeTab.config.name === 'readings'"
+        click.delegate="startNewSession()">
+        New Session
+      </button>
+      <button if.bind="tabsRef.activeTab.config.name === 'data'"
+        click.delegate="generateReport()">
+        Generate Report
+      </button>
+      <button if.bind="tabsRef.activeTab.config.name === 'data'"
+        click.delegate="print()">
+        Print
+      </button>
+    </div>
+
     <tabs view-model.ref="tabsRef">
       <tab config.bind="dataTab" 
           if.bind="isProfileValid">
@@ -20,7 +30,7 @@
       </tab>
       <tab config.bind="printTab"
           if.bind="isProfileValid && isSampleValid">
-        Print
+        <print-tab></print-tab>
       </tab>
       <tab config.bind="successionTab"
           if.bind="isProfileValid">

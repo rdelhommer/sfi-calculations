@@ -1,21 +1,32 @@
 <template>
-  <tr>
-    <td>
-      ${data.organismName}
-    </td>
-    <td repeat.for="length of data.lengths">
+  <div if.bind="!data.isField" class="simple-data__row">
+    <div class="simple-data__header">
+      <strong>${data.organismName}</strong>
+    </div>
+  </div>
+  <div class="simple-data__row">
+    <div class="simple-data__header">
+      <strong if.bind="data.isField">${data.organismName}</strong>
+      <span if.bind="!data.isField">Length</span>
+    </div>
+    <div repeat.for="length of data.lengths" class="simple-data__number">
       ${length}
-    </td>
-    <td if.bind="data.lengths !== 5" colspan.bind="5 - data.lengths"></td>
-    <td>${data.meanResult}</td>
-    <td>${data.stDevResult}</td>
-  </tr>
-  <tr if.bind="!data.isField">
-      <td repeat.for="diameter of data.diameters">
-        ${diameter}
-      </td>
-      <td>
-        ${data.averageDiameterUm}
-      </td>
-  </tr>
+    </div>
+    <div if.bind="data.lengths !== 5" repeat.for="i of 5 - data.lengths" class="simple-data__number"></div>
+    <div class="simple-data__number simple-data__number--mean">${data.meanResult}</div>
+    <div class="simple-data__number">${data.stDevResult}</div>
+  </div>
+  <div if.bind="!data.isField" class="simple-data__row">
+    <div class="simple-data__header">Average Diameter</div>
+    <div repeat.for="diameter of data.diameters" class="simple-data__number">
+      ${diameter}
+    </div>
+    <div class="simple-data__number">
+      ${data.averageDiameterUm}
+    </div>
+    <div class="simple-data__number" repeat.for="i of 4">
+    </div>
+    <div class="simple-data__number simple-data__number--mean"></div>
+    <div class="simple-data__number"></div>
+  </div>
 </template>
