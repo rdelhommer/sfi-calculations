@@ -48,6 +48,7 @@ export class App {
 
   isProfileValid: boolean
   isSampleValid: boolean
+  isScrollHooked: boolean
 
   constructor(
     private session: ISession,
@@ -59,13 +60,27 @@ export class App {
     this.checkProfileValidity()
     this.checkSampleValidity()
     
-    this.stateManager.onProfileUpdated(() => this.checkProfileValidity())
-    this.stateManager.onSampleInfoUpdated(() => this.checkSampleValidity())
+    this.stateManager.onProfileUpdated(() => {
+      this.checkProfileValidity()
+
+      this.hookScroll()
+    })
+    this.stateManager.onSampleInfoUpdated(() => {
+      this.checkSampleValidity()
+
+      this.hookScroll()
+    })
   }
 
   attached() {
+    this.hookScroll()
+  }
+
+  hookScroll() {
+    if (!this.isProfileValid || !this.isSampleValid || this.isScrollHooked) return;
     this.taskQueue.queueMicroTask(() => {
       this.tabsRef.onScroll(this.dataTab.name, this.dataTabRef.handleScroll.bind(this.dataTabRef))
+      this.isScrollHooked = true;
     })
   }
 

@@ -96,8 +96,8 @@ export class Sample implements ISampleModel {
   sample: ISampleInfoModel;
 
   constructor(init: Partial<ISampleModel>) {
-    this.observer = new Profile(init.observer) || new Profile({});
-    this.sample = new SampleInfo(init.sample) || new SampleInfo({})
+    this.observer = init.observer ? new Profile(init.observer) : new Profile({});
+    this.sample = init.sample ? new SampleInfo(init.sample) : new SampleInfo({})
   }
   
   get isValid(): boolean {

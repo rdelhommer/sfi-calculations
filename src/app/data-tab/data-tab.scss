@@ -1,6 +1,27 @@
 @import '../../sass/variables.scss';
 
 .data-tab {
+  .not-table {
+    .form-group {
+      label {
+        width: 150px;
+      }
+    
+      input {
+        width: 400px;
+      }
+    }
+  }
+
+  .form-section-row {
+    display: flex;
+    flex-direction: row;
+
+    div:first-of-type {
+      margin-right: 10px;
+    }
+  }
+
   &__td--left {
     text-align: left;
   }

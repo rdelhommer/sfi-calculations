@@ -5,14 +5,6 @@
         click.delegate="startNewSession()">
         New Session
       </button>
-      <button if.bind="tabsRef.activeTab.config.name === 'data'"
-        click.delegate="generateReport()">
-        Generate Report
-      </button>
-      <button if.bind="tabsRef.activeTab.config.name === 'data'"
-        click.delegate="print()">
-        Print
-      </button>
     </div>
 
     <tabs view-model.ref="tabsRef">

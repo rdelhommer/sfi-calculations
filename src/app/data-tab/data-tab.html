@@ -1,189 +1,215 @@
 <template class="data-tab">
   <h2>Data</h2>
 
-  <form-wrap>
+  <form-wrap class="not-table">
     <form-section>
       <h3 slot="title">
         Profile
       </h3>
 
-        <form-group 
-            orientation="horizontal" 
-            model.bind="observer.name"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            Name
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="observer.organization"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            Organization
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="observer.address.lineOne"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            Address
-          </div>
-        </form-group>
-        <form-group 
-            orientation="horizontal" 
-            model.bind="observer.address.lineTwo"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            
-          </div>
-        </form-group>
-        <form-group 
-            type="email"
-            orientation="horizontal" 
-            model.bind="observer.email"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            Email
-          </div>
-        </form-group>
-        <form-group 
-            type="phone"
-            orientation="horizontal" 
-            model.bind="observer.phone"
-            on-changed.call="saveTab()">
-          <div slot="label">
-            Phone
-          </div>
-        </form-group>
+      <div class="form-section-row">
+        <div>
+          <form-group 
+              orientation="horizontal" 
+              model.bind="observer.name"
+              on-changed.call="saveTab()">
+            <div slot="label">
+              Name
+            </div>
+          </form-group>
+          <form-group 
+              orientation="horizontal" 
+              model.bind="observer.organization"
+              on-changed.call="saveTab()">
+            <div slot="label">
+              Organization
+            </div>
+          </form-group>
+          <form-group 
+              orientation="horizontal" 
+              model.bind="observer.address.lineOne"
+              on-changed.call="saveTab()">
+            <div slot="label">
+              Address
+            </div>
+          </form-group>
+          <form-group 
+              orientation="horizontal" 
+              model.bind="observer.address.lineTwo"
+              on-changed.call="saveTab()">
+            <div slot="label">
+              
+            </div>
+          </form-group>
+        </div>
+        <div>
+          
+          <form-group 
+              type="email"
+              orientation="horizontal" 
+              model.bind="observer.email"
+              on-changed.call="saveTab()">
+            <div slot="label">
+              Email
+            </div>
+          </form-group>
+          <form-group 
+              type="phone"
+              orientation="horizontal" 
+              model.bind="observer.phone"
+              on-changed.call="saveTab()">
+            <div slot="label">
+              Phone
+            </div>
+          </form-group>
+        </div>
+      </div>
     </form-section>
     <form-section>
       <h3 slot="title">
         Sample Information
       </h3>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.name"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Name
+
+      <div>
+        <div class="form-section-row">
+          <div>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.name"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Name
+              </div>
+            </form-group>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.type"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Type
+              </div>
+            </form-group>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.plant"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Plant Present/Desired
+              </div>
+            </form-group>
+            <form-group-select 
+                from-enum.bind="Succession"
+                orientation="horizontal"
+                model.bind="sample.succession"
+                placeholder="Please Select"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Plant Succession
+              </div>
+            </form-group-select>
+          </div>
+          <div>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.dateCollected"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Date Collected
+              </div>
+            </form-group>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.dateObserved"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Date Observed
+              </div>
+            </form-group>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.observedBy"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Observed by
+              </div>
+            </form-group>						
+          </div>
         </div>
-      </form-group>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.type"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Type
+      </div>
+      <div>
+        <form-group-textarea
+            orientation="horizontal" 
+            model.bind="sample.notes"
+            on-changed.call="saveTab()">
+          <div slot="label">
+            Notes
+          </div>
+        </form-group-textarea>
+      </div>
+      <div>
+        <div class="form-section-row">
+          <div>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.mainDilution"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Main Dilution
+              </div>
+            </form-group>	
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.bacteriaDilution"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Bacteria Dilution
+              </div>
+            </form-group>	
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.fieldsPerReading"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Fields per Reading
+              </div>
+            </form-group>	
+          </div>
+          <div>
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.dropsPerSample"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Drops per Sample
+              </div>
+            </form-group>	
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.dropsPerMl"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Drops per ml
+              </div>
+            </form-group>	
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.coverslipSize"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Coverslip Size
+              </div>
+            </form-group>	
+            <form-group 
+                orientation="horizontal" 
+                model.bind="sample.eyepieceFieldSize"
+                on-changed.call="saveTab()">
+              <div slot="label">
+                Eyepiece Field Size
+              </div>
+            </form-group>	
+          </div>
         </div>
-      </form-group>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.plant"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Plant Present/Desired
-        </div>
-      </form-group>
-      <form-group-select 
-          from-enum.bind="Succession"
-          orientation="horizontal"
-          model.bind="sample.succession"
-          placeholder="Please Select"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Plant Succession
-        </div>
-      </form-group-select>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.dateCollected"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Date Collected
-        </div>
-      </form-group>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.dateObserved"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Date Observed
-        </div>
-      </form-group>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.observedBy"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Observed by
-        </div>
-      </form-group>						
-      <form-group-textarea
-          orientation="horizontal" 
-          model.bind="sample.notes"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Notes
-        </div>
-      </form-group-textarea>
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.mainDilution"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Main Dilution
-        </div>
-      </form-group>	
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.bacteriaDilution"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Bacteria Dilution
-        </div>
-      </form-group>	
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.fieldsPerReading"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Fields per Reading
-        </div>
-      </form-group>	
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.dropsPerSample"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Drops per Sample
-        </div>
-      </form-group>	
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.dropsPerMl"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Drops per ml
-        </div>
-      </form-group>	
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.coverslipSize"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Coverslip Size
-        </div>
-      </form-group>	
-      <form-group 
-          orientation="horizontal" 
-          model.bind="sample.eyepieceFieldSize"
-          on-changed.call="saveTab()">
-        <div slot="label">
-          Eyepiece Field Size
-        </div>
-      </form-group>	
+      </div>
     </form-section>
   </form-wrap>
   <div> <!--if.bind="canViewData">-->

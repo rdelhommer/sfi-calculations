@@ -6,6 +6,10 @@
     position: fixed;
     width: 100%;
     bottom: 0px;
+
+    @media print {
+      display: none;
+    }
   }
 
   &__selector {

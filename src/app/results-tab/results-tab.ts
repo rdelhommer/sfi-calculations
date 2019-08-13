@@ -63,7 +63,8 @@ export class ResultsTab {
   rootNematodeResultDisplay = rootNematodeResultDisplay
 
   constructor(
-    private session: ISession
+    private session: ISession,
+    private stateManager: IStateManager
   ) { }
 
   private setOrgModels() {
@@ -99,5 +100,19 @@ export class ResultsTab {
 
     let savedResults = this.session.loadResults()
     this.model = savedResults || this.initResults();
+
+    this.stateManager.onSampleInfoUpdated(() => {
+      this.sample = this.session.loadSample().sample
+      this.data = this.session.loadData(this.sample)
+      
+      this.initResults()
+      this.saveResults()
+    })
+    this.stateManager.onDataTabUpdated(() => {
+      this.data = this.session.loadData(this.sample)
+      
+      this.initResults()
+      this.saveResults()
+    })
   }
 }
