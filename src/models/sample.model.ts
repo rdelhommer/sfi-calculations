@@ -1,4 +1,4 @@
-import { Succession } from "../util/enums";
+import { Succession, CoverslipSize } from "../util/enums";
 import { IProfileModel, Profile } from "./profile.model";
 import { IModel } from "./base.model";
 import { FOV_AREA_MM_SQUARED } from "../util/constants";
@@ -17,7 +17,7 @@ export interface ISampleInfoModel extends IModel {
   fieldsPerReading: number
   dropsPerSample: number
   dropsPerMl: number
-  coverslipSize: string
+  coverslipSize: CoverslipSize
   coverslipArea: number
   coverslipNumFields: number
   eyepieceFieldSize: number
@@ -37,7 +37,7 @@ export class SampleInfo implements ISampleInfoModel {
   fieldsPerReading: number;
   dropsPerSample: number;
   dropsPerMl: number;
-  coverslipSize: string;
+  coverslipSize: CoverslipSize;
   eyepieceFieldSize: number;
 
   constructor(init: Partial<ISampleInfoModel>) {
@@ -48,12 +48,12 @@ export class SampleInfo implements ISampleInfoModel {
     this.fieldsPerReading = this.fieldsPerReading == null ? 5 : this.fieldsPerReading
     this.dropsPerSample = this.dropsPerSample == null ? 1 : this.dropsPerSample
     this.dropsPerMl = this.dropsPerMl == null ? 20 : this.dropsPerMl
-    this.coverslipSize = this.coverslipSize || '18x18'
+    this.coverslipSize = this.coverslipSize || CoverslipSize.EighteenSquare
     this.eyepieceFieldSize = this.eyepieceFieldSize == null ? 18 : this.eyepieceFieldSize
   }
 
   get coverslipArea() {
-    if (!this.coverslipSize || this.coverslipSize === '') return null
+    if (!this.coverslipSize) return null
 
     let dimensions =this.coverslipSize.toLowerCase()
       .split('x')

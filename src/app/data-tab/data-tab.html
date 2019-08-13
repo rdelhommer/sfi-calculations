@@ -192,14 +192,16 @@
                 Drops per ml
               </div>
             </form-group>	
-            <form-group 
-                orientation="horizontal" 
+            <form-group-select 
+                from-enum.bind="CoverslipSize"
+                orientation="horizontal"
                 model.bind="sample.coverslipSize"
+                placeholder="Please Select"
                 on-changed.call="saveTab()">
               <div slot="label">
                 Coverslip Size
               </div>
-            </form-group>	
+            </form-group-select>
             <form-group 
                 orientation="horizontal" 
                 model.bind="sample.eyepieceFieldSize"

@@ -1,7 +1,7 @@
 import './data-tab.scss'
 import { ISession } from '../../services/session/session.service';
 import { inject, observable } from 'aurelia-framework';
-import { Succession, AerobicBacteria, PathogenicBacteria, AnaerobicBacteria, FieldPercentage, YesNo, FungalColor, OomyceteColor, DataEntry } from '../../util/enums';
+import { Succession, AerobicBacteria, PathogenicBacteria, AnaerobicBacteria, FieldPercentage, YesNo, FungalColor, OomyceteColor, DataEntry, CoverslipSize } from '../../util/enums';
 import { IProfileModel } from '../../models/profile.model';
 import { ISampleInfoModel, Sample } from '../../models/sample.model';
 import { IOrganismReading } from '../../models/reading.model';
@@ -46,6 +46,7 @@ export class DataTab {
   PathogenicBacteria = PathogenicBacteria
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
+  CoverslipSize = CoverslipSize
   FOV_DIAMETER_MM = FOV_DIAMETER_MM
   DROPS_PER_ML = DROPS_PER_ML
 

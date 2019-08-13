@@ -8,6 +8,13 @@ export enum Succession {
   Evergreen = 'Evergreen Trees'
 }
 
+export enum CoverslipSize {
+  EighteenSquare = '18x18',
+  EighteenRect = '18x22',
+  TwentySquare = '20x20',
+  TwentyTwoSquare = '22x22'
+}
+
 export enum YesNo {
   Yes = 'Yes',
   No = 'No'
