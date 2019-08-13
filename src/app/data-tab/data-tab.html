@@ -140,7 +140,8 @@
         <form-group-textarea
             orientation="horizontal" 
             model.bind="sample.notes"
-            on-changed.call="saveTab()">
+            on-changed.call="saveTab()"
+            rows.bind="5">
           <div slot="label">
             Notes
           </div>
@@ -212,7 +213,7 @@
       </div>
     </form-section>
   </form-wrap>
-  <div> <!--if.bind="canViewData">-->
+  <div if.bind="canViewData" class="data-tab__table-container">
     <table class="data-tab__fixed-columns" css="left:${headerLeft}px">
       <tr><th>&nbsp;</th></tr>
       <tbody class="fixed-columns">

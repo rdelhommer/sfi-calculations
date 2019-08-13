@@ -1,4 +1,10 @@
 @import '../sass/variables.scss';
+@import '../sass/bases.scss';
+
+body, input {
+  font-size: 16px;
+  line-height: 20px;
+}
 
 .app {
   .tabs {
@@ -14,6 +20,7 @@
     flex-direction: column;
 
     button {  
+      @extend %button;
       margin: 5px;
     }
 

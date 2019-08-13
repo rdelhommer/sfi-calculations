@@ -3,11 +3,13 @@
 .data-tab {
   .not-table {
     .form-group {
+      margin-top: 5px;
+
       label {
         width: 150px;
       }
     
-      input {
+      input, textarea {
         width: 400px;
       }
     }
@@ -20,6 +22,10 @@
     div:first-of-type {
       margin-right: 10px;
     }
+  }
+
+  &__table-container {
+    margin-top: 50px;
   }
 
   &__td--left {
