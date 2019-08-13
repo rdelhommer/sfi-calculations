@@ -65,5 +65,10 @@ export class PrintTab {
       this.data = this.session.loadData(this.sample);
       this.setOrgModels();
     })
+
+    this.stateManager.onDataTabUpdated(() => {
+      this.data = this.session.loadData(this.sample);
+      this.setOrgModels();
+    })
   }
 }

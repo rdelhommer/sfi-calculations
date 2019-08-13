@@ -1,4 +1,5 @@
 import { IModel } from "./base.model";
+import { DataEntry } from "../util/enums";
 
 export interface IAddress extends IModel {
   lineOne?: string
@@ -24,6 +25,7 @@ export interface IProfileModel extends IModel {
   address: IAddress
   email?: string
   phone?: string
+  dataEntry: DataEntry
 }
 
 export class Profile implements IProfileModel {
@@ -32,6 +34,7 @@ export class Profile implements IProfileModel {
   address: IAddress;
   email?: string;
   phone?: string;
+  dataEntry: DataEntry
 
   constructor(init: Partial<IProfileModel>) {
     this.name = init.name
@@ -39,6 +42,7 @@ export class Profile implements IProfileModel {
     this.email = init.email
     this.phone = init.phone
     this.address = new Address(init.address) || new Address({})
+    this.dataEntry = init.dataEntry || DataEntry.ReadingsTab
   }
 
   get isValid() {
@@ -47,5 +51,6 @@ export class Profile implements IProfileModel {
       && !!this.email
       && !!this.phone
       && this.address.isValid
+      && !!this.dataEntry
   }
 }

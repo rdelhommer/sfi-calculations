@@ -1,12 +1,14 @@
 <template>
   <div class="settings-tab">
-    <h2>Settings</h2>
+    <h2>
+      Settings
+      <span show.bind="showSaveSuccessful"> - Saved!</span>
+    </h2>
     <div>
       <form-wrap>
         <form-header>
           <h3 slot="title">
             Profile
-            <span show.bind="showSaveSuccessful"> - Saved!</span>
           </h3>
         </form-header>
         <form-group 
@@ -50,6 +52,19 @@
             Phone
           </div>
         </form-group>
+        <form-header>
+          <h3 slot="title">
+            Data Entry
+          </h3>
+        </form-header>
+        <form-group-select
+            from-enum.bind="DataEntry"
+            orientation="horizontal" 
+            model.bind="profile.dataEntry">
+          <div slot="label">
+            How would you like to enter data?
+          </div>
+        </form-group-select>
         <button
             class="settings-tab__button"
             type="submit"

@@ -9,8 +9,4 @@ export class SimpleData {
   @bindable data: IOrganismData
   @bindable profile: IProfileModel
   @bindable sample: ISampleInfoModel
-
-  bind() {
-    console.log(this.data);
-  }
 }

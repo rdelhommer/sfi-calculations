@@ -1,13 +1,13 @@
 import './data-tab.scss'
 import { ISession } from '../../services/session/session.service';
 import { inject, observable } from 'aurelia-framework';
-import { Succession, AerobicBacteria, PathogenicBacteria, AnaerobicBacteria, FieldPercentage, YesNo, FungalColor, OomyceteColor } from '../../util/enums';
+import { Succession, AerobicBacteria, PathogenicBacteria, AnaerobicBacteria, FieldPercentage, YesNo, FungalColor, OomyceteColor, DataEntry } from '../../util/enums';
 import { IProfileModel } from '../../models/profile.model';
 import { ISampleInfoModel, Sample } from '../../models/sample.model';
 import { IOrganismReading } from '../../models/reading.model';
 import { IStateManager } from '../../services/state/state-manager.service';
 import { mean, stDev } from '../../util/misc';
-import { FOV_DIAMETER_MM, DROPS_PER_ML } from '../../util/constants';
+import { FOV_DIAMETER_MM, DROPS_PER_ML, defaultReadingFactory } from '../../util/constants';
 import { IOrganismData, NematodeData, ActinobacteriaData, MultiReadingData, DiameterReadingData, CountingData } from '../../models/organism.model';
 
 export interface IBacteriaObs {
@@ -36,6 +36,7 @@ export class DataTab {
   sample: ISampleInfoModel
   readings: IOrganismReading[][]
   canViewData: boolean
+  canEditData: boolean
 
   Succession = Succession
   FieldPercentage = FieldPercentage
@@ -72,24 +73,32 @@ export class DataTab {
     } else {
       this.initData()
     }
-    
+
+    this.canEditData = this.observer.dataEntry === DataEntry.DataTab
     this.canViewData = this.observer.isValid && this.sample.isValid
+
+    this.stateManager.onProfileUpdated(() => {
+      this.observer = this.session.loadProfile();
+
+      this.canEditData = this.observer.dataEntry === DataEntry.DataTab
+      this.canViewData = this.observer.isValid && this.sample.isValid
+    })
+
+    this.stateManager.onReadingsUpdated(() => {
+      if (this.observer.dataEntry === DataEntry.DataTab) return;
+
+      this.readings = this.session.loadAllReadings();
+      this.updateReadingCalcs()
+
+      this.session.saveData({
+        bacteriaObs: this.bacteriaObs,
+        nematodeCalcs: this.nematodeCalcs,
+        organismCalcs: this.organismCalcs,
+      })
+    })
   }
 
-  initData() {
-    let model = this.session.loadSample();
-
-    this.observer = model.observer
-    this.sample = model.sample
-    this.readings = this.session.loadAllReadings();
-
-    this.nematodeCalcs = [
-      new NematodeData('Bacterial-feeding', this.sample),
-      new NematodeData('Fungal-feeding', this.sample),
-      new NematodeData('Predatory', this.sample),
-      new NematodeData('Root-feeding', this.sample)
-    ]
-
+  private updateReadingCalcs() {
     this.organismReadings = { }
     this.readings.forEach((r) => {
       r.forEach(o => {
@@ -106,14 +115,25 @@ export class DataTab {
       .map(x => {
         switch(x) {
           case 'Actinobacteria':
-            return new ActinobacteriaData(this.sample)
+            return ActinobacteriaData.fromReadings(this.organismReadings[x], this.sample)
           case 'Fungi':
           case 'Oomycetes':
-            return new DiameterReadingData(x, this.sample)
+            return DiameterReadingData.fromReadings(this.organismReadings[x], this.sample)
           default:
-            return new CountingData(x, this.sample)
+            return CountingData.fromReadings(this.organismReadings[x], this.sample)
         }
       })
+  }
+
+  initData() {
+    this.readings = this.session.loadAllReadings()
+
+    this.nematodeCalcs = [
+      new NematodeData('Bacterial-feeding', this.sample),
+      new NematodeData('Fungal-feeding', this.sample),
+      new NematodeData('Predatory', this.sample),
+      new NematodeData('Root-feeding', this.sample)
+    ]
 
     this.bacteriaObs = {
       readings: new Array(5),
@@ -126,6 +146,8 @@ export class DataTab {
       anaerobicBacteriaObserved: null,
       pathogenicBacteriaObserved: null,
     }
+
+    this.updateReadingCalcs()
   }
 
   saveTab() {

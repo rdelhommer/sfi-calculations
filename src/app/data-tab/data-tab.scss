@@ -15,6 +15,13 @@
     }
   }
 
+  input:disabled {
+    color: black;
+     border: none;
+    background: transparent;
+  }
+  
+
   .form-section-row {
     display: flex;
     flex-direction: row;

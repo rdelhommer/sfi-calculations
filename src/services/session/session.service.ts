@@ -10,6 +10,8 @@ export abstract class ISession {
   abstract saveData(data: IDataModel): void
   abstract loadData(sample: ISampleInfoModel): IDataModel
 
+  abstract clearReading(readingNumber: number)
+  abstract clearAllReadings()
   abstract saveReadings(readingNumber: number, readings: IOrganismReading[]): void
   abstract loadReadings(readingNumber: number): IOrganismReading[]
   abstract loadAllReadings(): IOrganismReading[][]

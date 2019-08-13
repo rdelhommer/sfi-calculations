@@ -5,6 +5,7 @@ import { inject, TaskQueue } from 'aurelia-framework';
 import { IStateManager } from '../services/state/state-manager.service';
 import { DataTab } from './data-tab/data-tab';
 import { Tabs } from '../resources/elements/tabs/tabs';
+import { DataEntry } from '../util/enums';
 
 @inject(ISession, IStateManager, TaskQueue)
 export class App { 
@@ -49,6 +50,7 @@ export class App {
   isProfileValid: boolean
   isSampleValid: boolean
   isScrollHooked: boolean
+  useReadingTab: boolean
 
   constructor(
     private session: ISession,
@@ -59,12 +61,16 @@ export class App {
   activate() {
     this.checkProfileValidity()
     this.checkSampleValidity()
-    
+    this.useReadingTab = this.session.loadProfile().dataEntry === DataEntry.ReadingsTab
+
     this.stateManager.onProfileUpdated(() => {
       this.checkProfileValidity()
 
+      this.useReadingTab = this.session.loadProfile().dataEntry === DataEntry.ReadingsTab
+
       this.hookScroll()
     })
+    
     this.stateManager.onSampleInfoUpdated(() => {
       this.checkSampleValidity()
 
@@ -93,6 +99,8 @@ export class App {
   }
 
   startNewSession() {
+    if(!confirm('Starting a new session will delete all existing data.  Click OK to continue.')) return
+    
     this.session.clear();
     window.location.reload();
   }

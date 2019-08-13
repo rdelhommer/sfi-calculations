@@ -2,8 +2,9 @@ import './reading.scss'
 import { inject, bindable } from 'aurelia-framework';
 import { ISession } from '../../../services/session/session.service';
 import { IOrganismReading } from '../../../models/reading.model';
+import { IStateManager } from '../../../services/state/state-manager.service';
 
-@inject(ISession)
+@inject(ISession, IStateManager)
 export class Reading {
 
   @bindable readingNumber: number
@@ -11,7 +12,8 @@ export class Reading {
   readings: IOrganismReading[]
 
   constructor(
-    private session: ISession
+    private session: ISession,
+    private stateManager: IStateManager
   ) { }
 
   bind() {
@@ -22,11 +24,13 @@ export class Reading {
     reading.updateCalculatedLengthValues();
     
     this.session.saveReadings(this.readingNumber, this.readings);
+    this.stateManager.readingsUpdated()
   }
 
   onDiameterChanged(reading: IOrganismReading) {
     reading.updateCalculatedDiameterValues();
 
     this.session.saveReadings(this.readingNumber, this.readings);
+    this.stateManager.readingsUpdated()
   }
 }

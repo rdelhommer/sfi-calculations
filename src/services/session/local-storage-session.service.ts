@@ -7,6 +7,7 @@ import { IOrganismReading, OrganismReading } from "../../models/reading.model";
 import { defaultReadingFactory } from "../../util/constants";
 import { IDataModel, DataModel } from "../../models/data.model";
 import { IResultsModel } from "../../app/results-tab/results-tab";
+import { IStateManager } from "../state/state-manager.service";
 
 @inject(ICache)
 export class LocalStorageSession implements ISession {
@@ -19,8 +20,19 @@ export class LocalStorageSession implements ISession {
     this.cache.clear();
   }
 
+  clearReading(readingNumber: number): void {
+    this.cache.delete(ICache.Mode.Global, `readingTab-${readingNumber}`)
+  }
+
+  clearAllReadings() {
+    for (let i = 1; i < 6; i++) {
+      this.clearReading(i)
+    }
+  }
+
   saveReadings(readingNumber: number, readings: IOrganismReading[]): void {
     this.cache.set(ICache.Mode.Global, `readingTab-${readingNumber}`, readings)
+
   }
 
   loadReadings(readingNumber: number): IOrganismReading[] {

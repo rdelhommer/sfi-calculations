@@ -13,7 +13,7 @@
         <data-tab view-model.ref="dataTabRef"></data-tab>
       </tab>
       <tab config.bind="readingsTab"
-          if.bind="isProfileValid && isSampleValid">
+          if.bind="isProfileValid && isSampleValid && useReadingTab">
         <reading-tab></reading-tab>
       </tab>
       <tab config.bind="resultsTab"

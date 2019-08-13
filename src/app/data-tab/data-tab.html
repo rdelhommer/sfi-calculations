@@ -380,7 +380,8 @@
                 change.delegate="updateCalc(calc)"
                 type="number"
                 step=".01" 
-                min="0"/>
+                min="0"
+                disabled.bind="!canEditData"/>
           </td>
           <td colspan="8"></td>
           <td class="data-tab__td--mean">${calc.lengthMeanMm | toFixed:2}</td>
@@ -406,7 +407,8 @@
                 change.delegate="updateCalc(calc)"
                 type="number"
                 step=".01"
-                min="0" />
+                min="0" 
+                disabled.bind="!canEditData"/>
           </td>
           <td colspan="8"></td>
           <td class="data-tab__td--mean"></td>

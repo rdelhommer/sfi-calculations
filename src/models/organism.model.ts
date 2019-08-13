@@ -2,6 +2,7 @@ import { DROPS_PER_ML, FOV_AREA_MM_SQUARED, FOV_DIAMETER_MM } from "../util/cons
 import { ISampleModel, ISampleInfoModel } from "./sample.model";
 import { mean, stDev } from "../util/misc";
 import { computedFrom } from "aurelia-binding";
+import { IOrganismReading } from "./reading.model";
 
 function initData(ret: IOrganismData, init: Partial<IOrganismData>): IOrganismData {
   Object.keys(init).forEach(k => {
@@ -164,6 +165,19 @@ export class ActinobacteriaData extends MultiReadingData {
     super('Actinobacteria', sample);
   }
 
+  static fromReadings(readings: IOrganismReading[], sample: ISampleInfoModel): IOrganismData {
+    let ret = this.fromPartial({}, sample);
+
+    readings.forEach((x, i) => {
+      ret.lengths[i] = x.totalLength
+      ret.diameters[i] = x.averageDiameter
+    })
+
+    ret.organismName = readings[0].organism
+
+    return ret;
+  }
+
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
     let sampleClone = { ...sample }
     if (init.dilution != null) {
@@ -217,6 +231,19 @@ export class DiameterReadingData extends MultiReadingData {
     sample: ISampleInfoModel
   ) { 
     super(organismName, sample);
+  }
+
+  static fromReadings(readings: IOrganismReading[], sample: ISampleInfoModel): IOrganismData {
+    let ret = this.fromPartial({}, sample);
+
+    readings.forEach((x, i) => {
+      ret.lengths[i] = x.totalLength
+      ret.diameters[i] = x.averageDiameter
+    })
+
+    ret.organismName = readings[0].organism
+
+    return ret;
   }
 
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {
@@ -300,6 +327,19 @@ export class CountingData extends MultiReadingData {
     sample: ISampleInfoModel
   ) { 
     super(organismName, sample);
+  }
+
+  static fromReadings(readings: IOrganismReading[], sample: ISampleInfoModel): IOrganismData {
+    let ret = this.fromPartial({}, sample);
+
+    readings.forEach((x, i) => {
+      ret.lengths[i] = x.totalLength
+      ret.diameters[i] = x.averageDiameter
+    })
+
+    ret.organismName = readings[0].organism
+
+    return ret;
   }
 
   static fromPartial(init: Partial<IOrganismData>, sample: ISampleInfoModel): IOrganismData {

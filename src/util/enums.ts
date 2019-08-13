@@ -112,3 +112,8 @@ export enum CiliateResult {
   Present = 'Present',
   High = 'High'
 }
+
+export enum DataEntry {
+  ReadingsTab = 'Readings Tab',
+  DataTab = 'Data Tab'
+}
