@@ -105,6 +105,9 @@
                 on-changed.call="saveTab()">
               <div slot="label">
                 Plant Succession
+                <tooltip 
+                    title="Weeds = 100% B - 0.3:1&#10;Early Grasses, Brassica = 0.3:1 - 0.5:1&#10;Mid Grasses, Vegetables = 0.5:1 - 0.8:1&#10;Perennial Grasses, Row crops = 0.8:1 - 1:1&#10;Shrubs, Vines = 2:1 - 5:1&#10;Deciduous Trees = 5:! - 100:1&#10;Evergreen Trees = 100:1 - 1,000:1">
+                </tooltip>
               </div>
             </form-group-select>
           </div>
@@ -156,6 +159,9 @@
                 on-changed.call="saveTab()">
               <div slot="label">
                 Main Dilution
+                <tooltip 
+                    title="The Main Dilution is the dilution that is used to quantify or measure the Nematodes, Actinobacteria, Fungi, Oomycete, and Protozoa.">
+                </tooltip>
               </div>
             </form-group>	
             <form-group 
@@ -164,6 +170,9 @@
                 on-changed.call="saveTab()">
               <div slot="label">
                 Bacteria Dilution
+                <tooltip 
+                    title="The Bacteria Dilution is the dilution used to quantify the bacteria.">
+                </tooltip>
               </div>
             </form-group>	
             <form-group 
@@ -172,6 +181,9 @@
                 on-changed.call="saveTab()">
               <div slot="label">
                 Fields per Reading
+                <tooltip 
+                    title="How many views did you look at in each field?">
+                </tooltip>
               </div>
             </form-group>	
           </div>
@@ -208,6 +220,9 @@
                 on-changed.call="saveTab()">
               <div slot="label">
                 Eyepiece Field Size
+                <tooltip 
+                    title="Eyepiece Field Number&#10;Example: 10X/18&#10;(The #18 is the Field Number)">
+                </tooltip>
               </div>
             </form-group>	
           </div>
@@ -319,7 +334,12 @@
                 min="0"/>
           </td>
           <td colspan="12"></td>
-          <td class="data-tab__td--mean">${calc.lengthMeanMm}</td>
+          <td class="data-tab__td--mean">
+            ${calc.lengthMeanMm}
+            <tooltip
+                title.bind="'=SUM(# of ' + calc.organismName + ' Nematodes'">
+            </tooltip>
+          </td>
           <td class="data-tab__td--stdev"><!-- This one is empty since it's a single reading --></td>
           <td class="data-tab__td--dilution">
             <input 
@@ -327,9 +347,17 @@
                 type="number"
                 change.delegate="updateCalc(calc)"
                 min="0"/>
+            <tooltip
+                title="Main Dilution">
+            </tooltip>
           </td>
           <td></td>
-          <td class="data-tab__td--mean">${calc.meanResult | toFixed:1}</td>
+          <td class="data-tab__td--mean">
+            ${calc.meanResult | toFixed:1}
+            <tooltip
+                title.bind="'=+(calc.organismName + ' Nematodes Mean*Main Dilution)*# of Drops per ml Calibration'">
+            </tooltip>
+          </td>
           <td></td>
           <td class="data-tab__td--stdev"></td>
         </tr>
@@ -386,19 +414,49 @@
                 disabled.bind="!canEditData"/>
           </td>
           <td colspan="8"></td>
-          <td class="data-tab__td--mean">${calc.lengthMeanMm | toFixed:2}</td>
-          <td class="data-tab__td--stdev">${calc.lengthStDevMm | toFixed:2}</td>
+          <td class="data-tab__td--mean">
+            ${calc.lengthMeanMm | toFixed:2}
+            <tooltip
+                title.bind="'=AVERAGE((SUM(' + calc.organismName + ' Field 1)/Views Per Field),(SUM(' + calc.organismName + ' Field 2)/Views Per Field),(SUM(' + calc.organismName + ' Field 3)/Views Per Field),(SUM(' + calc.organismName + ' Field 4)/Views Per Field),(SUM(' + calc.organismName + ' Field 5)/Views Per Field))">
+            </tooltip>
+          </td>
+          <td class="data-tab__td--stdev">
+            ${calc.lengthStDevMm | toFixed:2}
+            <tooltip
+                title.bind="'=STDEV((SUM(' + calc.organismName + ' Field 1)/Views Per Field),(SUM(' + calc.organismName + ' Field 2)/Views Per Field),(SUM(' + calc.organismName + ' Field 3)/Views Per Field),(SUM(' + calc.organismName + ' Field 4)/Views Per Field),(SUM(' + calc.organismName + ' Field 5)/Views Per Field))">
+            </tooltip>
+          </td>
           <td class="data-tab__td--dilution">
             <input 
                 value.bind="calc.dilution"
                 type="number"
                 change.delegate="updateCalc(calc)"
                 min="0"/>
+            <tooltip
+                title="Main Dilution">
+            </tooltip>
           </td>
-          <td><span if.bind="!calc.isCounting">${calc.lengthMeanCmPerG | toFixed:0}</span></td>
-          <td class="data-tab__td--mean">${calc.meanResult | toFixed:2}</td>
-          <td></td>
-          <td class="data-tab__td--stdev">${calc.stDevResult | toFixed:2}</td>
+          <td><span if.bind="!calc.isCounting">
+            ${calc.lengthMeanCmPerG | toFixed:0}
+            <tooltip
+                title.bind="'=+(' + calc.organismName + ' Mean Length in cm*Main Dilution)*Coverslip # of Fields @ 400X Total Magnification*# of Drops per ml Calibration">
+            </tooltip>
+            
+          </span></td>
+          <td class="data-tab__td--mean">
+            ${calc.meanResult | toFixed:2}
+            <!-- TODO: tooltip is different for each org :(-->
+          </td>
+          <td>
+            ${calc.lengthStDevCmPerG | toFixed:0}
+            <tooltip
+                title.bind="'=+(' + calc.organismName + ' StDev Length in cm*Main Dilution)*Coverslip # of Fields @ 400X Total Magnification*# of Drops per ml Calibration">
+            </tooltip>
+          </td>
+          <td class="data-tab__td--stdev">
+            ${calc.stDevResult | toFixed:2}
+            <!-- TODO: tooltip is different for each org :(-->
+          </td>
         </tr>
         <tr if.one-time="!calc.isField">
           <th>Diameter</th>
@@ -425,18 +483,27 @@
           <th>Color</th>
           <td repeat.for="reading of calc.lengths"
               class="data-tab__td--border-left data-tab__td--border-right">
-            <form-group-select 
-                if.bind="calc.organismName === 'Fungi'"
-                from-enum.bind="FungalColor"
-                orientation="horizontal"
-                placeholder="Please Select">
-            </form-group-select>
-            <form-group-select 
-                if.bind="calc.organismName !== 'Fungi'"
-                from-enum.bind="OomyceteColor"
-                orientation="horizontal"
-                placeholder="Please Select">
-            </form-group-select>
+            <div if.bind="calc.organismName === 'Fungi'">
+              <form-group-select 
+                  from-enum.bind="FungalColor"
+                  orientation="horizontal"
+                  placeholder="Please Select">
+                <tooltip
+                    slot="help"
+                    title="C = Clear&#10;Y = Yellow&#10;O = Orange&#10;R = Red&#10;G = Green&#10;P = Purple&#10;T = Tan&#10;B = Brown&#10;DB = Dark Brown">
+                </tooltip>
+              </form-group-select>
+            </div>
+            <div if.bind="calc.organismName !== 'Fungi'">
+              <form-group-select 
+                  from-enum.bind="OomyceteColor"
+                  orientation="horizontal"
+                  placeholder="Please Select">
+              </form-group-select>
+              <tooltip
+                  title="C = Clear">
+              </tooltip>
+            </div>
           </td>
           <td colspan="8"></td>
           <td class="data-tab__td--mean"></td>
@@ -454,11 +521,31 @@
           </td>
           <td colspan="7"></td>
           <td><strong>Length in cm</strong></td>
-          <td class="data-tab__td--mean">${calc.lengthMeanCm | toFixed:2}</td>
-          <td class="data-tab__td--stdev">${calc.lengthStDevCm | toFixed:2}</td>
+          <td class="data-tab__td--mean">
+            ${calc.lengthMeanCm | toFixed:2}
+            <tooltip
+                title.bind="calc.organismName + ' Mean * FOV Diameter @ 40X Objective (cm)'">
+            </tooltip>
+          </td>
+          <td class="data-tab__td--stdev">
+            ${calc.lengthStDevCm | toFixed:2}
+            <tooltip
+                title.bind="calc.organismName + ' STDEV * FOV Diameter @ 40X Objective (cm)'">
+            </tooltip>
+          </td>
           <td class="data-tab__td--dilution"></td>
-          <td if.bind="!calc.isField">${calc.averageDiameterCm | toFixed:5}</td>
-          <td if.bind="!calc.isField" class="data-tab__td--mean">${calc.averageDiameterUm | toFixed:1}</td>
+          <td if.bind="!calc.isField">
+            ${calc.averageDiameterCm | toFixed:5}
+            <tooltip
+                title.bind="'=+(' + calc.organismName + ' Average Diameter in um*0.0001)'">
+            </tooltip>
+          </td>
+          <td if.bind="!calc.isField" class="data-tab__td--mean">
+            ${calc.averageDiameterUm | toFixed:1}
+            <tooltip
+                title.bind="'=SUM((SUM(' + calc.organismName + ' Field 1 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 2 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 3 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 4 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 5 Volume)/Views Per Field))/SUM((SUM(' + calc.organismName + ' Field 1 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 2 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 3 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 4 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 5 Length)/Views Per Field))">
+            </tooltip>
+          </td>
           <td if.bind="calc.isField"></td>
           <td if.bind="calc.isField" class="data-tab__td--mean"></td>
           <td></td>

@@ -12,10 +12,10 @@
         <option if.bind="placeholder" value.bind="null">${placeholder}</option>
         <option repeat.for="opt of selectOptions" value.bind="opt.name">${opt.name}</option>
       </select>
+      <div class="form-group__help">
+        <slot name="help"></slot>
+      </div>
     </div>
-    <small id.bind="id + 'Help'" class="form-group__help">
-      <slot name="help"></slot>
-    </small>
   </div>
 </template>
   

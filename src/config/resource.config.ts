@@ -4,6 +4,7 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/tabs/tab/tab'),
   PLATFORM.moduleName('resources/elements/tabs/tabs'),
   PLATFORM.moduleName('resources/elements/reading/reading'),
+  PLATFORM.moduleName('resources/elements/tooltip/tooltip'),
   PLATFORM.moduleName('resources/elements/editable/editable'),
   PLATFORM.moduleName('resources/elements/simple-data/simple-data'),
   PLATFORM.moduleName('resources/elements/form-group/form-group'),
