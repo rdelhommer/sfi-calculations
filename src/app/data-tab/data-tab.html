@@ -355,7 +355,7 @@
           <td class="data-tab__td--mean">
             ${calc.meanResult | toFixed:1}
             <tooltip
-                title.bind="'=+(calc.organismName + ' Nematodes Mean*Main Dilution)*# of Drops per ml Calibration'">
+                title.bind="'=+(' + calc.organismName + ' Nematodes Mean*Main Dilution)*# of Drops per ml Calibration'">
             </tooltip>
           </td>
           <td></td>
@@ -417,13 +417,13 @@
           <td class="data-tab__td--mean">
             ${calc.lengthMeanMm | toFixed:2}
             <tooltip
-                title.bind="'=AVERAGE((SUM(' + calc.organismName + ' Field 1)/Views Per Field),(SUM(' + calc.organismName + ' Field 2)/Views Per Field),(SUM(' + calc.organismName + ' Field 3)/Views Per Field),(SUM(' + calc.organismName + ' Field 4)/Views Per Field),(SUM(' + calc.organismName + ' Field 5)/Views Per Field))">
+                title.bind="'=AVERAGE((SUM(' + calc.organismName + ' Field 1)/Views Per Field),(SUM(' + calc.organismName + ' Field 2)/Views Per Field),(SUM(' + calc.organismName + ' Field 3)/Views Per Field),(SUM(' + calc.organismName + ' Field 4)/Views Per Field),(SUM(' + calc.organismName + ' Field 5)/Views Per Field))'">
             </tooltip>
           </td>
           <td class="data-tab__td--stdev">
             ${calc.lengthStDevMm | toFixed:2}
             <tooltip
-                title.bind="'=STDEV((SUM(' + calc.organismName + ' Field 1)/Views Per Field),(SUM(' + calc.organismName + ' Field 2)/Views Per Field),(SUM(' + calc.organismName + ' Field 3)/Views Per Field),(SUM(' + calc.organismName + ' Field 4)/Views Per Field),(SUM(' + calc.organismName + ' Field 5)/Views Per Field))">
+                title.bind="'=STDEV((SUM(' + calc.organismName + ' Field 1)/Views Per Field),(SUM(' + calc.organismName + ' Field 2)/Views Per Field),(SUM(' + calc.organismName + ' Field 3)/Views Per Field),(SUM(' + calc.organismName + ' Field 4)/Views Per Field),(SUM(' + calc.organismName + ' Field 5)/Views Per Field))'">
             </tooltip>
           </td>
           <td class="data-tab__td--dilution">
@@ -439,7 +439,7 @@
           <td><span if.bind="!calc.isCounting">
             ${calc.lengthMeanCmPerG | toFixed:0}
             <tooltip
-                title.bind="'=+(' + calc.organismName + ' Mean Length in cm*Main Dilution)*Coverslip # of Fields @ 400X Total Magnification*# of Drops per ml Calibration">
+                title.bind="'=+(' + calc.organismName + ' Mean Length in cm*Main Dilution)*Coverslip # of Fields @ 400X Total Magnification*# of Drops per ml Calibration'">
             </tooltip>
             
           </span></td>
@@ -450,7 +450,7 @@
           <td>
             ${calc.lengthStDevCmPerG | toFixed:0}
             <tooltip
-                title.bind="'=+(' + calc.organismName + ' StDev Length in cm*Main Dilution)*Coverslip # of Fields @ 400X Total Magnification*# of Drops per ml Calibration">
+                title.bind="'=+(' + calc.organismName + ' StDev Length in cm*Main Dilution)*Coverslip # of Fields @ 400X Total Magnification*# of Drops per ml Calibration'">
             </tooltip>
           </td>
           <td class="data-tab__td--stdev">
@@ -543,7 +543,7 @@
           <td if.bind="!calc.isField" class="data-tab__td--mean">
             ${calc.averageDiameterUm | toFixed:1}
             <tooltip
-                title.bind="'=SUM((SUM(' + calc.organismName + ' Field 1 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 2 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 3 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 4 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 5 Volume)/Views Per Field))/SUM((SUM(' + calc.organismName + ' Field 1 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 2 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 3 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 4 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 5 Length)/Views Per Field))">
+                title.bind="'=SUM((SUM(' + calc.organismName + ' Field 1 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 2 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 3 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 4 Volume)/Views Per Field),(SUM(' + calc.organismName + ' Field 5 Volume)/Views Per Field))/SUM((SUM(' + calc.organismName + ' Field 1 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 2 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 3 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 4 Length)/Views Per Field),(SUM(' + calc.organismName + ' Field 5 Length)/Views Per Field))'">
             </tooltip>
           </td>
           <td if.bind="calc.isField"></td>
