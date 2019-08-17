@@ -11,6 +11,7 @@
   * validate readings such that they must have the correct number of fields
   * number of fields is determined as they go on reading #1
 * report sheet range should come from sucession ranges tab
+* print formatting 
 * report range auto selections
 * formula popups
   * mean result
