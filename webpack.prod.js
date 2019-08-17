@@ -26,13 +26,11 @@ module.exports = merge(common.config, {
       test: /\.js(\?.*)?$/i
     }),
     new WebpackShellPlugin({
-      onBuildExit: common.shellPluginOnBuildExitClean
-        .concat([
+      onBuildExit: [
           'echo "Copy index file to dist..."',
           'mkdir -p ./dist',
           'cp ./index.html ./dist/index.html',
-        ])
-        .concat(common.shellPluginOnBuildExitCommon)
+        ]
     })
   ]
 })
