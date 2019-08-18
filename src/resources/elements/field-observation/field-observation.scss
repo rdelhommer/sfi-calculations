@@ -1,0 +1,25 @@
+.field-observation {
+  display: flex;
+
+  &__cell {
+    border: 0.5px solid;
+    padding: 5px;
+    text-align: center;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+
+    &--header {
+      font-weight: 600;
+      width: initial;
+      justify-content: end;
+    }
+  }
+
+  .form-group--horizontal {
+    // HACK: Center with this since we dont have labels
+    display: inline-block;
+  }
+}

@@ -1,0 +1,39 @@
+@import '../sass/variables.scss';
+@import '../sass/bases.scss';
+
+.app {
+  &__data-selector {
+    width: 400px;
+    height: 250px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__selector-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .app__data-selector {
+      margin: 20px;
+    }
+  }
+}
+
+* {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance:textfield; /* Firefox */
+}

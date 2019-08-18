@@ -1,0 +1,10 @@
+.fila-proto {
+  &__organism-container {
+    display: flex;
+
+    .reading-v2 {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}

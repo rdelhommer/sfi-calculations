@@ -1,0 +1,47 @@
+<template>
+  <div class="field-observation">
+    <div class="field-observation__cells--header" if.bind="fieldNumber === 1">
+      <div class="field-observation__cell field-observation__cell--header">
+        Field #
+      </div>
+      <div class="field-observation__cell field-observation__cell--header">
+        ${organismName}
+      </div>
+      <div 
+          if.bind="fungiColorEnum"
+          class="field-observation__cell field-observation__cell--header">
+        Diameter
+      </div>
+      <div 
+          if.bind="fungiColorEnum"
+          class="field-observation__cell field-observation__cell--header">
+        Color
+      </div>
+    </div>
+    <div class="field-observation__cells--data">
+      <div class="field-observation__cell ">
+        ${fieldNumber}
+      </div>
+      <div class="field-observation__cell">
+        <input 
+            if.bind="!fungiColorEnum"
+            value.bind="length"
+            type="number"
+            step=".01"/>
+        <span if.bind="fungiColorEnum">${length}</span>
+      </div>
+      <div if.bind="fungiColorEnum">
+        <div class="field-observation__cell">
+          ${diameter}
+        </div>
+        <div class="field-observation__cell">
+          <form-group-select 
+              from-enum.bind="fungiColorEnum"
+              orientation="horizontal"
+              placeholder.bind="' '">
+          </form-group-select>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

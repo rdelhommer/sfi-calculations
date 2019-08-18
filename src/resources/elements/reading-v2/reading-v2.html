@@ -1,0 +1,28 @@
+<template>
+  <div class="reading-v2">
+    <card>
+      <h2 slot="heading" class="reading-v2__heading">
+        Reading #${readingNumber}
+        <button click.delegate="toggleExpand()">
+          ${isExpanded ? 'Collapse' : 'Expand'}
+        </button>
+      </h2>
+      <div slot="body">
+        <div class="reading-v2__reading-container" show.bind="!isExpanded">
+          <input 
+              type="number"
+              step=".01" 
+              min="0"/>
+        </div>
+        <div class="reading-v2__field-container" show.bind="isExpanded">
+          <field-observation repeat.for="field of reading.fields"
+              field.bind="field"
+              field-number.bind="$index + 1"
+              fungi-color-enum.bind="fungiColorEnum"
+              organism-name.bind="organismName">
+          </field-observation>
+        </div>
+      </div>
+    </card>
+  </div>
+</template>

@@ -4,6 +4,7 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/tabs/tab/tab'),
   PLATFORM.moduleName('resources/elements/tabs/tabs'),
   PLATFORM.moduleName('resources/elements/reading/reading'),
+  PLATFORM.moduleName('resources/elements/reading-v2/reading-v2'),
   PLATFORM.moduleName('resources/elements/tooltip/tooltip'),
   PLATFORM.moduleName('resources/elements/editable/editable'),
   PLATFORM.moduleName('resources/elements/simple-data/simple-data'),
@@ -12,6 +13,8 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/form-group/form-group-textarea/form-group-textarea'),
   PLATFORM.moduleName('resources/elements/form-section/form-section'),
   PLATFORM.moduleName('resources/elements/form-wrap/form-wrap'),
+  PLATFORM.moduleName('resources/elements/card/card'),
+  PLATFORM.moduleName('resources/elements/field-observation/field-observation'),
 
   PLATFORM.moduleName('app/usage/usage'),
   PLATFORM.moduleName('app/data-tab/data-tab'),
