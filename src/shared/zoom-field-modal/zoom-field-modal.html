@@ -1,3 +1,16 @@
 <template>
-  
+  <ux-dialog>
+    <ux-dialog-header>
+      Header
+    </ux-dialog-header>
+
+    <ux-dialog-body>
+      Body
+    </ux-dialog-body>
+
+    <ux-dialog-footer>
+      <button click.trigger="dialogController.cancel()">Cancel</button>
+      <button click.trigger="dialogController.ok()">Ok</button>
+    </ux-dialog-footer>
+  </ux-dialog>
 </template>
