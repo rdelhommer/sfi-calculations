@@ -23,5 +23,79 @@
           reading.bind="reading">
       </reading-v2>
     </div>
+    <h3>Biomass</h3>
+    <div class="fila-proto__calcs">
+      <div class="fila-proto__calc">
+        <div class="fila-proto__calc-header">
+          Mean
+        </div>
+        1.23
+      </div>
+      <div class="fila-proto__calc">
+        <div class="fila-proto__calc-header">
+          StDev
+        </div>
+        0.45
+      </div>
+    </div>
+
+    <h2>Fungi</h2>
+    <div class="fila-proto__organism-container">
+      <reading-v2 
+          repeat.for="reading of fungiReadings"
+          organism-name="Fungi"
+          reading-number.bind="$index + 1"
+          reading.bind="reading"
+          fungi-color-enum.bind="FungalColor">
+      </reading-v2>
+    </div>
+    <h3>Biomass</h3>
+    <div class="fila-proto__calcs">
+      <div class="fila-proto__calc">
+        <div class="fila-proto__calc-header">
+          Mean
+        </div>
+        1.23
+      </div>
+      <div class="fila-proto__calc">
+        <div class="fila-proto__calc-header">
+          StDev
+        </div>
+        0.45
+      </div>
+    </div>
+
+    <h2>Oomycetes</h2>
+    <div class="fila-proto__organism-container">
+      <reading-v2 
+          repeat.for="reading of oomyceteReadings"
+          organism-name="Oomycetes"
+          reading-number.bind="$index + 1"
+          reading.bind="reading"
+          fungi-color-enum.bind="OomyceteColor">
+      </reading-v2>
+    </div>
+    <h3>Biomass</h3>
+    <div class="fila-proto__calcs">
+      <div class="fila-proto__calc">
+        <div class="fila-proto__calc-header">
+          Mean
+        </div>
+        1.23        
+      </div>
+      <div class="fila-proto__calc">
+        <div class="fila-proto__calc-header">
+          StDev
+        </div>
+        0.45
+      </div>
+    </div>
   </div>
+
+  <div style="margin-top:40px">
+      NOTE:
+      <br/>
+      Biomass calculations will be real-time calculations of the biomass mean and standard deviation (big green and gray columns on far right of spreadsheet)
+  </div>
+  
 </template>

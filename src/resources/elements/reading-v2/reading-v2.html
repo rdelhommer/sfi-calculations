@@ -9,12 +9,22 @@
       </h2>
       <div slot="body">
         <div class="reading-v2__reading-container" show.bind="!isExpanded">
-          <form-group 
-              orientation="horizontal">
-            <div slot="label">
-              Total Length
-            </div>
-          </form-group>
+          <div>
+            <form-group 
+                orientation="horizontal">
+              <div slot="label">
+                Total Length
+              </div>
+            </form-group>
+          </div>
+          <div if.bind="!!fungiColorEnum">
+            <form-group 
+                orientation="horizontal">
+              <div slot="label">
+                Average Diameter
+              </div>
+            </form-group>
+          </div>
         </div>
         <div class="reading-v2__field-container" show.bind="isExpanded">
           <field-observation repeat.for="field of reading.fields"
