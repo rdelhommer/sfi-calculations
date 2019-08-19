@@ -7,6 +7,7 @@ export function configure(aurelia: Aurelia) {
     .standardConfiguration()
     .globalResources(globalResources)
     .plugin(PLATFORM.moduleName('aurelia-validation'))
+    .plugin(PLATFORM.moduleName('aurelia-dialog'));
 
   configureRootContainer(aurelia.container);
 

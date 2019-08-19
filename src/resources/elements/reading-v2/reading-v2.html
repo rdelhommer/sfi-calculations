@@ -9,10 +9,12 @@
       </h2>
       <div slot="body">
         <div class="reading-v2__reading-container" show.bind="!isExpanded">
-          <input 
-              type="number"
-              step=".01" 
-              min="0"/>
+          <form-group 
+              orientation="horizontal">
+            <div slot="label">
+              Total Length
+            </div>
+          </form-group>
         </div>
         <div class="reading-v2__field-container" show.bind="isExpanded">
           <field-observation repeat.for="field of reading.fields"

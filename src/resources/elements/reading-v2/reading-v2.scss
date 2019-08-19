@@ -13,10 +13,16 @@
     input {
       width: 60px;
     }
-  
   }
 
-  &__expand-icon {
+  .form-group {
+    label {
+      white-space: nowrap;
+      margin-right: 10px;
+    }
 
+    input {
+      width: 70px;
+    }
   }
 }

@@ -1,10 +1,26 @@
 <template>
   <div class="fila-proto">
+    <div class="fila-proto__actions">
+      <button click.delegate="addField()">
+        Add Field
+      </button>
+      <button 
+          click.delegate="removeField()" 
+          disabled.bind="actinobacteriaReadings[0].fields.length <= 5">
+        Remove Field
+      </button>
+      <button click.delegate="collectData()">
+        Collect Data
+      </button>
+    </div>
+
+    <h2>Actinobacteria</h2>
     <div class="fila-proto__organism-container">
       <reading-v2 
-          repeat.for="i of 5"
+          repeat.for="reading of actinobacteriaReadings"
           organism-name="Actinobacteria"
-          reading-number.bind="i + 1">
+          reading-number.bind="$index + 1"
+          reading.bind="reading">
       </reading-v2>
     </div>
   </div>
