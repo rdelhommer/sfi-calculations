@@ -7,9 +7,21 @@ export class FieldObservation {
   @bindable fungiColorEnum: any
   @bindable fieldNumber: number
   @bindable organismName: string
+  @bindable isLastField: boolean
+
   @bindable onEdit: ({ fieldNumber: number }) => void
+  @bindable onAddField: () => void
+  @bindable onRemoveField: () => void
 
   _onEdit() {
     this.onEdit({ fieldNumber: this.fieldNumber })
+  }
+
+  _addField() {
+    this.onAddField()
+  }
+
+  _removeField() {
+    this.onRemoveField()
   }
 }

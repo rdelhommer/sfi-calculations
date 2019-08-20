@@ -31,3 +31,16 @@ export function stDev(array: number[]){
            return firstEl + nextEl;
          })/filtered.length));
 };
+
+declare global {
+  interface Array<T> {
+    filterNumbers: () => number[]
+  }
+}
+
+Array.prototype.filterNumbers = function() {
+  return this
+    .filter(x => x != null)
+    .map(x => Number(x))
+    .filter(x => !Number.isNaN(x))
+}

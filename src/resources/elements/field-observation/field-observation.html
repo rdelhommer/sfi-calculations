@@ -33,16 +33,11 @@
         ${fieldNumber}
       </div>
       <div class="field-observation__cell">
-        <input 
-            if.bind="!fungiColorEnum"
-            value.bind="length"
-            type="number"
-            step=".01"/>
-        <span if.bind="fungiColorEnum">${length}</span>
+        <span>${length | calculated: 0.01}</span>
       </div>
       <div if.bind="fungiColorEnum">
         <div class="field-observation__cell">
-          ${diameter}
+          ${diameter | calculated: 0.01}
         </div>
         <div class="field-observation__cell">
           <form-group-select 
@@ -51,6 +46,26 @@
               placeholder.bind="' '">
           </form-group-select>
         </div>
+      </div>
+    </div>
+    <div 
+        class="field-observation__cells--footer"
+        if.bind="isLastField">
+      <div class="field-observation__cell field-observation__cell--footer">
+        &nbsp;
+      </div>
+      <div class="field-observation__cell field-observation__cell--footer field-observation__cell--fill">
+        <button 
+            click.delegate="_addField()">
+          Add
+        </button>
+      </div>
+      <div 
+          class="field-observation__cell field-observation__cell--footer field-observation__cell--fill"
+          if.bind="fieldNumber > 5">
+        <button click.delegate="_removeField()">
+          Remove
+        </button>
       </div>
     </div>
   </div>

@@ -32,7 +32,10 @@
               field-number.bind="$index + 1"
               fungi-color-enum.bind="fungiColorEnum"
               organism-name.bind="organismName"
-              on-edit.call="editField(fieldNumber)">
+              is-last-field.bind="$index + 1 === reading.fields.length"
+              on-edit.call="editField(fieldNumber)"
+              on-add-field.call="addField()"
+              on-remove-field.call="removeField()">
           </field-observation>
         </div>
       </div>

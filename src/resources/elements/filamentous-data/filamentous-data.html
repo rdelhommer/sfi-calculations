@@ -1,3 +1,50 @@
 <template>
-  TODO
+  <table class="filamentous-data">
+    <thead>
+      <tr>
+        <th class="filamentous-data__cell filamentous-data__cell--header">
+          Length
+        </th>
+        <th class="filamentous-data__cell filamentous-data__cell--header">
+          Diameter
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="row of rawData">
+        <td class="filamentous-data__cell filamentous-data__cell--entry">
+          <input 
+              value.bind="row.length"
+              type="number"
+              step=".1" 
+              min="0"
+              change.delegate="updateCalcs()"/>
+        </td>
+        <td class="filamentous-data__cell filamentous-data__cell--entry">
+          <input 
+              value.bind="row.diameter"
+              type="number"
+              step=".1" 
+              min="0"
+              change.delegate="updateCalcs()"/>
+        </td>
+      </tr>
+      <tr>
+        <td class="filamentous-data__cell">
+          ${totalLength | calculated: 0.01}
+          <br/>
+          Total
+          <br/>
+          Length
+        </td>
+        <td class="filamentous-data__cell">
+          ${averageDiameter | calculated: 0.01}
+          <br/>
+          Average
+          <br/>
+          Diameter
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>

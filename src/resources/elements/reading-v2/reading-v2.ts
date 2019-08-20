@@ -26,6 +26,8 @@ export class ReadingVTwo {
   @bindable fungiColorEnum: any
   @bindable organismName: string
   @bindable onEditField: (params: any) => void
+  @bindable onAddField: () => void
+  @bindable onRemoveField: () => void
 
   readings: IOrganismReading[]
 
@@ -40,5 +42,13 @@ export class ReadingVTwo {
       fieldNumber,
       readingNumber: this.readingNumber
     })
+  }
+
+  addField() {
+    this.onAddField()
+  }
+
+  removeField() {
+    this.onRemoveField()
   }
 }

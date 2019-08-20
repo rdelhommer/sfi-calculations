@@ -26,4 +26,5 @@ export const globalResources = [
   PLATFORM.moduleName('app/succession/succession'),
 
   PLATFORM.moduleName('resources/value-converters/to-fixed'),
+  PLATFORM.moduleName('resources/value-converters/calculated'),
 ];

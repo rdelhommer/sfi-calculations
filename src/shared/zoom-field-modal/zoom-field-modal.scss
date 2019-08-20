@@ -3,7 +3,21 @@
     margin: 0px;
   }
 
-  h5 {
-    margin-bottom: 0px;
+  &__body {
+    display: flex;
+
+    h5 {
+      margin-bottom: 0px;
+    }
+
+    .form-group {
+      input {
+        width: 120px;
+      }
+    }
+  }
+
+  &__body-section {
+    margin: 10px;
   }
 }

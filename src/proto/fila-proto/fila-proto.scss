@@ -1,21 +1,4 @@
 .fila-proto {
-  &__actions {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    z-index: 999;
-    background: lightgray;
-    border: 0.5px solid;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-
-    button:not(:first-of-type) {
-      margin-top: 5px;
-    }
-  }
-
   &__organism-container {
     display: flex;
 
@@ -37,5 +20,9 @@
   &__calc-header {
     width: 70px;
     font-weight: 600;
+  }
+
+  h2:not(:first-of-type) {
+    margin-top: 40px;
   }
 }
