@@ -25,13 +25,20 @@ export class ReadingVTwo {
   @bindable readingNumber: number
   @bindable fungiColorEnum: any
   @bindable organismName: string
+  @bindable onEditField: (params: any) => void
 
   readings: IOrganismReading[]
 
   isExpanded: boolean
 
-
   toggleExpand() {
     this.isExpanded = !this.isExpanded
+  }
+
+  editField(fieldNumber: number) {
+    this.onEditField({
+      fieldNumber,
+      readingNumber: this.readingNumber
+    })
   }
 }

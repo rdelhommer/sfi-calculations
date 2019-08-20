@@ -1,11 +1,61 @@
 <template>
-  <ux-dialog>
+  <ux-dialog class="zoom-field">
     <ux-dialog-header>
-      Header
+      <h4 class="zoom-field__heading">
+        Edit Reading #${readingNumber} - Field #${fieldNumber} 
+      </h4>
+      
     </ux-dialog-header>
 
     <ux-dialog-body>
-      Body
+      <h5>
+        Actinobacteria
+      </h5>
+      <form-group 
+          orientation="vertical">
+        <div slot="label">
+          Total Length
+        </div>
+      </form-group>
+      <h5>
+        Fungi
+      </h5>
+      <filamentous-data
+          organism-name="Fungi">
+      </filamentous-data>
+      <h5>
+        Oomycete
+      </h5>
+      <filamentous-data
+          organism-name="Oomycete">
+      </filamentous-data>
+      <h5>
+        Flagellate
+      </h5>
+      <form-group 
+          orientation="vertical">
+        <div slot="label">
+          Total Length
+        </div>
+      </form-group>
+      <h5>
+        Amoebae
+      </h5>
+      <form-group 
+          orientation="vertical">
+        <div slot="label">
+          Total Length
+        </div>
+      </form-group>
+      <h5>
+        Ciliate
+      </h5>
+      <form-group 
+          orientation="vertical">
+        <div slot="label">
+          Total Length
+        </div>
+      </form-group>
     </ux-dialog-body>
 
     <ux-dialog-footer>

@@ -20,7 +20,8 @@
           repeat.for="reading of actinobacteriaReadings"
           organism-name="Actinobacteria"
           reading-number.bind="$index + 1"
-          reading.bind="reading">
+          reading.bind="reading"
+          on-edit-field.call="collectData(readingNumber, fieldNumber)">
       </reading-v2>
     </div>
     <h3>Biomass</h3>
@@ -46,7 +47,8 @@
           organism-name="Fungi"
           reading-number.bind="$index + 1"
           reading.bind="reading"
-          fungi-color-enum.bind="FungalColor">
+          fungi-color-enum.bind="FungalColor"
+          on-edit-field.call="collectData(readingNumber, fieldNumber)">
       </reading-v2>
     </div>
     <h3>Biomass</h3>
@@ -72,7 +74,8 @@
           organism-name="Oomycetes"
           reading-number.bind="$index + 1"
           reading.bind="reading"
-          fungi-color-enum.bind="OomyceteColor">
+          fungi-color-enum.bind="OomyceteColor"
+          on-edit-field.call="collectData(readingNumber, fieldNumber)">
       </reading-v2>
     </div>
     <h3>Biomass</h3>

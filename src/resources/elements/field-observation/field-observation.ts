@@ -7,4 +7,9 @@ export class FieldObservation {
   @bindable fungiColorEnum: any
   @bindable fieldNumber: number
   @bindable organismName: string
+  @bindable onEdit: ({ fieldNumber: number }) => void
+
+  _onEdit() {
+    this.onEdit({ fieldNumber: this.fieldNumber })
+  }
 }

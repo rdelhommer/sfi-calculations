@@ -1,7 +1,7 @@
 import './fila-proto.scss'
 import { DialogService } from 'aurelia-dialog'
 import { inject } from 'aurelia-framework';
-import { ZoomFieldModal } from '../../shared/zoom-field-modal/zoom-field-modal';
+import { ZoomFieldModal, IZoomFieldModalModel } from '../../shared/zoom-field-modal/zoom-field-modal';
 import { FungalColor, OomyceteColor } from '../../util/enums';
 
 @inject(DialogService)
@@ -69,13 +69,14 @@ export class FilaProto {
     this.oomyceteReadings.forEach(x => x.fields.pop())
   }
 
-  collectData() {
+  collectData(readingNumber: number, fieldNumber: number) {
     this.dialogService.open({
       viewModel: ZoomFieldModal,
-      model: {
-
+      model: <IZoomFieldModalModel>{
+        readingNumber,
+        fieldNumber
       }, 
-      lock: false
+      lock: true
     }).whenClosed(result => {
       if (result.wasCancelled) return
 

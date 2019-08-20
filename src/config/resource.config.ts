@@ -15,6 +15,7 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/form-wrap/form-wrap'),
   PLATFORM.moduleName('resources/elements/card/card'),
   PLATFORM.moduleName('resources/elements/field-observation/field-observation'),
+  PLATFORM.moduleName('resources/elements/filamentous-data/filamentous-data'),
 
   PLATFORM.moduleName('app/usage/usage'),
   PLATFORM.moduleName('app/data-tab/data-tab'),

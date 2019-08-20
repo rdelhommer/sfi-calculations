@@ -1,12 +1,12 @@
 <template>
   <div class="reading-v2">
     <card>
-      <h2 slot="heading" class="reading-v2__heading">
+      <h3 slot="heading" class="reading-v2__heading">
         Reading #${readingNumber}
         <button click.delegate="toggleExpand()">
           ${isExpanded ? 'Collapse' : 'Expand'}
         </button>
-      </h2>
+      </h3>
       <div slot="body">
         <div class="reading-v2__reading-container" show.bind="!isExpanded">
           <div>
@@ -31,7 +31,8 @@
               field.bind="field"
               field-number.bind="$index + 1"
               fungi-color-enum.bind="fungiColorEnum"
-              organism-name.bind="organismName">
+              organism-name.bind="organismName"
+              on-edit.call="editField(fieldNumber)">
           </field-observation>
         </div>
       </div>
