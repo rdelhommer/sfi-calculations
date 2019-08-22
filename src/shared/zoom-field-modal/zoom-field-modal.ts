@@ -1,35 +1,32 @@
 import './zoom-field-modal.scss'
 import { DialogController } from "aurelia-dialog";
 import { inject } from "aurelia-framework";
-import { IFilamentousRawData } from '../../resources/elements/filamentous-data/filamentous-data';
+import { ILengthRawData } from '../../resources/elements/length-data/length-data';
+import { IDiameterRawData } from '../../resources/elements/diameter-data/diameter-data';
+import { isDeepStrictEqual } from 'util';
 
 export interface IZoomFieldModalModel {
   readingNumber: number
   fieldNumber: number
+  organismName: string
+  rawData: (ILengthRawData | IDiameterRawData)[]
+  isDiameter: boolean
 }
 
 export interface IZoomFieldModalResult {
-  actinobacteriaLength: number
-  fungiLength: number
-  fungiDiameter: number
-  oomyceteLength: number
-  oomyceteDiameter: number
-  flagellateLength: number
-  amoebaeLength: number
-  ciliateLength: number 
+  totalLength: number
+  averageDiameter: number
 }
 
 @inject(DialogController)
-export class ZoomFieldModal implements IZoomFieldModalModel {
+export class ZoomFieldModal implements IZoomFieldModalModel{
   readingNumber: number
   fieldNumber: number
+  organismName: string
+  rawData: (ILengthRawData | IDiameterRawData)[]
+  isDiameter: boolean
 
   result: IZoomFieldModalResult
-
-  // TODO: These should be stored in the model injected into this
-  // For the demo just setting them here
-  fungiRawData: IFilamentousRawData[] = []
-  oomyceteRawData: IFilamentousRawData[] = []
 
   constructor(
     public dialogController: DialogController  // Used in View
@@ -38,11 +35,14 @@ export class ZoomFieldModal implements IZoomFieldModalModel {
   activate(model: IZoomFieldModalModel) {
     this.fieldNumber = model.fieldNumber
     this.readingNumber = model.readingNumber
+    this.organismName = model.organismName
+    this.rawData = model.rawData
+    this.isDiameter = model.isDiameter
 
     for (let i = 0; i < 10; i++) {
-      this.fungiRawData.push({ length: null, diameter: null})
-      this.oomyceteRawData.push({ length: null, diameter: null})
+      this.rawData.push({ length: null, diameter: null})
     }
+    console.log(this.rawData);
   }
 
   save() {

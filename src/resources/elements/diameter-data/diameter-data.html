@@ -1,18 +1,18 @@
 <template>
-  <table class="filamentous-data">
+  <table class="diameter-data">
     <thead>
       <tr>
-        <th class="filamentous-data__cell filamentous-data__cell--header">
+        <th class="diameter-data__cell diameter-data__cell--header">
           Length
         </th>
-        <th class="filamentous-data__cell filamentous-data__cell--header">
+        <th class="diameter-data__cell diameter-data__cell--header">
           Diameter
         </th>
       </tr>
     </thead>
     <tbody>
       <tr repeat.for="row of rawData">
-        <td class="filamentous-data__cell filamentous-data__cell--entry">
+        <td class="diameter-data__cell diameter-data__cell--entry">
           <input 
               value.bind="row.length"
               type="number"
@@ -20,7 +20,7 @@
               min="0"
               change.delegate="updateCalcs()"/>
         </td>
-        <td class="filamentous-data__cell filamentous-data__cell--entry">
+        <td class="diameter-data__cell diameter-data__cell--entry">
           <input 
               value.bind="row.diameter"
               type="number"
@@ -30,14 +30,14 @@
         </td>
       </tr>
       <tr>
-        <td class="filamentous-data__cell">
+        <td class="diameter-data__cell">
           ${totalLength | calculated: 0.01}
           <br/>
           Total
           <br/>
           Length
         </td>
-        <td class="filamentous-data__cell">
+        <td class="diameter-data__cell">
           ${averageDiameter | calculated: 0.01}
           <br/>
           Average

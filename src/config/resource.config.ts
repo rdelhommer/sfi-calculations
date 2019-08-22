@@ -14,8 +14,11 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/form-section/form-section'),
   PLATFORM.moduleName('resources/elements/form-wrap/form-wrap'),
   PLATFORM.moduleName('resources/elements/card/card'),
+  PLATFORM.moduleName('resources/elements/biomass/biomass'),
   PLATFORM.moduleName('resources/elements/field-observation/field-observation'),
-  PLATFORM.moduleName('resources/elements/filamentous-data/filamentous-data'),
+  PLATFORM.moduleName('resources/elements/diameter-data/diameter-data'),
+  PLATFORM.moduleName('resources/elements/length-data/length-data'),
+  PLATFORM.moduleName('resources/elements/dropdown-button/dropdown-button'),
 
   PLATFORM.moduleName('app/usage/usage'),
   PLATFORM.moduleName('app/data-tab/data-tab'),

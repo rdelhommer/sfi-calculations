@@ -3,9 +3,6 @@
     <card>
       <h3 slot="heading" class="reading-v2__heading">
         Reading #${readingNumber}
-        <button click.delegate="toggleExpand()">
-          ${isExpanded ? 'Collapse' : 'Expand'}
-        </button>
       </h3>
       <div slot="body">
         <div class="reading-v2__reading-container" show.bind="!isExpanded">

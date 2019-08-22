@@ -28,14 +28,9 @@ export class ReadingVTwo {
   @bindable onEditField: (params: any) => void
   @bindable onAddField: () => void
   @bindable onRemoveField: () => void
+  @bindable isExpanded: boolean
 
   readings: IOrganismReading[]
-
-  isExpanded: boolean
-
-  toggleExpand() {
-    this.isExpanded = !this.isExpanded
-  }
 
   editField(fieldNumber: number) {
     this.onEditField({

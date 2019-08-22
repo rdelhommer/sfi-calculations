@@ -1,0 +1,40 @@
+.dropdown-button {
+  width: 100%;
+  position: relative;
+
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  &__dropdown-container {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    width: 100%;
+
+    a, button {
+      display: block;
+
+      &:hover {
+        background-color: #f1f1f1
+      }
+    }
+  }
+
+  &:hover {
+    .dropdown-button__dropdown-container {
+      display: block;
+    }
+
+    .dropdown-button__greeting {
+      background-color: #3e8e41;
+    }
+  }
+}

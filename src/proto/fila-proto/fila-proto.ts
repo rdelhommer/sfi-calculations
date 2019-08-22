@@ -1,8 +1,8 @@
 import './fila-proto.scss'
 import { DialogService } from 'aurelia-dialog'
 import { inject } from 'aurelia-framework';
-import { ZoomFieldModal, IZoomFieldModalModel } from '../../shared/zoom-field-modal/zoom-field-modal';
 import { FungalColor, OomyceteColor } from '../../util/enums';
+import { IZoomFieldModalModel, ZoomFieldModal } from '../../shared/zoom-field-modal/zoom-field-modal';
 
 @inject(DialogService)
 export class FilaProto {
@@ -13,9 +13,15 @@ export class FilaProto {
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
 
-  constructor(
-    private dialogService: DialogService
-  ) { }
+  isReadingExpanded = {
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  }
+
+  constructor(private dialogService: DialogService) { }
 
   activate() {
     this.actinobacteriaReadings.forEach(x => {
@@ -69,12 +75,33 @@ export class FilaProto {
     this.oomyceteReadings.forEach(x => x.fields.pop())
   }
 
-  collectData(readingNumber: number, fieldNumber: number) {
+  collapse(readingNumber?: number) {
+    if (readingNumber != null) {
+      this.isReadingExpanded[readingNumber - 1] = false
+    } else {
+      Object.keys(this.isReadingExpanded)
+        .forEach(x => this.isReadingExpanded[x] = false)
+    }
+  }
+
+  expand(readingNumber?: number) {
+    if (readingNumber != null) {
+      this.isReadingExpanded[readingNumber - 1] = true
+    } else {
+      Object.keys(this.isReadingExpanded)
+        .forEach(x => this.isReadingExpanded[x] = true)
+    }
+  }
+
+  collectData(readingNumber: number, fieldNumber: number, organismName: string, isDiameter: boolean) {
     this.dialogService.open({
       viewModel: ZoomFieldModal,
       model: <IZoomFieldModalModel>{
         readingNumber,
-        fieldNumber
+        fieldNumber,
+        organismName,
+        isDiameter,
+        rawData: []  // TODO: this needs to be in a model somewhere
       }, 
       lock: true
     }).whenClosed(result => {

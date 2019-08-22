@@ -1,0 +1,16 @@
+.biomass {
+  &__calcs {
+    border: 0.5px solid;
+    padding: 5px;
+    display: inline-block;
+  }
+
+  &__calc {
+    display: flex;
+  }
+
+  &__calc-header {
+    width: 70px;
+    font-weight: 600;
+  }
+}

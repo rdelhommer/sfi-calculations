@@ -1,25 +1,48 @@
 .fila-proto {
   &__organism-container {
     display: flex;
+    margin-bottom: 10px;
 
-    reading-v2:not(:first-of-type) {
-      margin-left: 10px;
+    reading-v2 {
+      margin-right: 10px;
     }
   }
 
-  &__calcs {
-    border: 0.5px solid;
-    padding: 5px;
-    display: inline-block;
+  &__organism-header {
+    // transform: rotate(-90deg);
+    align-self: center;
+    min-width: 120px;
+    max-width: 120px;
+    text-align: center;
   }
 
-  &__calc {
+  &__actions {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+
+    border-radius: 4px;
+    border: 1px solid;
+
+    background: lightgray;
+
     display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+
+    button:not(:first-of-type) {
+      margin-top: 10px;
+      cursor: pointer;
+    }
   }
 
-  &__calc-header {
-    width: 70px;
-    font-weight: 600;
+  &__action-button {
+    cursor: pointer;
+
+    &:not(:first-of-type) {
+      margin-top: 10px;
+    }
   }
 
   h2:not(:first-of-type) {

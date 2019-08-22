@@ -1,0 +1,32 @@
+<template>
+  <table class="length-data">
+    <thead>
+      <tr>
+        <th class="length-data__cell length-data__cell--header">
+          Length
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="row of rawData">
+        <td class="length-data__cell length-data__cell--entry">
+          <input 
+              value.bind="row.length"
+              type="number"
+              step=".1" 
+              min="0"
+              change.delegate="updateCalcs()"/>
+        </td>
+      </tr>
+      <tr>
+        <td class="length-data__cell">
+          ${totalLength | calculated: 0.01}
+          <br/>
+          Total
+          <br/>
+          Length
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>

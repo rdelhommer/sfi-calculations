@@ -1,13 +1,13 @@
-import './filamentous-data.scss'
+import './diameter-data.scss'
 import { bindable } from 'aurelia-framework';
 
-export interface IFilamentousRawData {
+export interface IDiameterRawData {
   length: number
   diameter: number
 }
 
-export class FilamentousData {
-  @bindable rawData: IFilamentousRawData[]
+export class DiameterData {
+  @bindable rawData: IDiameterRawData[]
   @bindable totalLength: number
   @bindable averageDiameter: number
 

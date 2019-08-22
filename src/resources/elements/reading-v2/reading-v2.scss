@@ -1,14 +1,12 @@
 @import '../../../sass/mixins.scss';
 
 .reading-v2 {
+  height: 100%;
+  
   &__heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    button {
-      cursor: pointer;
-    }
   }
 
   &__field-container {

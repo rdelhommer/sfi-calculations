@@ -1,90 +1,117 @@
 <template>
   <div class="fila-proto">
+    <div class="fila-proto__actions">
+      <dropdown-button greeting="Expand">
+        <button 
+            class="fila-proto__action-button" 
+            click.delegate="expand()">
+          All
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="expand(1)">
+          Reading #1
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="expand(2)">
+          Reading #2
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="expand(3)">
+          Reading #3
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="expand(4)">
+          Reading #4
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="expand(5)">
+          Reading #5
+        </button>
+      </dropdown-button>
+      <dropdown-button greeting="Collapse">
+        <button 
+            class="fila-proto__action-button" 
+            click.delegate="collapse()">
+          All
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="collapse(1)">
+          Reading #1
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="collapse(2)">
+          Reading #2
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="collapse(3)">
+          Reading #3
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="collapse(4)">
+          Reading #4
+        </button>
+        <button 
+            class="fila-proto__action-button"
+            click.delegate="collapse(5)">
+          Reading #5
+        </button>
+      </dropdown-button>
+    </div>
     <h1>Filamentous and Protozoan Organisms</h1>
-    <h2>Actinobacteria</h2>
     <div class="fila-proto__organism-container">
+      <h2 class="fila-proto__organism-header">Actino-bacteria</h2>
       <reading-v2 
           repeat.for="reading of actinobacteriaReadings"
           organism-name="Actinobacteria"
           reading-number.bind="$index + 1"
           reading.bind="reading"
-          on-edit-field.call="collectData(readingNumber, fieldNumber)"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Actinobacteria', false)"
           on-add-field.call="addField()"
-          on-remove-field.call="removeField()">
+          on-remove-field.call="removeField()"
+          is-expanded.bind="isReadingExpanded[$index]">
       </reading-v2>
-    </div>
-    <h3>Biomass</h3>
-    <div class="fila-proto__calcs">
-      <div class="fila-proto__calc">
-        <div class="fila-proto__calc-header">
-          Mean
-        </div>
-        1.23
-      </div>
-      <div class="fila-proto__calc">
-        <div class="fila-proto__calc-header">
-          StDev
-        </div>
-        0.45
-      </div>
+      <biomass></biomass>
     </div>
 
-    <h2>Fungi</h2>
     <div class="fila-proto__organism-container">
+      <h2 class="fila-proto__organism-header">Fungi</h2>
       <reading-v2 
           repeat.for="reading of fungiReadings"
           organism-name="Fungi"
           reading-number.bind="$index + 1"
           reading.bind="reading"
           fungi-color-enum.bind="FungalColor"
-          on-edit-field.call="collectData(readingNumber, fieldNumber)"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Fungi', true)"
           on-add-field.call="addField()"
-          on-remove-field.call="removeField()">
+          on-remove-field.call="removeField()"
+          is-expanded.bind="isReadingExpanded[$index]">
       </reading-v2>
-    </div>
-    <h3>Biomass</h3>
-    <div class="fila-proto__calcs">
-      <div class="fila-proto__calc">
-        <div class="fila-proto__calc-header">
-          Mean
-        </div>
-        1.23
-      </div>
-      <div class="fila-proto__calc">
-        <div class="fila-proto__calc-header">
-          StDev
-        </div>
-        0.45
-      </div>
+      <biomass></biomass>
     </div>
 
-    <h2>Oomycetes</h2>
     <div class="fila-proto__organism-container">
+      <h2 class="fila-proto__organism-header">Oomycete</h2>
       <reading-v2 
           repeat.for="reading of oomyceteReadings"
-          organism-name="Oomycetes"
+          organism-name="Oomycete"
           reading-number.bind="$index + 1"
           reading.bind="reading"
           fungi-color-enum.bind="OomyceteColor"
-          on-edit-field.call="collectData(readingNumber, fieldNumber)"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Oomycete', true)"
           on-add-field.call="addField()"
-          on-remove-field.call="removeField()">
+          on-remove-field.call="removeField()"
+          is-expanded.bind="isReadingExpanded[$index]">
       </reading-v2>
-    </div>
-    <h3>Biomass</h3>
-    <div class="fila-proto__calcs">
-      <div class="fila-proto__calc">
-        <div class="fila-proto__calc-header">
-          Mean
-        </div>
-        1.23        
-      </div>
-      <div class="fila-proto__calc">
-        <div class="fila-proto__calc-header">
-          StDev
-        </div>
-        0.45
-      </div>
+      <biomass></biomass>
     </div>
   </div>
 
