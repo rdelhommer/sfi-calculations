@@ -1,9 +1,9 @@
 import './field-observation.scss'
-import { bindable } from "aurelia-framework";
-import { ILengthField, IDiameterField } from "../reading-v2/reading-v2";
+import { bindable, computedFrom } from "aurelia-framework";
+import { IFungalField, ILengthField } from '../../../models/field.model';
 
 export class FieldObservation {
-  @bindable field: ILengthField | IDiameterField
+  @bindable field: ILengthField & IFungalField
   @bindable fungiColorEnum: any
   @bindable fieldNumber: number
   @bindable organismName: string
@@ -13,5 +13,14 @@ export class FieldObservation {
 
   _onEdit() {
     this.onEdit({ fieldNumber: this.fieldNumber })
+  }
+
+  // TODO: add computed from to only get this on initial read and after the modal is updated
+  get totalLength(): number {
+    return this.field.totalLength
+  }
+
+  get averageDiameter(): number {
+    return this.field.averageDiameter
   }
 }

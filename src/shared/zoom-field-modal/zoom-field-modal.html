@@ -13,15 +13,12 @@
       <div class="zoom-field__body">
         <length-data 
             if.bind="!isDiameter"
-            raw-data.bind="rawData"
-            total-length.bind="result.totalLength">
+            field.bind="field">
         </length-data>
-        <diameter-data
+        <fungal-data
             if.bind="isDiameter"
-            raw-data.bind="rawData"
-            total-length.bind="result.totalLength"
-            average-diameter.bind="result.averageDiameter">
-        </diameter-data>
+            field.bind="field">
+        </fungal-data>
       </div>
     </ux-dialog-body>
 

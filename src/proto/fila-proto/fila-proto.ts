@@ -3,6 +3,7 @@ import { DialogService } from 'aurelia-dialog'
 import { inject } from 'aurelia-framework';
 import { FungalColor, OomyceteColor } from '../../util/enums';
 import { IZoomFieldModalModel, ZoomFieldModal } from '../../shared/zoom-field-modal/zoom-field-modal';
+import { FungalField, LengthField } from '../../models/field.model';
 
 @inject(DialogService)
 export class FilaProto {
@@ -101,7 +102,7 @@ export class FilaProto {
         fieldNumber,
         organismName,
         isDiameter,
-        rawData: []  // TODO: this needs to be in a model somewhere
+        field: isDiameter ? new FungalField() : new LengthField()
       }, 
       lock: true
     }).whenClosed(result => {

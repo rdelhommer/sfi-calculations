@@ -1,4 +1,29 @@
 import { IModel } from "./base.model";
+import { IDiameterField, ILengthField, IFungalField } from "./field.model";
+
+export interface ILengthReading extends IModel {
+  fields: ILengthField[]
+}
+
+export interface IFungalReading extends IModel {
+  fields: IFungalField[]
+}
+
+export class LengthReading implements ILengthReading {
+  fields: ILengthField[];  
+  
+  get isValid(): boolean {
+    return this.fields.every(x => x.isValid)
+  }
+}
+
+export class FungalReading implements ILengthReading {
+  fields: IFungalField[];  
+  
+  get isValid(): boolean {
+    return this.fields.every(x => x.isValid)
+  }
+}
 
 export interface IOrganismReading extends IModel {
   type: string

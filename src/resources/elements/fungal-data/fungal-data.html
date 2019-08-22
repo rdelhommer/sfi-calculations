@@ -1,43 +1,43 @@
 <template>
-  <table class="diameter-data">
+  <table class="fungal-data">
     <thead>
       <tr>
-        <th class="diameter-data__cell diameter-data__cell--header">
+        <th class="fungal-data__cell fungal-data__cell--header">
           Length
         </th>
-        <th class="diameter-data__cell diameter-data__cell--header">
+        <th class="fungal-data__cell fungal-data__cell--header">
           Diameter
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr repeat.for="row of rawData">
-        <td class="diameter-data__cell diameter-data__cell--entry">
+      <tr repeat.for="data of field.lengthRawData">
+        <td class="fungal-data__cell fungal-data__cell--entry">
           <input 
-              value.bind="row.length"
+              value.bind="field.lengthRawData[$index]"
               type="number"
               step=".1" 
               min="0"
-              change.delegate="updateCalcs()"/>
+              change.delegate="updateFlag = !updateFlag"/>
         </td>
-        <td class="diameter-data__cell diameter-data__cell--entry">
+        <td class="fungal-data__cell fungal-data__cell--entry">
           <input 
-              value.bind="row.diameter"
+              value.bind="field.diameterRawData[$index]"
               type="number"
               step=".1" 
               min="0"
-              change.delegate="updateCalcs()"/>
+              change.delegate="updateFlag = !updateFlag"/>
         </td>
       </tr>
       <tr>
-        <td class="diameter-data__cell">
+        <td class="fungal-data__cell">
           ${totalLength | calculated: 0.01}
           <br/>
           Total
           <br/>
           Length
         </td>
-        <td class="diameter-data__cell">
+        <td class="fungal-data__cell">
           ${averageDiameter | calculated: 0.01}
           <br/>
           Average

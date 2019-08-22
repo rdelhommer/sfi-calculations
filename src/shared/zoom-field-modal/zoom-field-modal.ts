@@ -1,15 +1,13 @@
 import './zoom-field-modal.scss'
 import { DialogController } from "aurelia-dialog";
 import { inject } from "aurelia-framework";
-import { ILengthRawData } from '../../resources/elements/length-data/length-data';
-import { IDiameterRawData } from '../../resources/elements/diameter-data/diameter-data';
-import { isDeepStrictEqual } from 'util';
+import { ILengthField, IFungalField } from '../../models/field.model';
 
 export interface IZoomFieldModalModel {
   readingNumber: number
   fieldNumber: number
   organismName: string
-  rawData: (ILengthRawData | IDiameterRawData)[]
+  field: ILengthField | IFungalField
   isDiameter: boolean
 }
 
@@ -23,7 +21,7 @@ export class ZoomFieldModal implements IZoomFieldModalModel{
   readingNumber: number
   fieldNumber: number
   organismName: string
-  rawData: (ILengthRawData | IDiameterRawData)[]
+  field: ILengthField | IFungalField
   isDiameter: boolean
 
   result: IZoomFieldModalResult
@@ -36,13 +34,8 @@ export class ZoomFieldModal implements IZoomFieldModalModel{
     this.fieldNumber = model.fieldNumber
     this.readingNumber = model.readingNumber
     this.organismName = model.organismName
-    this.rawData = model.rawData
+    this.field = model.field
     this.isDiameter = model.isDiameter
-
-    for (let i = 0; i < 10; i++) {
-      this.rawData.push({ length: null, diameter: null})
-    }
-    console.log(this.rawData);
   }
 
   save() {
