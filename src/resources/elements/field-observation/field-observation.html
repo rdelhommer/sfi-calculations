@@ -2,9 +2,6 @@
   <div class="field-observation">
     <div class="field-observation__cells--header" if.bind="fieldNumber === 1">
       <div class="field-observation__cell field-observation__cell--header">
-        &nbsp;
-      </div>
-      <div class="field-observation__cell field-observation__cell--header">
         Field #
       </div>
       <div class="field-observation__cell field-observation__cell--header">
@@ -22,21 +19,20 @@
       </div>
     </div>
     <div class="field-observation__cells--data">
-      <div class="field-observation__cell">
-        <button 
-            class="field-observation__edit-field"
-            click.delegate="_onEdit()">
-          Edit
-        </button>
-      </div>
-      <div class="field-observation__cell">
+      <div 
+          class="field-observation__cell"
+          click.delegate="_onEdit()">
         <strong>${fieldNumber}</strong>
       </div>
-      <div class="field-observation__cell">
+      <div 
+          class="field-observation__cell"
+          click.delegate="_onEdit()">
         <span>${length | calculated: 0.01}</span>
       </div>
       <div if.bind="fungiColorEnum">
-        <div class="field-observation__cell">
+        <div 
+            class="field-observation__cell"
+            click.delegate="_onEdit()">
           ${diameter | calculated: 0.01}
         </div>
         <div class="field-observation__cell">
@@ -46,26 +42,6 @@
               placeholder.bind="' '">
           </form-group-select>
         </div>
-      </div>
-    </div>
-    <div 
-        class="field-observation__cells--footer"
-        if.bind="isLastField">
-      <div class="field-observation__cell field-observation__cell--footer">
-        &nbsp;
-      </div>
-      <div class="field-observation__cell field-observation__cell--footer field-observation__cell--fill">
-        <button 
-            click.delegate="_addField()">
-          Add
-        </button>
-      </div>
-      <div 
-          class="field-observation__cell field-observation__cell--footer field-observation__cell--fill"
-          if.bind="fieldNumber > 5">
-        <button click.delegate="_removeField()">
-          Remove
-        </button>
       </div>
     </div>
   </div>

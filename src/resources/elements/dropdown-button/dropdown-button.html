@@ -1,7 +1,13 @@
 <template>
   <div class="dropdown-button">
-    <button class="dropdown-button__greeting">${greeting}</button>
-    <div class="dropdown-button__dropdown-container">
+    <div class="dropdown-button__greeting">
+      ${greeting}
+      <span class="dropdown-button__arrow">></span>
+    </div>
+    <div 
+        class="dropdown-button__options-container" 
+        click.delegate="hideContainer()" 
+        style.bind="isContainerHidden ? 'display: none' : ''">
       <slot></slot>
     </div>
   </div> 

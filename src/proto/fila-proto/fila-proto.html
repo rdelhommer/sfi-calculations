@@ -1,7 +1,7 @@
 <template>
   <div class="fila-proto">
     <div class="fila-proto__actions">
-      <dropdown-button greeting="Expand">
+      <dropdown-button greeting="Expand" class="fila-proto__action-button">
         <button 
             class="fila-proto__action-button" 
             click.delegate="expand()">
@@ -33,7 +33,7 @@
           Reading #5
         </button>
       </dropdown-button>
-      <dropdown-button greeting="Collapse">
+      <dropdown-button greeting="Collapse" class="fila-proto__action-button">
         <button 
             class="fila-proto__action-button" 
             click.delegate="collapse()">
@@ -65,6 +65,12 @@
           Reading #5
         </button>
       </dropdown-button>
+      <button click.delegate="addField()" class="fila-proto__action-button">
+        Add Field
+      </button>
+      <button click.delegate="removeField()" class="fila-proto__action-button">
+        Remove Field
+      </button>
     </div>
     <h1>Filamentous and Protozoan Organisms</h1>
     <div class="fila-proto__organism-container">

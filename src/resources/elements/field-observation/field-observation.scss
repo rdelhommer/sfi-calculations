@@ -38,6 +38,14 @@
   }
 
   &__cells {
+    &--data {
+      cursor: pointer;
+
+      &:hover {
+        background: lightgray;
+      }
+    }
+
     &--footer {
       display: flex;
       flex-direction: column;

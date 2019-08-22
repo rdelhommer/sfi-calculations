@@ -1,21 +1,22 @@
 import './reading-v2.scss'
-import { inject, bindable, customElement } from 'aurelia-framework';
-import { ISession } from '../../../services/session/session.service';
+import { bindable, customElement } from 'aurelia-framework';
 import { IOrganismReading } from '../../../models/reading.model';
-import { IStateManager } from '../../../services/state/state-manager.service';
 import { FungalColor, OomyceteColor } from '../../../util/enums';
 
-export interface IField {
+export interface ILengthField {
   length: number
 }
 
-export interface IFungiField extends IField {
+export interface IDiameterField extends ILengthField {
   diameter: number
+}
+
+export interface IFungiField extends IDiameterField {
   color: FungalColor | OomyceteColor
 }
 
 interface IReading {
-  fields: IField[]
+  fields: (ILengthField | IFungiField)[]
 }
 
 @customElement('reading-v2')
@@ -26,8 +27,6 @@ export class ReadingVTwo {
   @bindable fungiColorEnum: any
   @bindable organismName: string
   @bindable onEditField: (params: any) => void
-  @bindable onAddField: () => void
-  @bindable onRemoveField: () => void
   @bindable isExpanded: boolean
 
   readings: IOrganismReading[]
@@ -37,13 +36,5 @@ export class ReadingVTwo {
       fieldNumber,
       readingNumber: this.readingNumber
     })
-  }
-
-  addField() {
-    this.onAddField()
-  }
-
-  removeField() {
-    this.onRemoveField()
   }
 }
