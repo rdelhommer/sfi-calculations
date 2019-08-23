@@ -1,3 +1,3 @@
 export interface IModel {
-  isValid: boolean
+  isValid?: boolean
 }

@@ -1,13 +1,28 @@
 import { FungalColor, OomyceteColor } from "../util/enums";
 import { IModel } from "./base.model";
+import '../util/misc'
+
+export const NUM_RAW_DATA = 10;
+
+function initRawData(rawData: number[]) {
+  if (!rawData) {
+    rawData = []
+  }
+
+  for (let i = rawData.length; i < NUM_RAW_DATA; i++) {
+    rawData.push(null)
+  }
+
+  return rawData
+}
 
 export interface ILengthField extends IModel {
-  totalLength: number
+  totalLength?: number
   lengthRawData: number[]
 }
 
 export interface IDiameterField extends IModel {
-  averageDiameter: number
+  averageDiameter?: number
   diameterRawData: number[]
 }
 
@@ -16,7 +31,13 @@ export interface IFungalField extends ILengthField, IDiameterField, IModel {
 }
 
 export class LengthField implements ILengthField {
-  lengthRawData: number[] = [];
+  lengthRawData: number[]
+
+  constructor(init: Partial<ILengthField> = { }) {
+    Object.assign(this, init)
+
+    this.lengthRawData = initRawData(this.lengthRawData)    
+  }
 
   get totalLength(): number {
     return this.lengthRawData
@@ -33,9 +54,16 @@ export class LengthField implements ILengthField {
 }
 
 export class FungalField implements IFungalField {
-  lengthRawData: number[] = [];
+  lengthRawData: number[]
   diameterRawData: number[]
   color: FungalColor | OomyceteColor
+
+  constructor(init: Partial<IFungalField> = { }) {
+    Object.assign(this, init)
+
+    this.lengthRawData = initRawData(this.lengthRawData)    
+    this.diameterRawData = initRawData(this.diameterRawData)    
+  }
 
   get totalLength(): number {
     return this.lengthRawData
@@ -58,6 +86,8 @@ export class FungalField implements IFungalField {
     let validRawDiameter = this.diameterRawData
       .filterNumbers()
 
-    return validRawLength.length > 0 && validRawDiameter.length > 0
+    return validRawLength.length > 0 
+      && validRawDiameter.length > 0 
+      && !!this.color
   }
 }

@@ -1,5 +1,7 @@
 import { IModel } from "./base.model";
-import { IDiameterField, ILengthField, IFungalField } from "./field.model";
+import { ILengthField, IFungalField, LengthField, FungalField } from "./field.model";
+
+export const NUM_MIN_FIELDS = 5
 
 export interface ILengthReading extends IModel {
   fields: ILengthField[]
@@ -11,14 +13,52 @@ export interface IFungalReading extends IModel {
 
 export class LengthReading implements ILengthReading {
   fields: ILengthField[];  
+
+  constructor(init: Partial<ILengthReading> = { }) {
+    Object.assign(this, init)
+
+    if (!this.fields) {
+      this.fields = []
+    }
+  
+    let initTo = this.fields.length > NUM_MIN_FIELDS 
+      ? this.fields.length 
+      : NUM_MIN_FIELDS
+    for (let i = 0; i < initTo; i++) {
+      if (i < this.fields.length) {
+        this.fields[i] = new LengthField(this.fields[i])
+      } else {
+        this.fields.push(new LengthField())
+      }
+    }
+  }
   
   get isValid(): boolean {
     return this.fields.every(x => x.isValid)
   }
 }
 
-export class FungalReading implements ILengthReading {
-  fields: IFungalField[];  
+export class FungalReading implements IFungalReading {
+  fields: IFungalField[];
+  
+  constructor(init: Partial<IFungalReading> = { }) {
+    Object.assign(this, init)
+    
+    if (!this.fields) {
+      this.fields = []
+    }
+  
+    let initTo = this.fields.length > NUM_MIN_FIELDS 
+      ? this.fields.length 
+      : NUM_MIN_FIELDS
+    for (let i = 0; i < initTo; i++) {
+      if (i < this.fields.length) {
+        this.fields[i] = new FungalField(this.fields[i])
+      } else {
+        this.fields.push(new FungalField())
+      }
+    }
+  }
   
   get isValid(): boolean {
     return this.fields.every(x => x.isValid)
