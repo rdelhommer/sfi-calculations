@@ -1,7 +1,6 @@
-import { DROPS_PER_ML, FOV_AREA_MM_SQUARED, FOV_DIAMETER_MM } from "../util/constants";
-import { ISampleModel, ISampleInfoModel } from "./sample.model";
+import { DROPS_PER_ML, FOV_DIAMETER_MM } from "../util/constants";
+import { ISampleInfoModel } from "./sample.model";
 import { mean, stDev } from "../util/misc";
-import { computedFrom } from "aurelia-binding";
 import { IOrganismReading } from "./reading.model";
 
 function initData(ret: IOrganismData, init: Partial<IOrganismData>): IOrganismData {
