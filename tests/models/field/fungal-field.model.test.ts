@@ -131,6 +131,24 @@ describe('Models', () => {
         expect(test.averageDiameter).toBe(5)
       })
     })
+
+    describe('totalVolume', () => {
+      test('should ignore non-number raw data', () => {
+        let test = new FungalField()
+        test.lengthRawData = [2, 2, 3, null, 5]
+        test.diameterRawData = [<any>'blah', 2, 2, null, -1]
+
+        expect(test.totalVolume).toBe(10)
+      })
+
+      test('happy', () => {
+        let test = new FungalField()
+        test.lengthRawData = [2, 3, 4, 5]
+        test.diameterRawData = [1, 2, 3, 4]
+
+        expect(test.totalVolume).toBe(40)
+      })
+    })
   })
 })
 
