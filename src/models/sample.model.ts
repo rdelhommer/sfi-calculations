@@ -19,6 +19,7 @@ export interface ISampleInfoModel extends IModel {
   coverslipArea: number
   coverslipNumFields: number
   eyepieceFieldSize: number
+  fovDiameterMm: number
 }
 
 export class SampleInfo implements ISampleInfoModel {
@@ -60,12 +61,12 @@ export class SampleInfo implements ISampleInfoModel {
     return dimensions[0] * dimensions[1]
   }
 
-  get _fovDiameterMm(): number {
+  get fovDiameterMm(): number {
     return this.eyepieceFieldSize / 40
   }
 
   get _fovArea(): number {
-    return 3.14159 * (this._fovDiameterMm / 2) * (this._fovDiameterMm / 2)
+    return 3.14159 * (this.fovDiameterMm / 2) * (this.fovDiameterMm / 2)
   }
 
   get coverslipNumFields() {

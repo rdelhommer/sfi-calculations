@@ -3,8 +3,6 @@ import '../../util/misc'
 import { IOrganism, DataType, NUM_READINGS } from "./organism.model";
 import { ISampleInfoModel } from "../sample.model";
 import { ILengthReading, LengthReading } from "../reading/length-reading.model";
-import { FOV_DIAMETER_MM, DROPS_PER_ML } from '../../util/constants';
-import { ILengthField } from '../field/length-field.model';
 import { IModel } from '../base.model';
 import { round } from '../../util/misc';
 
@@ -46,7 +44,7 @@ export class MultiReadLengthOrganism implements IOrganism<ILengthReading>, IMode
   }
 
   protected get _lengthMeanCm(): number {
-    return this._lengthMeanMm * FOV_DIAMETER_MM / 10;
+    return this._lengthMeanMm * this.sample.fovDiameterMm / 10;
   }
 
   protected get _lengthStDevMm(): number {
@@ -54,7 +52,7 @@ export class MultiReadLengthOrganism implements IOrganism<ILengthReading>, IMode
   }
 
   protected get _lengthStDevCm(): number {
-    return this._lengthStDevMm * FOV_DIAMETER_MM / 10;
+    return this._lengthStDevMm * this.sample.fovDiameterMm / 10;
   }
 
   protected get _lengthMeanCmPerG(): number {
