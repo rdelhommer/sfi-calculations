@@ -13,7 +13,6 @@ export interface ISampleInfoModel extends IModel {
   notes: string
   mainDilution: number
   bacteriaDilution: number
-  fieldsPerReading: number
   dropsPerSample: number
   dropsPerMl: number
   coverslipSize: CoverslipSize
@@ -33,18 +32,16 @@ export class SampleInfo implements ISampleInfoModel {
   notes: string;
   mainDilution: number;
   bacteriaDilution: number;
-  fieldsPerReading: number;
   dropsPerSample: number;
   dropsPerMl: number;
   coverslipSize: CoverslipSize;
   eyepieceFieldSize: number;
 
-  constructor(init: Partial<ISampleInfoModel>) {
+  constructor(init: Partial<ISampleInfoModel> = { }) {
     Object.assign(this, init)
 
     this.mainDilution = this.mainDilution == null ? 5 : this.mainDilution
     this.bacteriaDilution = this.bacteriaDilution == null ? 500 : this.bacteriaDilution
-    this.fieldsPerReading = this.fieldsPerReading == null ? 5 : this.fieldsPerReading
     this.dropsPerSample = this.dropsPerSample == null ? 1 : this.dropsPerSample
     this.dropsPerMl = this.dropsPerMl == null ? 20 : this.dropsPerMl
     this.coverslipSize = this.coverslipSize || CoverslipSize.EighteenSquare
@@ -85,7 +82,6 @@ export class SampleInfo implements ISampleInfoModel {
       && !!this.observedBy
       && !!this.mainDilution
       && !!this.bacteriaDilution
-      && !!this.fieldsPerReading
       && !!this.dropsPerSample
       && !!this.dropsPerMl
       && !!this.coverslipSize
