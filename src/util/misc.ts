@@ -11,6 +11,11 @@ export function newGuid() {
   });
 }
 
+export function round(value: number, precision: number = 1) {
+  var y = +value + (precision/2);
+  return y - (y % (+precision));
+}
+
 declare global {
   interface Array<T> {
     filterNumbers: () => number[]
@@ -36,13 +41,7 @@ Array.prototype.mean = function() {
 }
 
 Array.prototype.stDev = function() {
-  let filtered = this.filter(x => !Number.isNaN(x))
-  var i, _mean = 0, diffSqredArr = [];
-  _mean = this.mean();
-  for(i=0;i<filtered.length;i+=1){
-      diffSqredArr.push(Math.pow((filtered[i]-_mean),2));
-  }
-  return (Math.sqrt(diffSqredArr.reduce(function(firstEl, nextEl){
-           return firstEl + nextEl;
-         })/filtered.length));
+  let n = this.length;
+  let mean = this.reduce((a,b) => a+b)/n;
+  return Math.sqrt(this.map(x => Math.pow(x-mean,2)).reduce((a,b) => a+b)/(n - 1));
 }

@@ -1,9 +1,12 @@
+import '../../util/misc'
+
 import { IModel } from "../base.model";
 import { ILengthField, LengthField } from "../field/length-field.model";
 import { READING_NUM_MIN_FIELDS } from '../../util/reading-model'
 
 export interface ILengthReading extends IModel {
   fields: ILengthField[]
+  totalLength?: number
 }
 
 export class LengthReading implements ILengthReading {
@@ -26,6 +29,12 @@ export class LengthReading implements ILengthReading {
         this.fields.push(new LengthField())
       }
     }
+  }
+
+  get totalLength(): number {
+    return this.fields
+      .filterNumbers()
+      .reduce((a, b) => a + b)
   }
   
   get isValid(): boolean {

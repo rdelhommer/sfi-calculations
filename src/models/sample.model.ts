@@ -1,7 +1,6 @@
 import { Succession, CoverslipSize } from "../util/enums";
 import { IProfileModel, Profile } from "./profile.model";
 import { IModel } from "./base.model";
-import { FOV_AREA_MM_SQUARED } from "../util/constants";
 
 export interface ISampleInfoModel extends IModel {
   name: string
@@ -64,8 +63,16 @@ export class SampleInfo implements ISampleInfoModel {
     return dimensions[0] * dimensions[1]
   }
 
+  get _fovDiameterMm(): number {
+    return this.eyepieceFieldSize / 40
+  }
+
+  get _fovArea(): number {
+    return 3.14159 * (this._fovDiameterMm / 2) * (this._fovDiameterMm / 2)
+  }
+
   get coverslipNumFields() {
-    return this.coverslipArea / FOV_AREA_MM_SQUARED
+    return this.coverslipArea / this._fovArea
   }
 
   get isValid(): boolean {

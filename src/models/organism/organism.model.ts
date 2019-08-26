@@ -12,6 +12,5 @@ export interface IOrganism<TReading> {
   meanResult: number
   stDevResult: number
   dilution: number
-  coverslipNumFields: number
   dataType: DataType
 }
