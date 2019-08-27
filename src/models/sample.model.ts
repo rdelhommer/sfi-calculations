@@ -99,7 +99,7 @@ export class Sample implements ISampleModel {
   observer: IProfileModel;  
   sample: ISampleInfoModel;
 
-  constructor(init: Partial<ISampleModel>) {
+  constructor(init: Partial<ISampleModel> = { }) {
     this.observer = init.observer ? new Profile(init.observer) : new Profile({});
     this.sample = init.sample ? new SampleInfo(init.sample) : new SampleInfo({})
   }
