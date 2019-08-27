@@ -27,11 +27,11 @@
       <div 
           class="field-observation__cell"
           click.delegate="_onEdit()">
-        <span if.bind="field.dataType === DataType.Length">
-          ${field.totalLength | calculated: 0.01}
+        <span if.bind="field.dataType !== DataType.Counting">
+          ${totalLength | calculated: 0.01}
         </span>
         <span if.bind="field.dataType === DataType.Counting">
-          ${field.count | calculated: 1}
+          ${count | calculated: 1}
         </span>
       </div>
       <div if.bind="field.dataType === DataType.Diameter">

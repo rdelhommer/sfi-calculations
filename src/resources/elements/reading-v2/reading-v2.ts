@@ -12,13 +12,13 @@ export class ReadingVTwo {
   @bindable readingNumber: number
   @bindable fungiColorEnum: any
   @bindable organismName: string
-  @bindable onEditField: (params: any) => void
+  @bindable onEditField: (params: any) => Promise<void>
   @bindable isExpanded: boolean
 
   DataType = DataType
 
   editField(fieldNumber: number) {
-    this.onEditField({
+    return this.onEditField({
       fieldNumber,
       readingNumber: this.readingNumber
     })

@@ -46,9 +46,9 @@ export class FilaProto {
     dilution: this.stubSample.mainDilution,
     organismName: 'Amoebae'
   })
-  cilliate: IOrganism<ICountReading> = new MultiReadCountOrganism(this.stubSample, {
+  ciliate: IOrganism<ICountReading> = new MultiReadCountOrganism(this.stubSample, {
     dilution: this.stubSample.mainDilution,
-    organismName: 'Cilliate'
+    organismName: 'Ciliate'
   })
 
   FungalColor = FungalColor
@@ -75,7 +75,7 @@ export class FilaProto {
     this.oomycete.readings.forEach(x => x.fields.push(new FungalField()))
     this.flagellate.readings.forEach(x => x.fields.push(new CountField()))
     this.amoebae.readings.forEach(x => x.fields.push(new CountField()))
-    this.cilliate.readings.forEach(x => x.fields.push(new CountField()))
+    this.ciliate.readings.forEach(x => x.fields.push(new CountField()))
   }
 
   removeField() {
@@ -90,7 +90,7 @@ export class FilaProto {
     this.oomycete.readings.forEach(tryRemoveField)
     this.flagellate.readings.forEach(tryRemoveField)
     this.amoebae.readings.forEach(tryRemoveField)
-    this.cilliate.readings.forEach(tryRemoveField)
+    this.ciliate.readings.forEach(tryRemoveField)
   }
 
   collapse(readingNumber?: number) {
@@ -112,7 +112,7 @@ export class FilaProto {
   }
 
   collectData(readingNumber: number, fieldNumber: number, organismName: string, dataType: DataType) {
-    this.dialogService.open({
+    return this.dialogService.open({
       viewModel: ZoomFieldModal,
       model: <IZoomFieldModalModel>{
         readingNumber,
@@ -127,7 +127,7 @@ export class FilaProto {
       }, 
       lock: true
     }).whenClosed(result => {
-      if (result.wasCancelled) return
+      if (result.wasCancelled) throw 'cancelled'
 
       // TODO: Save returned data
     })
