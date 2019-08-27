@@ -1,6 +1,7 @@
 import { Succession, CoverslipSize } from "../util/enums";
 import { IProfileModel, Profile } from "./profile.model";
 import { IModel } from "./base.model";
+import { thisTypeAnnotation } from "@babel/types";
 
 export interface ISampleInfoModel extends IModel {
   name: string
@@ -74,19 +75,19 @@ export class SampleInfo implements ISampleInfoModel {
   }
 
   get isValid(): boolean {
-    return !!this.name
-      && !!this.type
-      && !!this.plant
+    return !!this.name && this.name !== ''
+      && !!this.type && this.type !== ''
+      && !!this.plant && this.plant !== ''
       && !!this.succession
-      && !!this.dateCollected
-      && !!this.dateObserved
-      && !!this.observedBy
-      && !!this.mainDilution
-      && !!this.bacteriaDilution
-      && !!this.dropsPerSample
-      && !!this.dropsPerMl
+      && !!this.dateCollected && this.dateCollected !== ''
+      && !!this.dateObserved && this.dateObserved !== ''
+      && !!this.observedBy && this.observedBy !== ''
+      && this.mainDilution != null
+      && this.bacteriaDilution != null
+      && this.dropsPerSample != null
+      && this.dropsPerMl != null
       && !!this.coverslipSize
-      && !!this.eyepieceFieldSize
+      && this.eyepieceFieldSize != null
   }
 }
 

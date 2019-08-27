@@ -2,12 +2,12 @@ import { IModel } from "./base.model";
 import { DataEntry } from "../util/enums";
 
 export interface IAddress extends IModel {
-  lineOne?: string
+  lineOne: string
   lineTwo?: string
 }
 
 export class Address implements IAddress {
-  lineOne?: string;  
+  lineOne: string;  
   lineTwo?: string;
 
   constructor(init: Partial<IAddress>) {
@@ -15,7 +15,7 @@ export class Address implements IAddress {
   }
 
   get isValid(): boolean {
-    return !!this.lineOne
+    return !!this.lineOne && this.lineOne != null
   }
 }
 
@@ -36,7 +36,7 @@ export class Profile implements IProfileModel {
   phone?: string;
   dataEntry: DataEntry
 
-  constructor(init: Partial<IProfileModel>) {
+  constructor(init: Partial<IProfileModel> = { }) {
     this.name = init.name
     this.organization= init.organization
     this.email = init.email
@@ -46,10 +46,10 @@ export class Profile implements IProfileModel {
   }
 
   get isValid() {
-    return !!this.name
-      && !!this.organization
-      && !!this.email
-      && !!this.phone
+    return !!this.name && this.name != null
+      && !!this.organization && this.organization != null
+      && !!this.email && this.email != null
+      && !!this.phone && this.phone != null
       && this.address.isValid
       && !!this.dataEntry
   }

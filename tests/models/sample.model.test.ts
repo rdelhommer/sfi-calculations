@@ -1,6 +1,6 @@
 import { SampleInfo, Sample, ISampleInfoModel } from '../../src/models/sample.model'
 import { round } from '../../src/util/misc'
-import { CoverslipSize } from '../../src/util/enums';
+import { CoverslipSize, Succession } from '../../src/util/enums';
 import { Profile } from '../../src/models/profile.model';
 
 describe('Models', () => {
@@ -180,7 +180,169 @@ describe('Models', () => {
     })
 
     describe('isValid', () => {
-      // TODO: fuck this
+      let happySample: ISampleInfoModel = new SampleInfo({
+        name: 'test',
+        type: 'test',
+        plant: 'test',
+        succession: Succession.Deciduous,
+        dateCollected: 'test',
+        dateObserved: 'test',
+        observedBy: 'test',
+      })
+
+      test('happy', () => {
+        let test = new SampleInfo(happySample)
+
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no name', () => {
+        let test = new SampleInfo(happySample)
+
+        test.name = ''
+        expect(test.isValid).toBe(false)
+
+        test.name = 'test'
+        expect(test.isValid).toBe(true)
+
+        test.name = null
+        expect(test.isValid).toBe(false)
+      })
+
+      test('no type', () => {
+        let test = new SampleInfo(happySample)
+
+        test.type = ''
+        expect(test.isValid).toBe(false)
+
+        test.type = 'test'
+        expect(test.isValid).toBe(true)
+
+        test.type = null
+        expect(test.isValid).toBe(false)
+      })
+
+      test('no plant', () => {
+        let test = new SampleInfo(happySample)
+
+        test.plant = ''
+        expect(test.isValid).toBe(false)
+
+        test.plant = 'test'
+        expect(test.isValid).toBe(true)
+
+        test.plant = null
+        expect(test.isValid).toBe(false)
+      })
+
+      test('no succession', () => {
+        let test = new SampleInfo(happySample)
+
+        test.succession = null
+        expect(test.isValid).toBe(false)
+
+        test.succession = Succession.Deciduous
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no dateCollected', () => {
+        let test = new SampleInfo(happySample)
+
+        test.dateCollected = ''
+        expect(test.isValid).toBe(false)
+
+        test.dateCollected = 'test'
+        expect(test.isValid).toBe(true)
+
+        test.dateCollected = null
+        expect(test.isValid).toBe(false)
+      })
+
+      test('no dateObserved', () => {
+        let test = new SampleInfo(happySample)
+
+        test.dateObserved = ''
+        expect(test.isValid).toBe(false)
+
+        test.dateObserved = 'test'
+        expect(test.isValid).toBe(true)
+
+        test.dateObserved = null
+        expect(test.isValid).toBe(false)
+      })
+
+      test('no observedBy', () => {
+        let test = new SampleInfo(happySample)
+
+        test.observedBy = ''
+        expect(test.isValid).toBe(false)
+
+        test.observedBy = 'test'
+        expect(test.isValid).toBe(true)
+
+        test.observedBy = null
+        expect(test.isValid).toBe(false)
+      })
+
+      test('no mainDilution', () => {
+        let test = new SampleInfo(happySample)
+
+        test.mainDilution = null
+        expect(test.isValid).toBe(false)
+
+        test.mainDilution = 0
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no bacteriaDilution', () => {
+        let test = new SampleInfo(happySample)
+
+        test.bacteriaDilution = null
+        expect(test.isValid).toBe(false)
+
+        test.bacteriaDilution = 0
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no dropsPerSample', () => {
+        let test = new SampleInfo(happySample)
+
+        test.dropsPerSample = null
+        expect(test.isValid).toBe(false)
+
+        test.dropsPerSample = 0
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no dropsPerMl', () => {
+        let test = new SampleInfo(happySample)
+
+        test.dropsPerMl = null
+        expect(test.isValid).toBe(false)
+
+        test.dropsPerMl = 0
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no coverslipSize', () => {
+        let test = new SampleInfo(happySample)
+
+        test.coverslipSize = null
+        expect(test.isValid).toBe(false)
+
+        test.coverslipSize = CoverslipSize.EighteenRect
+        expect(test.isValid).toBe(true)
+      })
+
+      test('no eyepieceFieldSize', () => {
+        let test = new SampleInfo(happySample)
+
+        test.eyepieceFieldSize = null
+        expect(test.isValid).toBe(false)
+
+        test.eyepieceFieldSize = 0
+        expect(test.isValid).toBe(true)
+      })
     })
   })
 })
