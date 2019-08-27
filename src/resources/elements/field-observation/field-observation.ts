@@ -1,15 +1,20 @@
 import './field-observation.scss'
-import { bindable, computedFrom } from "aurelia-framework";
-import { IFungalField, ILengthField } from '../../../models/field.model';
+import { bindable } from "aurelia-framework";
+import { ILengthField } from '../../../models/field/length-field.model';
+import { IFungalField } from '../../../models/field/fungal-field.model';
+import { ICountField } from '../../../models/field/count-field.model';
+import { DataType } from '../../../models/organism/organism.model';
 
 export class FieldObservation {
-  @bindable field: ILengthField & IFungalField
+  @bindable field: ILengthField & IFungalField & ICountField
   @bindable fungiColorEnum: any
   @bindable fieldNumber: number
   @bindable organismName: string
   @bindable isLastField: boolean
 
   @bindable onEdit: ({ fieldNumber: number }) => void
+
+  DataType = DataType
 
   _onEdit() {
     this.onEdit({ fieldNumber: this.fieldNumber })

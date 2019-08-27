@@ -1,6 +1,7 @@
-import { IModel } from "../base.model";
+import { IField } from "./field.model";
+import { DataType } from "../organism/organism.model";
 
-export interface ICountField extends IModel {
+export interface ICountField extends IField {
   count: number
 }
 
@@ -9,6 +10,10 @@ export class CountField implements ICountField{
 
   constructor(init: Partial<ICountField> = { }) {
     Object.assign(this, init)
+  }
+
+  get dataType(): DataType {
+    return DataType.Counting;
   }
 
   get isValid(): boolean {

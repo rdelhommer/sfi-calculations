@@ -80,7 +80,7 @@
           organism-name="Actinobacteria"
           reading-number.bind="$index + 1"
           reading.bind="reading"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Actinobacteria', false)"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Actinobacteria', DataType.Length)"
           on-add-field.call="addField()"
           on-remove-field.call="removeField()"
           is-expanded.bind="isReadingExpanded[$index]">
@@ -96,7 +96,7 @@
           reading-number.bind="$index + 1"
           reading.bind="reading"
           fungi-color-enum.bind="FungalColor"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Fungi', true)"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Fungi', DataType.Diameter)"
           on-add-field.call="addField()"
           on-remove-field.call="removeField()"
           is-expanded.bind="isReadingExpanded[$index]">
@@ -112,7 +112,52 @@
           reading-number.bind="$index + 1"
           reading.bind="reading"
           fungi-color-enum.bind="OomyceteColor"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Oomycete', true)"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Oomycete', DataType.Diameter)"
+          on-add-field.call="addField()"
+          on-remove-field.call="removeField()"
+          is-expanded.bind="isReadingExpanded[$index]">
+      </reading-v2>
+      <biomass></biomass>
+    </div>
+
+    <div class="fila-proto__organism-container">
+      <h2 class="fila-proto__organism-header">Flagellate</h2>
+      <reading-v2 
+          repeat.for="reading of flagellateReadings"
+          organism-name="Flagellate"
+          reading-number.bind="$index + 1"
+          reading.bind="reading"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Flagellate', DataType.Counting)"
+          on-add-field.call="addField()"
+          on-remove-field.call="removeField()"
+          is-expanded.bind="isReadingExpanded[$index]">
+      </reading-v2>
+      <biomass></biomass>
+    </div>
+
+    <div class="fila-proto__organism-container">
+      <h2 class="fila-proto__organism-header">Amoebae</h2>
+      <reading-v2 
+          repeat.for="reading of amoebaeReadings"
+          organism-name="Amoebae"
+          reading-number.bind="$index + 1"
+          reading.bind="reading"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Amoebae', DataType.Counting)"
+          on-add-field.call="addField()"
+          on-remove-field.call="removeField()"
+          is-expanded.bind="isReadingExpanded[$index]">
+      </reading-v2>
+      <biomass></biomass>
+    </div>
+
+    <div class="fila-proto__organism-container">
+      <h2 class="fila-proto__organism-header">Cilliate</h2>
+      <reading-v2 
+          repeat.for="reading of cilliateReadings"
+          organism-name="Cilliate"
+          reading-number.bind="$index + 1"
+          reading.bind="reading"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, 'Cilliate', DataType.Counting)"
           on-add-field.call="addField()"
           on-remove-field.call="removeField()"
           is-expanded.bind="isReadingExpanded[$index]">

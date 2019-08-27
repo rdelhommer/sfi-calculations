@@ -1,16 +1,18 @@
 import '../../util/misc'
-import { IModel } from "../base.model";
+
 import { ILengthField } from "./length-field.model";
 import { FungalColor, OomyceteColor } from "../../util/enums";
 import { initFieldRawData } from "../../util/field-model";
+import { DataType } from '../organism/organism.model';
+import { IField } from './field.model';
 
-export interface IDiameterField extends IModel {
+export interface IDiameterField extends IField {
   averageDiameter?: number
   diameterRawData: number[]
   totalVolume?: number
 }
 
-export interface IFungalField extends ILengthField, IDiameterField, IModel {
+export interface IFungalField extends ILengthField, IDiameterField {
   color: FungalColor | OomyceteColor
 }
 
@@ -64,6 +66,10 @@ export class FungalField implements IFungalField {
   get totalVolume(): number {
     return this._volumes.filterNumbers()
       .reduce((a, b) => a + b)
+  }
+
+  get dataType(): DataType {
+    return DataType.Diameter;
   }
 
   get isValid(): boolean {

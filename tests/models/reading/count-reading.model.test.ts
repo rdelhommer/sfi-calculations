@@ -1,6 +1,7 @@
 import { CountReading, ICountReading } from "../../../src/models/reading/count-reading.model";
 import { CountField } from "../../../src/models/field/count-field.model";
 import { READING_NUM_MIN_FIELDS } from "../../../src/util/reading-model";
+import { DataType } from "../../../src/models/organism/organism.model";
 
 describe('Models', () => {
   describe('Count Reading', () => {
@@ -56,6 +57,14 @@ describe('Models', () => {
 
         expect(test.fields.length).toEqual(9)
         expect(test.fields[1].count).toEqual(2)
+      })
+    })
+
+    describe('dataType', () => {
+      test('should return Counting', () => {
+        let test = new CountReading()
+
+        expect(test.dataType).toBe(DataType.Counting)
       })
     })
 

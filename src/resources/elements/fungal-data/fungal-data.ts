@@ -1,6 +1,6 @@
 import './fungal-data.scss'
 import { bindable, computedFrom } from 'aurelia-framework';
-import { IFungalField } from '../../../models/field.model';
+import { IFungalField } from '../../../models/field/fungal-field.model';
 
 export class FungalData {
   @bindable field: IFungalField

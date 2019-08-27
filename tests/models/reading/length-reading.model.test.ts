@@ -1,6 +1,7 @@
 import { LengthReading, ILengthReading } from "../../../src/models/reading/length-reading.model";
 import { READING_NUM_MIN_FIELDS } from "../../../src/util/reading-model";
 import { LengthField } from "../../../src/models/field/length-field.model";
+import { DataType } from "../../../src/models/organism/organism.model";
 
 describe('Models', () => {
   describe('Length Reading', () => {
@@ -52,6 +53,14 @@ describe('Models', () => {
 
         expect(test.fields.length).toEqual(7)
         expect(test.fields[1].lengthRawData.slice(0, 3)).toEqual([4,5,6])
+      })
+    })
+
+    describe('dataType', () => {
+      test('should return Length', () => {
+        let test = new LengthReading()
+
+        expect(test.dataType).toBe(DataType.Length)
       })
     })
 

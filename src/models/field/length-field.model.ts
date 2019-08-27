@@ -1,8 +1,10 @@
 import '../../util/misc'
-import { initFieldRawData } from '../../util/field-model'
-import { IModel } from '../base.model';
 
-export interface ILengthField extends IModel {
+import { initFieldRawData } from '../../util/field-model'
+import { IField } from './field.model';
+import { DataType } from '../organism/organism.model';
+
+export interface ILengthField extends IField {
   totalLength?: number
   lengthRawData: number[]
 }
@@ -20,6 +22,10 @@ export class LengthField implements ILengthField {
     return this.lengthRawData
      .filterNumbers()
      .reduce((a, b) => a + b)
+  }
+
+  get dataType(): DataType {
+    return DataType.Length;
   }
 
   get isValid(): boolean {

@@ -1,8 +1,10 @@
 import { IModel } from "../base.model";
 import { IFungalField, FungalField } from "../field/fungal-field.model";
 import { READING_NUM_MIN_FIELDS } from "../../util/reading-model";
+import { DataType } from "../organism/organism.model";
+import { IReading } from "./reading.model";
 
-export interface IFungalReading extends IModel {
+export interface IFungalReading extends IReading {
   fields: IFungalField[]
 }
 
@@ -26,6 +28,10 @@ export class FungalReading implements IFungalReading {
         this.fields.push(new FungalField())
       }
     }
+  }
+
+  get dataType(): DataType {
+    return DataType.Diameter
   }
   
   get isValid(): boolean {

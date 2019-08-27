@@ -1,10 +1,11 @@
 import '../../util/misc'
 
-import { IModel } from "../base.model";
 import { ILengthField, LengthField } from "../field/length-field.model";
 import { READING_NUM_MIN_FIELDS } from '../../util/reading-model'
+import { IReading } from './reading.model';
+import { DataType } from '../organism/organism.model';
 
-export interface ILengthReading extends IModel {
+export interface ILengthReading extends IReading {
   fields: ILengthField[]
   totalLength?: number
 }
@@ -35,6 +36,10 @@ export class LengthReading implements ILengthReading {
     return this.fields
       .filterNumbers()
       .reduce((a, b) => a + b)
+  }
+
+  get dataType(): DataType {
+    return DataType.Length
   }
   
   get isValid(): boolean {

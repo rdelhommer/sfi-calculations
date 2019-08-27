@@ -12,13 +12,16 @@
     <ux-dialog-body>
       <div class="zoom-field__body">
         <length-data 
-            if.bind="!isDiameter"
+            if.bind="dataType === DataType.Length"
             field.bind="field">
         </length-data>
         <fungal-data
-            if.bind="isDiameter"
+            if.bind="dataType === DataType.Diameter"
             field.bind="field">
         </fungal-data>
+        <count-data
+            if.bind="dataType === DataType.Counting">
+        </count-data>
       </div>
     </ux-dialog-body>
 

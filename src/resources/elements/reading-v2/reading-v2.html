@@ -10,11 +10,11 @@
             <form-group 
                 orientation="horizontal">
               <div slot="label">
-                Total Length
+                ${reading.dataType === DataType.Counting ? 'Total Count' : 'Total Length'}
               </div>
             </form-group>
           </div>
-          <div if.bind="!!fungiColorEnum">
+          <div if.bind="reading.dataType === DataType.Diameter">
             <form-group 
                 orientation="horizontal">
               <div slot="label">

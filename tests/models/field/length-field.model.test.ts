@@ -1,5 +1,6 @@
 import { LengthField } from "../../../src/models/field/length-field.model";
 import { FIELD_NUM_RAW_DATA } from "../../../src/util/field-model";
+import { DataType } from "../../../src/models/organism/organism.model";
 
 describe('Models', () => {
   describe('Length Field', () => {
@@ -19,6 +20,14 @@ describe('Models', () => {
         })
 
         expect(test.lengthRawData).toEqual([1,2,3,4,5,6,7,8,9,0])
+      })
+    })
+
+    describe('dataType', () => {
+      test('should return Length', () => {
+        let test = new LengthField()
+
+        expect(test.dataType).toBe(DataType.Length)
       })
     })
 

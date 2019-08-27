@@ -1,6 +1,7 @@
 import { FungalColor } from "../../../src/util/enums";
 import { FungalField } from "../../../src/models/field/fungal-field.model";
 import { FIELD_NUM_RAW_DATA } from "../../../src/util/field-model";
+import { DataType } from "../../../src/models/organism/organism.model";
 
 describe('Models', () => {
   describe('Fungal Field', () => {
@@ -33,6 +34,14 @@ describe('Models', () => {
         expect(test.lengthRawData).toEqual([11,2,3,4,5,6,7,8,9,0])
         expect(test.diameterRawData).toEqual([1,2,3,4,5,6,7,8,9,0])
         expect(test.color).toEqual(FungalColor.C)
+      })
+    })
+
+    describe('dataType', () => {
+      test('should return Diameter', () => {
+        let test = new FungalField()
+
+        expect(test.dataType).toBe(DataType.Diameter)
       })
     })
 

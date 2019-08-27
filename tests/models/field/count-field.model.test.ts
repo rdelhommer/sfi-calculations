@@ -1,4 +1,5 @@
 import { CountField } from "../../../src/models/field/count-field.model";
+import { DataType } from "../../../src/models/organism/organism.model";
 
 describe('Models', () => {
   describe('Count Field', () => {
@@ -15,6 +16,14 @@ describe('Models', () => {
         })
 
         expect(test.count).toEqual(5)
+      })
+    })
+
+    describe('dataType', () => {
+      test('should return Counting', () => {
+        let test = new CountField()
+
+        expect(test.dataType).toBe(DataType.Counting)
       })
     })
 

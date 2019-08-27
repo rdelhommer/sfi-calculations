@@ -3,7 +3,10 @@ import { DialogService } from 'aurelia-dialog'
 import { inject } from 'aurelia-framework';
 import { FungalColor, OomyceteColor } from '../../util/enums';
 import { IZoomFieldModalModel, ZoomFieldModal } from '../../shared/zoom-field-modal/zoom-field-modal';
-import { FungalField, LengthField } from '../../models/field.model';
+import { FungalField } from '../../models/field/fungal-field.model';
+import { LengthField } from '../../models/field/length-field.model';
+import { DataType } from '../../models/organism/organism.model';
+import { CountField } from '../../models/field/count-field.model';
 
 @inject(DialogService)
 export class FilaProto {
@@ -13,6 +16,7 @@ export class FilaProto {
 
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
+  DataType = DataType
 
   isReadingExpanded = {
     0: false,
@@ -94,15 +98,19 @@ export class FilaProto {
     }
   }
 
-  collectData(readingNumber: number, fieldNumber: number, organismName: string, isDiameter: boolean) {
+  collectData(readingNumber: number, fieldNumber: number, organismName: string, dataType: DataType) {
     this.dialogService.open({
       viewModel: ZoomFieldModal,
       model: <IZoomFieldModalModel>{
         readingNumber,
         fieldNumber,
         organismName,
-        isDiameter,
-        field: isDiameter ? new FungalField() : new LengthField()
+        dataType,
+        field: dataType === DataType.Counting 
+          ? new CountField()
+          : dataType === DataType.Diameter
+            ? new FungalField() 
+            : new LengthField()
       }, 
       lock: true
     }).whenClosed(result => {

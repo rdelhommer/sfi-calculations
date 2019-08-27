@@ -5,15 +5,15 @@
         Field #
       </div>
       <div class="field-observation__cell field-observation__cell--header">
-        Length
+        ${field.dataType === DataType.Counting ? 'Count' : 'Length'}
       </div>
       <div 
-          if.bind="fungiColorEnum"
+          if.bind="field.dataType === DataType.Diameter"
           class="field-observation__cell field-observation__cell--header">
         Diameter
       </div>
       <div 
-          if.bind="fungiColorEnum"
+          if.bind="field.dataType === DataType.Diameter"
           class="field-observation__cell field-observation__cell--header">
         Color
       </div>
@@ -27,9 +27,14 @@
       <div 
           class="field-observation__cell"
           click.delegate="_onEdit()">
-        <span>${totalLength | calculated: 0.01}</span>
+        <span if.bind="field.dataType === DataType.Length">
+          ${field.totalLength | calculated: 0.01}
+        </span>
+        <span if.bind="field.dataType === DataType.Counting">
+          ${field.count | calculated: 1}
+        </span>
       </div>
-      <div if.bind="fungiColorEnum">
+      <div if.bind="field.dataType === DataType.Diameter">
         <div 
             class="field-observation__cell"
             click.delegate="_onEdit()">

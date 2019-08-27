@@ -1,8 +1,9 @@
-import { IModel } from "../base.model";
+import { IReading } from "./reading.model";
 import { READING_NUM_MIN_FIELDS } from '../../util/reading-model'
 import { ICountField, CountField } from "../field/count-field.model";
+import { DataType } from "../organism/organism.model";
 
-export interface ICountReading extends IModel {
+export interface ICountReading extends IReading {
   fields: ICountField[]
 }
 
@@ -26,6 +27,10 @@ export class CountReading implements ICountReading {
         this.fields.push(new CountField())
       }
     }
+  }
+
+  get dataType(): DataType {
+    return DataType.Counting
   }
   
   get isValid(): boolean {

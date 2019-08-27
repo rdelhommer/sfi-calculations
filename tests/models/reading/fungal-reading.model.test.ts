@@ -2,6 +2,7 @@ import { FungalReading, IFungalReading } from "../../../src/models/reading/funga
 import { FungalField } from "../../../src/models/field/fungal-field.model";
 import { FungalColor } from "../../../src/util/enums";
 import { READING_NUM_MIN_FIELDS } from "../../../src/util/reading-model";
+import { DataType } from "../../../src/models/organism/organism.model";
 
 describe('Models', () => {
   describe('Fungal Reading', () => {
@@ -75,6 +76,14 @@ describe('Models', () => {
         expect(test.fields[1].lengthRawData.slice(0, 3)).toEqual([4,5,6])
         expect(test.fields[1].diameterRawData.slice(0, 3)).toEqual([4,5,6])
         expect(test.fields[1].color).toEqual(FungalColor.C)
+      })
+    })
+
+    describe('dataType', () => {
+      test('should return Diameter', () => {
+        let test = new FungalField()
+
+        expect(test.dataType).toBe(DataType.Diameter)
       })
     })
 
