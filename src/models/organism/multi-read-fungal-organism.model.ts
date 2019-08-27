@@ -1,19 +1,20 @@
 import '../../util/misc'
 
 import { IOrganism, DataType, NUM_READINGS } from "./organism.model";
-import { ISampleInfoModel } from "../sample.model";
-import { FOV_DIAMETER_MM, DROPS_PER_ML } from '../../util/constants';
 import { IModel } from '../base.model';
 import { IFungalReading, FungalReading } from '../reading/fungal-reading.model';
 import { IFungalField } from '../field/fungal-field.model';
+import { ISampleInfoModel } from '../sample.model';
 
 export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IModel {
   organismName: string;
   readings: IFungalReading[];
   dilution: number;
-  coverslipNumFields: number;
   
-  constructor(init: Partial<IOrganism<IFungalReading>> = { }) {
+  constructor(
+    private sample: ISampleInfoModel,
+    init: Partial<IOrganism<IFungalReading>> = { }
+  ) {
     Object.assign(this, init)
 
     if (!this.readings) {
@@ -29,7 +30,6 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
     }
 
     if (this.dilution == null) throw 'You must provide a dilution for the organism model'
-    if (this.coverslipNumFields == null) throw 'You must provide a coverslipNumFields for the organism model'
     if (this.organismName == null) throw 'You must provide an organismName for the organism model'
   }
 
@@ -72,7 +72,7 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
   }
 
   protected get _lengthMeanCm(): number {
-    return this._lengthMeanMm * FOV_DIAMETER_MM / 10;
+    return this._lengthMeanMm * this.sample.fovDiameterMm / 10;
   }
 
   protected get _lengthStDevMm(): number {
@@ -81,7 +81,7 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
   }
 
   protected get _lengthStDevCm(): number {
-    return this._lengthStDevMm * FOV_DIAMETER_MM / 10;
+    return this._lengthStDevMm * this.sample.fovDiameterMm / 10;
   }
 
   protected get _averageDiameterCm(): number {
@@ -98,10 +98,10 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
   }
 
   protected get _lengthMeanCmPerG(): number {
-    return this._lengthMeanCm * this.dilution * DROPS_PER_ML * this.coverslipNumFields
+    return this._lengthMeanCm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
   }
   protected get _lengthStDevCmPerG(): number {
-    return this._lengthStDevCm * this.dilution * DROPS_PER_ML * this.coverslipNumFields
+    return this._lengthStDevCm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
   }
 
   get meanResult(): number {

@@ -1,19 +1,20 @@
 import '../../util/misc'
 
 import { IOrganism, DataType, NUM_READINGS } from "./organism.model";
-import { ISampleInfoModel } from "../sample.model";
-import { FOV_DIAMETER_MM, DROPS_PER_ML } from '../../util/constants';
 import { IModel } from '../base.model';
 import { ICountField } from '../field/count-field.model';
 import { ICountReading, CountReading } from '../reading/count-reading.model';
+import { ISampleInfoModel } from '../sample.model';
 
 export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel {
   organismName: string
   readings: ICountReading[];
   dilution: number;
-  coverslipNumFields: number;
   
-  constructor(init: Partial<IOrganism<ICountReading>> = { }) {
+  constructor(
+    private sample: ISampleInfoModel,
+    init: Partial<IOrganism<ICountReading>> = { }
+  ) {
     Object.assign(this, init)
 
     if (!this.readings) {
@@ -29,7 +30,6 @@ export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel 
     }
 
     if (this.dilution == null) throw 'You must provide a dilution for the organism model'
-    if (this.coverslipNumFields == null) throw 'You must provide a coverslipNumFields for the organism model'
     if (this.organismName == null) throw 'You must provide an organismName for the organism model'
   }
 
@@ -56,7 +56,7 @@ export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel 
   }
 
   protected get _countMeanCm(): number {
-    return this._countMeanMm * FOV_DIAMETER_MM / 10;
+    return this._countMeanMm * this.sample.fovDiameterMm / 10;
   }
 
   protected get _countStDevMm(): number {
@@ -65,15 +65,15 @@ export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel 
   }
 
   protected get _countStDevCm(): number {
-    return this._countStDevMm * FOV_DIAMETER_MM / 10;
+    return this._countStDevMm * this.sample.fovDiameterMm / 10;
   }
 
   get meanResult(): number {
-    return this._countMeanMm * this.dilution * DROPS_PER_ML * this.coverslipNumFields
+    return this._countMeanMm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
   }
 
   get stDevResult(): number {
-    return this._countStDevCm * this.dilution * DROPS_PER_ML * this.coverslipNumFields
+    return this._countStDevCm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
   }
 
   get isValid(): boolean {

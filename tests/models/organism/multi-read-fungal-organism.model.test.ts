@@ -1,16 +1,24 @@
 import { MultiReadFungalOrganism } from "../../../src/models/organism/multi-read-fungal-organism.model";
 import { DataType, NUM_READINGS } from "../../../src/models/organism/organism.model";
 import { FungalReading } from "../../../src/models/reading/fungal-reading.model";
-import { FungalColor } from "../../../src/util/enums";
+import { FungalColor, CoverslipSize } from "../../../src/util/enums";
+import { ISampleInfoModel, SampleInfo } from "../../../src/models/sample.model";
 
 describe('Models', () => {
+  let sample: ISampleInfoModel = new SampleInfo({
+    bacteriaDilution: 300,
+    mainDilution: 5,
+    dropsPerSample: 1,
+    coverslipSize: CoverslipSize.EighteenSquare,
+    dropsPerMl: 20,
+    eyepieceFieldSize: 18
+  })
+
   describe('Fungal Organism', () => {
     describe('constructor', () => {
-
       test('should init organismName', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 
@@ -19,17 +27,15 @@ describe('Models', () => {
 
       test('should throw if no organismName', () => {
         expect(() => {
-          new MultiReadFungalOrganism({
-          dilution: 25,
-            coverslipNumFields: 35
+          new MultiReadFungalOrganism(sample, {
+            dilution: 25,
           })
         }).toThrow()
       })
 
       test('should init dilution', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 
@@ -38,36 +44,15 @@ describe('Models', () => {
 
       test('should throw if no dilution', () => {
         expect(() => {
-          new MultiReadFungalOrganism({
-            coverslipNumFields: 35,
-            organismName: 'test'
-          })
-        }).toThrow()
-      })
-
-      test('should init coverslipNumFields', () => {
-        let test = new MultiReadFungalOrganism({
-          dilution: 25,
-          coverslipNumFields: 35,
-          organismName: 'test'
-        })
-
-        expect(test.coverslipNumFields).toEqual(35)
-      })
-
-      test('should throw if no coverslipNumFields', () => {
-        expect(() => {
-          new MultiReadFungalOrganism({
-            dilution: 25,
+          new MultiReadFungalOrganism(sample, {
             organismName: 'test'
           })
         }).toThrow()
       })
 
       test('should init default readings', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 
@@ -75,9 +60,8 @@ describe('Models', () => {
       })
 
       test('should init existing readings', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           readings: [{
             fields: [{
               lengthRawData: [1, 2, 3],
@@ -110,9 +94,8 @@ describe('Models', () => {
       })
 
       test('should init readings with correct class type', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 
@@ -120,9 +103,8 @@ describe('Models', () => {
       })
 
       test('should have correct data type', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 
@@ -132,9 +114,8 @@ describe('Models', () => {
 
     describe('isValid', () => {
       test('should be true if all readings are valid', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 
@@ -159,9 +140,8 @@ describe('Models', () => {
       })
 
       test('should be false if a reading is not valid', () => {
-        let test = new MultiReadFungalOrganism({
+        let test = new MultiReadFungalOrganism(sample, {
           dilution: 25,
-          coverslipNumFields: 35,
           organismName: 'test'
         })
 

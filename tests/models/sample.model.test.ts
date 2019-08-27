@@ -22,7 +22,9 @@ describe('Models', () => {
           observer
         })
 
-        expect(Object.keys(test.observer).every(k => test.observer[k] === observer[k])).toBe(true)
+        Object.keys(test.observer).forEach(k => {
+          expect(test.observer[k]).toEqual(observer[k])
+        })
       })
 
       test('should initialize a default sample info property', () => {
@@ -52,7 +54,9 @@ describe('Models', () => {
     describe('isValid', () => {
       test('valid if both observer and sample are valid', () => {
         let test = new Sample()
+        test.observer = <any>{ }
         test.observer.isValid = true
+        test.sample = <any>{ }
         test.sample.isValid = true
 
         expect(test.isValid).toBe(true)
@@ -60,7 +64,9 @@ describe('Models', () => {
 
       test('invalid if observer is not valid', () => {
         let test = new Sample()
+        test.observer = <any>{ }
         test.observer.isValid = false
+        test.sample = <any>{ }
         test.sample.isValid = true
 
         expect(test.isValid).toBe(false)
@@ -68,7 +74,9 @@ describe('Models', () => {
 
       test('invalid if sample is not valid', () => {
         let test = new Sample()
+        test.observer = <any>{ }
         test.observer.isValid = true
+        test.sample = <any>{ }
         test.sample.isValid = false
 
         expect(test.isValid).toBe(false)
