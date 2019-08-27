@@ -89,6 +89,15 @@ describe('Models', () => {
         expect(test.isValid).toEqual(false)
       })
     })
+
+    describe('totalLength', () => {
+      test('should return null for no field data', () => {
+        let test = new LengthReading()
+        test.fields = []
+
+        expect(test.totalLength).toBe(null)
+      })
+    })
   })
 })
 

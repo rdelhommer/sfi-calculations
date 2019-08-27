@@ -6,8 +6,6 @@ import { IProfileModel } from '../../models/profile.model';
 import { ISampleInfoModel, Sample } from '../../models/sample.model';
 import { IOrganismReading } from '../../models/reading.model';
 import { IStateManager } from '../../services/state/state-manager.service';
-import { mean, stDev } from '../../util/misc';
-import { FOV_DIAMETER_MM, DROPS_PER_ML, defaultReadingFactory } from '../../util/constants';
 import { IOrganismData, NematodeData, ActinobacteriaData, MultiReadingData, DiameterReadingData, CountingData } from '../../models/organism.model';
 
 export interface IBacteriaObs {
@@ -47,8 +45,6 @@ export class DataTab {
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
   CoverslipSize = CoverslipSize
-  FOV_DIAMETER_MM = FOV_DIAMETER_MM
-  DROPS_PER_ML = DROPS_PER_ML
 
   nematodeCalcs: IOrganismData[]
   organismReadings: { [key: string]: IOrganismReading[] } 
@@ -178,11 +174,11 @@ export class DataTab {
         }
       })
 
-    this.bacteriaObs.mean = mean(this.bacteriaObs.results)
-    this.bacteriaObs.stDev = stDev(this.bacteriaObs.results)
-    this.bacteriaObs.meanNumBacteriaPerG = this.bacteriaObs.mean * this.sample.bacteriaDilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    this.bacteriaObs.mean = this.bacteriaObs.results.mean()
+    this.bacteriaObs.stDev = this.bacteriaObs.results.stDev()
+    this.bacteriaObs.meanNumBacteriaPerG = this.bacteriaObs.mean * this.sample.bacteriaDilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
     this.bacteriaObs.meanResult = this.bacteriaObs.meanNumBacteriaPerG * 0.000002
-    this.bacteriaObs.stDevNumBacteriaPerG = this.bacteriaObs.stDev * this.sample.bacteriaDilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    this.bacteriaObs.stDevNumBacteriaPerG = this.bacteriaObs.stDev * this.sample.bacteriaDilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
     this.bacteriaObs.stDevResult = this.bacteriaObs.stDevNumBacteriaPerG * 0.000002
 
     this.session.saveData({

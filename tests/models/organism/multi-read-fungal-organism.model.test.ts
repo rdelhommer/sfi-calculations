@@ -166,23 +166,31 @@ describe('Models', () => {
       })
     })
 
-    describe('meanResult', () => {
+    describe.skip('meanResult', () => {
       test('happy', () => {
-
+        throw 'TODO'
       })
 
       test('should ignore invalid field data', () => {
-        
+        throw 'TODO'
+      })
+
+      test('should return null for no data', () => {
+        throw 'TODO'
       })
     })
 
-    describe('stDevResult', () => {
+    describe.skip('stDevResult', () => {
       test('happy', () => {
-
+        throw 'TODO'
       })
 
       test('should ignore invalid field data', () => {
-        
+        throw 'TODO'
+      })
+
+      test('should return null for no data', () => {
+        throw 'TODO'       
       })
     })
   })

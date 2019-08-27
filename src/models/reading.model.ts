@@ -69,7 +69,7 @@ export class OrganismReading implements IOrganismReading {
 
   updateCalculatedLengthValues() {
     let totalLength = this.validLengthMeasurements
-      .reduce((a, b) => a + b)
+      .reduce((a, b) => a + b, 0)
 
     this.totalLength = Number(totalLength.toFixed(2))
     
@@ -80,7 +80,7 @@ export class OrganismReading implements IOrganismReading {
 
   updateCalculatedDiameterValues() {
     const total = this.validDiameterMeasurements
-      .reduce((a, b) => a + b)
+      .reduce((a, b) => a + b, 0)
 
     this.averageDiameter = Number((total / this.totalLength).toFixed(2))
     
@@ -100,7 +100,7 @@ export class OrganismReading implements IOrganismReading {
 
     // Update total volume
     let totalVolume = this.validCalculatedVolumes
-      .reduce((a, b) => a + b)
+      .reduce((a, b) => a + b, 0)
 
     this.totalVolume = Number(totalVolume.toFixed(2))
   }

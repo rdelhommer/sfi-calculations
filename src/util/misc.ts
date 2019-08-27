@@ -1,3 +1,5 @@
+import { RedirectToRoute } from "aurelia-router";
+
 export function newGuid() {
   var d = new Date().getTime();
   if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
@@ -21,6 +23,7 @@ declare global {
     filterNumbers: () => number[]
     mean: () => number
     stDev: () => number
+    sum: () => number
   }
 }
 
@@ -31,8 +34,21 @@ Array.prototype.filterNumbers = function() {
     .filter(x => !Number.isNaN(x))
 }
 
+Array.prototype.sum = function() {
+  let filtered = this
+    .filterNumbers()
+
+  if (filtered.length === 0) return null
+
+  return filtered
+    .reduce((a, b) => a + b)
+}
+
 Array.prototype.mean = function() {
-  let filtered = this.filter(x => !Number.isNaN(x))
+  let filtered = this.filterNumbers()
+
+  if (filtered.length === 0) return null
+
   var i,total = 0;
   for(i=0;i<filtered.length;i+=1){
       total+=filtered[i];
@@ -41,7 +57,11 @@ Array.prototype.mean = function() {
 }
 
 Array.prototype.stDev = function() {
-  let n = this.length;
-  let mean = this.reduce((a,b) => a+b)/n;
-  return Math.sqrt(this.map(x => Math.pow(x-mean,2)).reduce((a,b) => a+b)/(n - 1));
+  let filtered = this.filterNumbers()
+
+  let n = filtered.length;
+  if (n === 0) return null
+
+  let mean = this.reduce((a,b) => a+b, 0)/n;
+  return Math.sqrt(this.map(x => Math.pow(x-mean,2)).reduce((a,b) => a+b, 0)/(n - 1));
 }

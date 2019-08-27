@@ -50,22 +50,21 @@ export class FungalField implements IFungalField {
   }
 
   get totalLength(): number {
-    return this.lengthRawData
-     .filterNumbers()
-     .reduce((a, b) => a + b)
+    return this.lengthRawData.sum()
   }
 
   get averageDiameter(): number {
-    let totalDiameter = this.diameterRawData
-     .filterNumbers()
-     .reduce((a, b) => a + b)
+    let totalDiameter = this.diameterRawData.sum()
 
-    return totalDiameter / this.totalLength
+    let result = totalDiameter / this.totalLength
+
+    return Number.isNaN(result)
+      ? null
+      : result
   }
 
   get totalVolume(): number {
-    return this._volumes.filterNumbers()
-      .reduce((a, b) => a + b)
+    return this._volumes.sum()
   }
 
   get dataType(): DataType {

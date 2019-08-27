@@ -1,18 +1,13 @@
 import './length-data.scss'
-import { bindable } from 'aurelia-framework';
-
-export interface ILengthRawData {
-  length: number
-}
+import { bindable, computedFrom } from 'aurelia-framework';
+import { ILengthField } from '../../../models/field/length-field.model';
 
 export class LengthData {
-  @bindable rawData: ILengthRawData[]
-  @bindable totalLength: number
+  @bindable field: ILengthField
+  updateFlag: boolean
 
-  updateCalcs() {
-    this.totalLength = this.rawData
-      .map(x => x.length)
-      .filterNumbers()
-      .reduce((a, b) => a + b)
+  @computedFrom('updateFlag')
+  get totalLength(): number {
+    return this.field.totalLength
   }
 }

@@ -8,14 +8,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr repeat.for="row of rawData">
+      <tr repeat.for="data of field.lengthRawData">
         <td class="length-data__cell length-data__cell--entry">
           <input 
-              value.bind="row.length"
+              value.bind="field.lengthRawData[$index]"
               type="number"
               step=".1" 
               min="0"
-              change.delegate="updateCalcs()"/>
+              change.delegate="updateFlag = !updateFlag"/>
         </td>
       </tr>
       <tr>

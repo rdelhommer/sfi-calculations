@@ -16,6 +16,7 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/card/card'),
   PLATFORM.moduleName('resources/elements/biomass/biomass'),
   PLATFORM.moduleName('resources/elements/field-observation/field-observation'),
+  PLATFORM.moduleName('resources/elements/count-data/count-data'),
   PLATFORM.moduleName('resources/elements/fungal-data/fungal-data'),
   PLATFORM.moduleName('resources/elements/length-data/length-data'),
   PLATFORM.moduleName('resources/elements/dropdown-button/dropdown-button'),

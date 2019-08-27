@@ -20,7 +20,8 @@
             field.bind="field">
         </fungal-data>
         <count-data
-            if.bind="dataType === DataType.Counting">
+            if.bind="dataType === DataType.Counting"
+            count.bind="field.count">
         </count-data>
       </div>
     </ux-dialog-body>

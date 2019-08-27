@@ -90,9 +90,9 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
   
   protected get _averageDiameterUm(): number {
     let sumVolumes = this.normalize(this._totalVolumes)
-      .reduce((a, b) => a + b);
+      .sum()
     let sumLengths = this.normalize(this._totalLengths)
-      .reduce((a, b) => a + b);
+      .sum()
 
     return sumVolumes / sumLengths;
   }

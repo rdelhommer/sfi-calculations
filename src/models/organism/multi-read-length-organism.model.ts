@@ -8,7 +8,7 @@ import { round } from '../../util/misc';
 
 // NOTE
 // This currently is only used by Actinobacteria
-export class MultiReadLengthOrganism implements IOrganism<ILengthReading>, IModel {
+export class MultiReadLengthOrganism implements IOrganism<ILengthReading> {
   readings: ILengthReading[];
   dilution: number;
 

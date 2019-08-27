@@ -1,6 +1,6 @@
-import { DROPS_PER_ML, FOV_DIAMETER_MM } from "../util/constants";
+import '../util/misc'
+
 import { ISampleInfoModel } from "./sample.model";
-import { mean, stDev } from "../util/misc";
 import { IOrganismReading } from "./reading.model";
 
 function initData(ret: IOrganismData, init: Partial<IOrganismData>): IOrganismData {
@@ -88,7 +88,7 @@ export class NematodeData implements IOrganismData {
   }
 
   get _meanResult(): number {
-    return this._lengthMeanMm * this.dilution * DROPS_PER_ML
+    return this._lengthMeanMm * this.dilution// * DROPS_PER_ML
   }
 }
 
@@ -119,7 +119,7 @@ export abstract class MultiReadingData implements IOrganismData {
   protected normalize(array: number[]) {
     return array.map(x => {
       let length = x == null ? 0 : x
-      return length / this.sample.fieldsPerReading
+      return length / 5
     })
   }
 
@@ -131,19 +131,21 @@ export abstract class MultiReadingData implements IOrganismData {
   }
 
   get _lengthMeanMm(): number {
-    return mean(this.normalize(this.lengths));
+    return this.normalize(this.lengths).mean();
   }
 
   get _lengthMeanCm(): number {
-    return this._lengthMeanMm * FOV_DIAMETER_MM / 10;
+    return 0
+    // return this._lengthMeanMm * FOV_DIAMETER_MM / 10;
   }
 
   get _lengthStDevMm(): number {
-    return stDev(this.normalize(this.lengths));
+    return this.normalize(this.lengths).stDev()
   }
 
   get _lengthStDevCm(): number {
-    return this._lengthStDevMm * FOV_DIAMETER_MM / 10;
+    return 0
+    // return this._lengthStDevMm * FOV_DIAMETER_MM / 10;
   }
 }
 
@@ -197,7 +199,8 @@ export class ActinobacteriaData extends MultiReadingData {
   }
 
   get _lengthMeanCmPerG(): number {
-    return this.lengthMeanCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    return 0
+    // return this.lengthMeanCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
   }
 
   get _meanResult(): number {
@@ -205,7 +208,8 @@ export class ActinobacteriaData extends MultiReadingData {
   }
 
   get _lengthStDevCmPerG(): number {
-    return this.lengthStDevCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    return 0
+    // return this.lengthStDevCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
   }
   
   get _stDevResult(): number {
@@ -285,15 +289,16 @@ export class DiameterReadingData extends MultiReadingData {
   
   get _averageDiameterUm(): number {
     let sumVolumes = this.normalize(this.volumes)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     let sumLengths = this.normalize(this.lengths)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
 
     return sumVolumes / sumLengths;
   }
 
   get _lengthMeanCmPerG(): number {
-    return this.lengthMeanCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    return 0
+    // return this.lengthMeanCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
   }
 
   get _meanResult(): number {
@@ -301,7 +306,8 @@ export class DiameterReadingData extends MultiReadingData {
   }
 
   get _lengthStDevCmPerG(): number {
-    return this.lengthStDevCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    return 0
+    // return this.lengthStDevCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
   }
   
   get _stDevResult(): number {
@@ -359,11 +365,13 @@ export class CountingData extends MultiReadingData {
   }
 
   get _meanResult(): number {
-    return this.lengthMeanMm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    return 0
+    // return this.lengthMeanMm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
   }
 
   get _stDevResult(): number {
-    return this.lengthStDevCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
+    return 0
+    // return this.lengthStDevCm * this.dilution * DROPS_PER_ML * this.sample.coverslipNumFields
   }
 }
 

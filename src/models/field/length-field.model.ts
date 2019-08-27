@@ -19,9 +19,7 @@ export class LengthField implements ILengthField {
   }
 
   get totalLength(): number {
-    return this.lengthRawData
-     .filterNumbers()
-     .reduce((a, b) => a + b)
+    return this.lengthRawData.sum()
   }
 
   get dataType(): DataType {

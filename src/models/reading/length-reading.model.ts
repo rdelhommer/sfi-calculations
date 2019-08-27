@@ -33,9 +33,7 @@ export class LengthReading implements ILengthReading {
   }
 
   get totalLength(): number {
-    return this.fields
-      .filterNumbers()
-      .reduce((a, b) => a + b)
+    return this.fields.sum()
   }
 
   get dataType(): DataType {

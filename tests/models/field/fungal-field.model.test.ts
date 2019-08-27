@@ -121,6 +121,13 @@ describe('Models', () => {
 
         expect(test.totalLength).toBe(10)
       })
+
+      test('should return null for empty array', () => {
+        let test = new FungalField()
+        test.lengthRawData = []
+
+        expect(test.totalLength).toBe(null)
+      })
     })
 
     describe('averageDiameter', () => {
@@ -139,6 +146,13 @@ describe('Models', () => {
 
         expect(test.averageDiameter).toBe(5)
       })
+
+      test('should return null for empty array', () => {
+        let test = new FungalField()
+        test.diameterRawData = []
+
+        expect(test.averageDiameter).toBe(null)
+      })
     })
 
     describe('totalVolume', () => {
@@ -156,6 +170,14 @@ describe('Models', () => {
         test.diameterRawData = [1, 2, 3, 4]
 
         expect(test.totalVolume).toBe(40)
+      })
+
+      test('should return null for empty array', () => {
+        let test = new FungalField()
+        test.lengthRawData = []
+        test.diameterRawData = []
+
+        expect(test.totalVolume).toBe(null)
       })
     })
   })

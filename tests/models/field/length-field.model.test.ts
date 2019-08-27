@@ -66,6 +66,13 @@ describe('Models', () => {
 
         expect(test.totalLength).toBe(10)
       })
+      
+      test('should return null for empty array', () => {
+        let test = new LengthField()
+        test.lengthRawData = []
+
+        expect(test.totalLength).toBe(null)
+      })
     })
   })
 })
