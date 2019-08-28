@@ -39,7 +39,7 @@ export class SampleInfo implements ISampleInfoModel {
   coverslipSize: CoverslipSize;
   eyepieceFieldSize: number;
 
-  constructor(init: Partial<ISampleInfoModel> = { }) {
+  constructor(init: RecursivePartial<ISampleInfoModel> = { }) {
     Object.assign(this, init)
 
     this.mainDilution = this.mainDilution == null ? 5 : this.mainDilution
@@ -100,7 +100,7 @@ export class Sample implements ISampleModel {
   observer: IProfileModel;  
   sample: ISampleInfoModel;
 
-  constructor(init: Partial<ISampleModel> = { }) {
+  constructor(init: RecursivePartial<ISampleModel> = { }) {
     this.observer = init.observer ? new Profile(init.observer) : new Profile({});
     this.sample = init.sample ? new SampleInfo(init.sample) : new SampleInfo({})
   }

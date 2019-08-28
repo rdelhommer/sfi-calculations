@@ -13,7 +13,7 @@ export interface ILengthReading extends IReading {
 export class LengthReading implements ILengthReading {
   fields: ILengthField[];  
 
-  constructor(init: Partial<ILengthReading> = { }) {
+  constructor(init: RecursivePartial<ILengthReading> = { }) {
     Object.assign(this, init)
 
     if (!this.fields) {
@@ -30,6 +30,16 @@ export class LengthReading implements ILengthReading {
         this.fields.push(new LengthField())
       }
     }
+  }
+
+  addField() {
+    this.fields.push(new LengthField())
+  }
+
+  tryRemoveField() {
+    if (this.fields.length <= READING_NUM_MIN_FIELDS) return
+
+    this.fields.pop()
   }
 
   get totalLength(): number {

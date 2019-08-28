@@ -7,14 +7,11 @@ import { FungalField } from '../../models/field/fungal-field.model';
 import { LengthField } from '../../models/field/length-field.model';
 import { DataType, IOrganism } from '../../models/organism/organism.model';
 import { CountField } from '../../models/field/count-field.model';
-import { ILengthReading } from '../../models/reading/length-reading.model';
 import { MultiReadLengthOrganism } from '../../models/organism/multi-read-length-organism.model';
 import { ISampleInfoModel, SampleInfo } from '../../models/sample.model';
-import { IFungalReading } from '../../models/reading/fungal-reading.model';
 import { MultiReadFungalOrganism } from '../../models/organism/multi-read-fungal-organism.model';
-import { ICountReading } from '../../models/reading/count-reading.model';
 import { MultiReadCountOrganism } from '../../models/organism/multi-read-count-organism.model';
-import { READING_NUM_MIN_FIELDS } from '../../util/reading-model';
+import { IReading } from '../../models/reading/reading.model';
 
 @inject(DialogService)
 export class FilaProto {
@@ -26,31 +23,33 @@ export class FilaProto {
     dropsPerMl: 20,
     eyepieceFieldSize: 18
   })
-  
-  actinobacteria: IOrganism<ILengthReading> = new MultiReadLengthOrganism(this.stubSample, {
-    dilution: this.stubSample.mainDilution
-  })
-  fungi: IOrganism<IFungalReading> = new MultiReadFungalOrganism(this.stubSample, {
-    dilution: this.stubSample.mainDilution,
-    organismName: 'Fungi'
-  })
-  oomycete: IOrganism<IFungalReading> = new MultiReadFungalOrganism(this.stubSample, {
-    dilution: this.stubSample.mainDilution,
-    organismName: 'Oomycete'
-  })
-  flagellate: IOrganism<ICountReading> = new MultiReadCountOrganism(this.stubSample, {
-    dilution: this.stubSample.mainDilution,
-    organismName: 'Flagellate'
-  })
-  amoebae: IOrganism<ICountReading> = new MultiReadCountOrganism(this.stubSample, {
-    dilution: this.stubSample.mainDilution,
-    organismName: 'Amoebae'
-  })
-  ciliate: IOrganism<ICountReading> = new MultiReadCountOrganism(this.stubSample, {
-    dilution: this.stubSample.mainDilution,
-    organismName: 'Ciliate'
-  })
 
+  organisms: IOrganism<IReading>[] = [
+    new MultiReadLengthOrganism(this.stubSample, {
+      dilution: this.stubSample.mainDilution
+    }),
+    new MultiReadFungalOrganism(this.stubSample, {
+      dilution: this.stubSample.mainDilution,
+      organismName: 'Fungi'
+    }),
+    new MultiReadFungalOrganism(this.stubSample, {
+      dilution: this.stubSample.mainDilution,
+      organismName: 'Oomycete'
+    }),
+    new MultiReadCountOrganism(this.stubSample, {
+      dilution: this.stubSample.mainDilution,
+      organismName: 'Flagellate'
+    }),
+    new MultiReadCountOrganism(this.stubSample, {
+      dilution: this.stubSample.mainDilution,
+      organismName: 'Amoebae'
+    }),
+    new MultiReadCountOrganism(this.stubSample, {
+      dilution: this.stubSample.mainDilution,
+      organismName: 'Ciliate'
+    })
+  ]
+  
   FungalColor = FungalColor
   OomyceteColor = OomyceteColor
   DataType = DataType
@@ -70,27 +69,11 @@ export class FilaProto {
   }
 
   addField() {
-    this.actinobacteria.readings.forEach(x => x.fields.push(new LengthField()))
-    this.fungi.readings.forEach(x => x.fields.push(new FungalField()))
-    this.oomycete.readings.forEach(x => x.fields.push(new FungalField()))
-    this.flagellate.readings.forEach(x => x.fields.push(new CountField()))
-    this.amoebae.readings.forEach(x => x.fields.push(new CountField()))
-    this.ciliate.readings.forEach(x => x.fields.push(new CountField()))
+    this.organisms.forEach(o => o.readings.forEach(r => r.addField()))
   }
 
   removeField() {
-    let tryRemoveField = (reading) => {
-      if (reading.fields.length <= READING_NUM_MIN_FIELDS) return
-
-      reading.fields.pop()
-    }
-
-    this.actinobacteria.readings.forEach(tryRemoveField)
-    this.fungi.readings.forEach(tryRemoveField)
-    this.oomycete.readings.forEach(tryRemoveField)
-    this.flagellate.readings.forEach(tryRemoveField)
-    this.amoebae.readings.forEach(tryRemoveField)
-    this.ciliate.readings.forEach(tryRemoveField)
+    this.organisms.forEach(o => o.readings.forEach(r => r.tryRemoveField()))
   }
 
   collapse(readingNumber?: number) {

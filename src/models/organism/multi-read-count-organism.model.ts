@@ -13,7 +13,7 @@ export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel 
   
   constructor(
     private sample: ISampleInfoModel,
-    init: Partial<IOrganism<ICountReading>> = { }
+    init: RecursivePartial<IOrganism<ICountReading>> = { }
   ) {
     Object.assign(this, init)
 

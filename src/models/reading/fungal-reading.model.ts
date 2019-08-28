@@ -11,7 +11,7 @@ export interface IFungalReading extends IReading {
 export class FungalReading implements IFungalReading {
   fields: IFungalField[];
   
-  constructor(init: Partial<IFungalReading> = { }) {
+  constructor(init: RecursivePartial<IFungalReading> = { }) {
     Object.assign(this, init)
     
     if (!this.fields) {
@@ -28,6 +28,16 @@ export class FungalReading implements IFungalReading {
         this.fields.push(new FungalField())
       }
     }
+  }
+
+  addField() {
+    this.fields.push(new FungalField())
+  }
+
+  tryRemoveField() {
+    if (this.fields.length <= READING_NUM_MIN_FIELDS) return
+
+    this.fields.pop()
   }
 
   get dataType(): DataType {

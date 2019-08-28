@@ -15,7 +15,7 @@ describe('Models', () => {
       })
 
       test('should initialize the fields property with init', () => {
-        let init: Partial<IFungalReading> = {
+        let init: RecursivePartial<IFungalReading> = {
           fields: [{
             lengthRawData: [1, 2, 3],
             diameterRawData: [1, 2, 3],
@@ -38,7 +38,7 @@ describe('Models', () => {
       })
 
       test('should initialize the fields property when higher than min', () => {
-        let init: Partial<IFungalReading> = {
+        let init: RecursivePartial<IFungalReading> = {
           fields: [{
             lengthRawData: [1, 2, 3],
             diameterRawData: [1, 2, 3],

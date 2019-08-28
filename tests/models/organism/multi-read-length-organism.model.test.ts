@@ -9,20 +9,44 @@ describe('Models', () => {
   let sampleData: () => ILengthReading[] = () => {
     return [{
       totalLength: 0.3,
-      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }]
+      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }],
+      addField: null,
+      tryRemoveField: null
     }, {
       totalLength: 0.25,
-      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }]
+      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }],
+      addField: null,
+      tryRemoveField: null
     }, {
       totalLength: 0.1,
-      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }]
+      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }],
+      addField: null,
+      tryRemoveField: null
     }, {
       totalLength: 0.7,
-      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }]
+      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }],
+      addField: null,
+      tryRemoveField: null
     }, {
       totalLength: 0.25,
-      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }]
+      fields: [{ lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }, { lengthRawData: [] }],
+      addField: null,
+      tryRemoveField: null
     }]
+  }
+
+  let validReading: ILengthReading = {
+    isValid: true,
+    fields: [],
+    addField: null,
+    tryRemoveField: null
+  }
+
+  let invalidReading: ILengthReading = {
+    isValid: false,
+    fields: [],
+    addField: null,
+    tryRemoveField: null
   }
 
   let sample: ISampleInfoModel = new SampleInfo({
@@ -122,27 +146,13 @@ describe('Models', () => {
           dilution: sample.mainDilution,
         })
 
-        test.readings = [{
-          totalLength: 1,
-          isValid: true,
-          fields: []
-        }, {
-          totalLength: 1,
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }, {
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }, {
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }]
+        test.readings = [
+          validReading,
+          validReading,
+          validReading,
+          validReading,
+          validReading
+        ]
 
         expect(test.isValid).toBe(true)
       })
@@ -152,27 +162,13 @@ describe('Models', () => {
           dilution: sample.mainDilution,
         })
 
-        test.readings = [{
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }, {
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }, {
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }, {
-          isValid: true,
-          totalLength: 1,
-          fields: []
-        }, {
-          isValid: false,
-          totalLength: 1,
-          fields: []
-        }]
+        test.readings = [
+          validReading,
+          validReading,
+          validReading,
+          validReading,
+          invalidReading
+        ]
 
         expect(test.isValid).toBe(false)
       })

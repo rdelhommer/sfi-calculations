@@ -36,7 +36,7 @@ export class Profile implements IProfileModel {
   phone?: string;
   dataEntry: DataEntry
 
-  constructor(init: Partial<IProfileModel> = { }) {
+  constructor(init: RecursivePartial<IProfileModel> = { }) {
     this.name = init.name
     this.organization= init.organization
     this.email = init.email

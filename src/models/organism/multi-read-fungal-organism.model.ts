@@ -5,15 +5,17 @@ import { IModel } from '../base.model';
 import { IFungalReading, FungalReading } from '../reading/fungal-reading.model';
 import { IFungalField } from '../field/fungal-field.model';
 import { ISampleInfoModel } from '../sample.model';
+import { FungalColor, OomyceteColor } from '../../util/enums';
 
 export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IModel {
   organismName: string;
   readings: IFungalReading[];
   dilution: number;
+  FungiColorEnum
   
   constructor(
     private sample: ISampleInfoModel,
-    init: Partial<IOrganism<IFungalReading>> = { }
+    init: RecursivePartial<IOrganism<IFungalReading>> = { },
   ) {
     Object.assign(this, init)
 
@@ -28,6 +30,10 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
         this.readings.push(new FungalReading())
       }
     }
+
+    this.FungiColorEnum = this.organismName === 'Fungi'
+      ? FungalColor
+      : OomyceteColor
 
     if (this.dilution == null) throw 'You must provide a dilution for the organism model'
     if (this.organismName == null) throw 'You must provide an organismName for the organism model'

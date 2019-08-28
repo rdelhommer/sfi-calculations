@@ -1,6 +1,6 @@
 import { MultiReadFungalOrganism } from "../../../src/models/organism/multi-read-fungal-organism.model";
 import { DataType, NUM_READINGS } from "../../../src/models/organism/organism.model";
-import { FungalReading } from "../../../src/models/reading/fungal-reading.model";
+import { FungalReading, IFungalReading } from "../../../src/models/reading/fungal-reading.model";
 import { FungalColor, CoverslipSize } from "../../../src/util/enums";
 import { ISampleInfoModel, SampleInfo } from "../../../src/models/sample.model";
 
@@ -13,6 +13,20 @@ describe('Models', () => {
     dropsPerMl: 20,
     eyepieceFieldSize: 18
   })
+
+  let validReading: IFungalReading = {
+    isValid: true,
+    fields: [],
+    addField: null,
+    tryRemoveField: null
+  }
+
+  let invalidReading: IFungalReading = {
+    isValid: false,
+    fields: [],
+    addField: null,
+    tryRemoveField: null
+  }
 
   describe('Fungal Organism', () => {
     describe('constructor', () => {
@@ -119,22 +133,13 @@ describe('Models', () => {
           organismName: 'test'
         })
 
-        test.readings = [{
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }]
+        test.readings = [
+          validReading,
+          validReading,
+          validReading,
+          validReading,
+          validReading
+        ]
 
         expect(test.isValid).toBe(true)
       })
@@ -145,22 +150,13 @@ describe('Models', () => {
           organismName: 'test'
         })
 
-        test.readings = [{
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }, {
-          isValid: true,
-          fields: []
-        }, {
-          isValid: false,
-          fields: []
-        }]
+        test.readings = [
+          validReading,
+          validReading,
+          validReading,
+          validReading,
+          invalidReading
+        ]
 
         expect(test.isValid).toBe(false)
       })

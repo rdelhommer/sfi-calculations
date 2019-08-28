@@ -1,5 +1,3 @@
-import { RedirectToRoute } from "aurelia-router";
-
 export function newGuid() {
   var d = new Date().getTime();
   if (typeof performance !== 'undefined' && typeof performance.now === 'function'){

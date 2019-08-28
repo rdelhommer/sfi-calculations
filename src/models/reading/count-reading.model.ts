@@ -10,7 +10,7 @@ export interface ICountReading extends IReading {
 export class CountReading implements ICountReading {
   fields: ICountField[];  
 
-  constructor(init: Partial<ICountReading> = { }) {
+  constructor(init: RecursivePartial<ICountReading> = { }) {
     Object.assign(this, init)
 
     if (!this.fields) {
@@ -27,6 +27,16 @@ export class CountReading implements ICountReading {
         this.fields.push(new CountField())
       }
     }
+  }
+
+  addField() {
+    this.fields.push(new CountField())
+  }
+
+  tryRemoveField() {
+    if (this.fields.length <= READING_NUM_MIN_FIELDS) return
+
+    this.fields.pop()
   }
 
   get dataType(): DataType {

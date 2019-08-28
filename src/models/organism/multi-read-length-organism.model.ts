@@ -3,7 +3,6 @@ import '../../util/misc'
 import { IOrganism, DataType, NUM_READINGS } from "./organism.model";
 import { ISampleInfoModel } from "../sample.model";
 import { ILengthReading, LengthReading } from "../reading/length-reading.model";
-import { IModel } from '../base.model';
 import { round } from '../../util/misc';
 
 // NOTE
@@ -14,7 +13,7 @@ export class MultiReadLengthOrganism implements IOrganism<ILengthReading> {
 
   constructor(
     private sample: ISampleInfoModel,
-    init: Partial<IOrganism<ILengthReading>> = { }) {
+    init: RecursivePartial<IOrganism<ILengthReading>> = { }) {
     Object.assign(this, init)
 
     if (!this.readings) {

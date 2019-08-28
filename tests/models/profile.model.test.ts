@@ -52,7 +52,7 @@ describe('Models', () => {
   describe('Profile', () => {
     describe('constructor', () => {
       test('should init simple properties', () => {
-        let init: Partial<IProfileModel> = {
+        let init: RecursivePartial<IProfileModel> = {
           name: 'testName',
           organization: 'testOrg',
           email: 'testemail',

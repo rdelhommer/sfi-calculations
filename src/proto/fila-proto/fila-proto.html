@@ -73,91 +73,15 @@
       </button>
     </div>
     <h1>Filamentous and Protozoan Organisms</h1>
-    <div class="fila-proto__organism-container">
-      <h2 class="fila-proto__organism-header">Actino-bacteria</h2>
+    <div class="fila-proto__organism-container" repeat.for="organism of organisms">
+      <h2 class="fila-proto__organism-header">${organism.organismName}</h2>
       <reading-v2 
-          repeat.for="reading of actinobacteria.readings"
-          organism-name.bind="actinobacteria.organismName"
+          repeat.for="reading of organism.readings"
+          organism-name.bind="organism.organismName"
           reading-number.bind="$index + 1"
           reading.bind="reading"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, actinobacteria.organismName, DataType.Length)"
-          on-add-field.call="addField()"
-          on-remove-field.call="removeField()"
-          is-expanded.bind="isReadingExpanded[$index]">
-      </reading-v2>
-      <biomass></biomass>
-    </div>
-
-    <div class="fila-proto__organism-container">
-      <h2 class="fila-proto__organism-header">${fungi.organismName}</h2>
-      <reading-v2 
-          repeat.for="reading of fungi.readings"
-          organism-name.bind="fungi.organismName"
-          reading-number.bind="$index + 1"
-          reading.bind="reading"
-          fungi-color-enum.bind="FungalColor"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, fungi.organismName, DataType.Diameter)"
-          on-add-field.call="addField()"
-          on-remove-field.call="removeField()"
-          is-expanded.bind="isReadingExpanded[$index]">
-      </reading-v2>
-      <biomass></biomass>
-    </div>
-
-    <div class="fila-proto__organism-container">
-      <h2 class="fila-proto__organism-header">Oomycete</h2>
-      <reading-v2 
-          repeat.for="reading of oomycete.readings"
-          organism-name.bind="oomycete.organismName"
-          reading-number.bind="$index + 1"
-          reading.bind="reading"
-          fungi-color-enum.bind="OomyceteColor"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, oomycete.organismName, DataType.Diameter)"
-          on-add-field.call="addField()"
-          on-remove-field.call="removeField()"
-          is-expanded.bind="isReadingExpanded[$index]">
-      </reading-v2>
-      <biomass></biomass>
-    </div>
-
-    <div class="fila-proto__organism-container">
-      <h2 class="fila-proto__organism-header">${flagellate.organismName}</h2>
-      <reading-v2 
-          repeat.for="reading of flagellate.readings"
-          organism-name.bind="flagellate.organismName"
-          reading-number.bind="$index + 1"
-          reading.bind="reading"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, flagellate.organismName, DataType.Counting)"
-          on-add-field.call="addField()"
-          on-remove-field.call="removeField()"
-          is-expanded.bind="isReadingExpanded[$index]">
-      </reading-v2>
-      <biomass></biomass>
-    </div>
-
-    <div class="fila-proto__organism-container">
-      <h2 class="fila-proto__organism-header">${amoebae.organismName}</h2>
-      <reading-v2 
-          repeat.for="reading of amoebae.readings"
-          organism-name.bind="amoebae.organismName"
-          reading-number.bind="$index + 1"
-          reading.bind="reading"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, amoebae.organismName, DataType.Counting)"
-          on-add-field.call="addField()"
-          on-remove-field.call="removeField()"
-          is-expanded.bind="isReadingExpanded[$index]">
-      </reading-v2>
-      <biomass></biomass>
-    </div>
-
-    <div class="fila-proto__organism-container">
-      <h2 class="fila-proto__organism-header">${ciliate.organismName}</h2>
-      <reading-v2 
-          repeat.for="reading of ciliate.readings"
-          organism-name.bind="ciliate.organismName"
-          reading-number.bind="$index + 1"
-          reading.bind="reading"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, ciliate.organismName, DataType.Counting)"
+          fungi-color-enum.bind="organism.FungiColorEnum"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, organism.organismName, organism.dataType)"
           on-add-field.call="addField()"
           on-remove-field.call="removeField()"
           is-expanded.bind="isReadingExpanded[$index]">
