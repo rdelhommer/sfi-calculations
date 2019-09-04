@@ -5,6 +5,7 @@ import { IModel } from '../base.model';
 import { ICountField } from '../field/count-field.model';
 import { ICountReading, CountReading } from '../reading/count-reading.model';
 import { ISampleInfoModel } from '../sample.model';
+import { round } from '../../util/misc';
 
 export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel {
   organismName: string
@@ -33,47 +34,30 @@ export class MultiReadCountOrganism implements IOrganism<ICountReading>, IModel 
     if (this.organismName == null) throw 'You must provide an organismName for the organism model'
   }
 
-  protected normalize(array: number[]) {
-    let fieldsPerReading = this.readings[0].fields.length
-    
-    return array.map(x => {
-      let count = x == null ? 0 : x
-      return count / fieldsPerReading
-    })
-  }
-
-  protected get _totalCounts(): number[] {
-    let fields: ICountField[] = []
-    this.readings.forEach(x => fields = fields.concat(x.fields))
-
-    return fields.map(x => x.count)
-      .filterNumbers()
+  protected get _normalizedCounts(): number[] {
+    return this.readings
+      .mapFilterNumber(x => x.totalCount)
+      .map(x => x.totalCount / x.fields.length)
   }
 
   protected get _countMeanMm(): number {
-    return this.normalize(this._totalCounts)
-      .mean();
-  }
-
-  protected get _countMeanCm(): number {
-    return this._countMeanMm * this.sample.fovDiameterMm / 10;
+    return this._normalizedCounts.mean();
   }
 
   protected get _countStDevMm(): number {
-    return this.normalize(this._totalCounts)
-      .stDev();
-  }
-
-  protected get _countStDevCm(): number {
-    return this._countStDevMm * this.sample.fovDiameterMm / 10;
+    return this._normalizedCounts.stDev();
   }
 
   get meanResult(): number {
-    return this._countMeanMm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
+    if (this._countMeanMm == null) return null
+
+    return Number(round(this._countMeanMm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields, 1).toFixed(0))
   }
 
   get stDevResult(): number {
-    return this._countStDevCm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields
+    if (this._countStDevMm == null) return null
+
+    return Number(round(this._countStDevMm * this.dilution * this.sample.dropsPerMl * this.sample.coverslipNumFields, 1).toFixed(0))
   }
 
   get isValid(): boolean {

@@ -175,7 +175,16 @@ describe('Models', () => {
       test('calculation', () => {
         let test = new SampleInfo()
 
-        expect(Number(round(test.coverslipNumFields, 1).toFixed(0))).toEqual(2037)
+        expect(test.coverslipNumFields).toEqual(2037)
+      })
+
+      test('should round to integer', () => {
+        let test = new SampleInfo()
+
+        jest.spyOn(test, '_fovArea', 'get').mockReturnValue(100)
+        jest.spyOn(test, 'coverslipArea', 'get').mockReturnValue(1088)
+
+        expect(test.coverslipNumFields).toEqual(11)
       })
     })
 

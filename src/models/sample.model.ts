@@ -2,6 +2,7 @@ import { Succession, CoverslipSize } from "../util/enums";
 import { IProfileModel, Profile } from "./profile.model";
 import { IModel } from "./base.model";
 import { thisTypeAnnotation } from "@babel/types";
+import { round } from "../util/misc";
 
 export interface ISampleInfoModel extends IModel {
   name: string
@@ -71,7 +72,7 @@ export class SampleInfo implements ISampleInfoModel {
   }
 
   get coverslipNumFields() {
-    return this.coverslipArea / this._fovArea
+    return Number(round(this.coverslipArea / this._fovArea, 1).toFixed(0))
   }
 
   get isValid(): boolean {

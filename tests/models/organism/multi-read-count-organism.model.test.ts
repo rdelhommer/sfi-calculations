@@ -6,6 +6,37 @@ import { CoverslipSize } from "../../../src/util/enums";
 
 describe('Models', () => {
   describe('Count Organism', () => {
+    let placeholderField = {
+      count: null 
+    }
+  
+    let placeholders = {
+      dataType: null,
+      isValid: null,
+      addField: null,
+      tryRemoveField: null,
+      fields: [Object.assign({}, placeholderField), Object.assign({}, placeholderField), Object.assign({}, placeholderField), Object.assign({}, placeholderField), Object.assign({}, placeholderField)]
+    }
+  
+    let sampleData: () => ICountReading[] = () => {
+      return [{
+        totalCount: 6,
+        ...placeholders
+      }, {
+        totalCount: 0,
+        ...placeholders
+      }, {
+        totalCount: 4,
+        ...placeholders
+      }, {
+        totalCount: 1,
+        ...placeholders
+      }, {
+        totalCount: 4,
+        ...placeholders
+      }]
+    }
+
     let sample: ISampleInfoModel = new SampleInfo({
       bacteriaDilution: 300,
       mainDilution: 5,
@@ -154,31 +185,75 @@ describe('Models', () => {
       })
     })
 
-    describe.skip('meanResult', () => {
+    describe('meanResult', () => {
       test('happy', () => {
-        throw 'TODO'
+        let test = new MultiReadCountOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        })
+
+        test.readings = sampleData()
+
+        expect(test.meanResult).toBe(122220)
       })
 
       test('should ignore invalid field data', () => {
-        throw 'TODO'
+        let test = new MultiReadCountOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        })
+
+        test.readings = sampleData()
+        test.readings[0].totalCount = null
+        test.readings[1].totalCount = null
+        test.readings[2].totalCount = null
+
+        expect(test.meanResult).toBe(101850)
       })
 
       test('should return null for no data', () => {
-        throw 'TODO'
+        let test = new MultiReadCountOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        })
+
+        expect(test.meanResult).toBe(null)
       })
     })
 
-    describe.skip('stDevResult', () => {
+    describe('stDevResult', () => {
       test('happy', () => {
-        throw 'TODO'
+        let test = new MultiReadCountOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        })
+
+        test.readings = sampleData()
+
+        expect(test.stDevResult).toBe(99792)
       })
 
       test('should ignore invalid field data', () => {
-        throw 'TODO'
+        let test = new MultiReadCountOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        })
+
+        test.readings = sampleData()
+        test.readings[0].totalCount = null
+        test.readings[1].totalCount = null
+        test.readings[2].totalCount = null
+
+        expect(test.stDevResult).toBe(86423)
       })
 
       test('should return null for no data', () => {
-        throw 'TODO'       
+        let test = new MultiReadCountOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        })
+
+        expect(test.stDevResult).toBe(null)     
       })
     })
   })
