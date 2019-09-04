@@ -1,0 +1,53 @@
+@import '../../../sass/variables';
+
+$nav-height: $spacing-base * 12;
+
+.nav {
+  background: $color-primary;
+  color: $color-white-transparent;
+
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+
+  height: $nav-height;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding-left: $spacing-base * 2;
+  padding-right: $spacing-base * 2;
+
+  &__title {
+    display: block;
+    border: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: $spacing-base * 4;
+
+    color: $color-white;
+  }
+
+  .nav-item {
+    padding-left: $spacing-base * 2;
+    padding-right: $spacing-base * 2;
+
+    a {
+      text-decoration: none;
+      font-size: $font-base * 1.25;
+      color: $color-white-transparent;
+
+      &:hover,
+      &:focus {
+        color: $color-white;
+      }
+
+      &.nav-item--active {
+        color: $color-white;
+      }
+    }
+  }
+}

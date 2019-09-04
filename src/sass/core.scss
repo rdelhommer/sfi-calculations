@@ -1,0 +1,40 @@
+body, button, input, select {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+h1 {
+  font-size: 150%;
+  display: inline-block;
+  border-bottom: 1.5px solid gray;
+  padding-right: 40px;
+  padding-bottom: 5px;
+}
+
+h2 {
+  font-size: 130%;
+}
+
+h3 {
+  font-size: 120%;
+}
+
+h4 {
+  font-size: 110%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance:textfield; /* Firefox */
+}
+
+ux-dialog-overlay {
+  background: black;
+  opacity: 0.9!important;
+}

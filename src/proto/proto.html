@@ -1,3 +1,22 @@
 <template>
-  <router-view></router-view>
+  <nav>
+    <div slot="title">
+      Soil Foodweb School
+    </div>
+    <nav-item href="#home" is-home.bind="true">
+      Home
+    </nav-item>
+    <nav-item href="#nematodes">
+      Nematodes
+    </nav-item>
+    <nav-item href="#fila-proto">
+      Filamentous and Protozoa
+    </nav-item>
+    <nav-item href="#bacteria">
+      Bacteria
+    </nav-item>
+  </nav>
+  <main>
+    <router-view></router-view>
+  </main>
 </template>

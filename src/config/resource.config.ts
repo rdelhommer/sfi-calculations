@@ -20,6 +20,8 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/fungal-data/fungal-data'),
   PLATFORM.moduleName('resources/elements/length-data/length-data'),
   PLATFORM.moduleName('resources/elements/dropdown-button/dropdown-button'),
+  PLATFORM.moduleName('resources/elements/nav/nav'),
+  PLATFORM.moduleName('resources/elements/nav/nav-item/nav-item'),
 
   PLATFORM.moduleName('app/usage/usage'),
   PLATFORM.moduleName('app/data-tab/data-tab'),

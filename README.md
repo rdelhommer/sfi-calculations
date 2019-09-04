@@ -1,9 +1,7 @@
 # sfi-calculations
 
-## PROTO TODO
-* edit buttons should just be hover and click over the data
-* model stuff
-* realtime biomass
+## immediate todo
+* UI niceness
 * dont show readings if previous reading is not complete (or the reading has data associated with it)
 
 ## TODO
