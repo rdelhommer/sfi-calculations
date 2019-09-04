@@ -6,21 +6,30 @@
       </h3>
       <div slot="body">
         <div class="reading-v2__reading-container" show.bind="!isExpanded">
-          <div>
-            <form-group 
-                orientation="horizontal">
-              <div slot="label">
-                ${reading.dataType === DataType.Counting ? 'Total Count' : 'Total Length'}
-              </div>
-            </form-group>
+          <div class="reading-v2__total">
+            <div class="reading-v2__total-label">
+              ${reading.dataType === DataType.Counting ? 'Total Count' : 'Total Length'}
+            </div>
+            <div 
+                if.bind="reading.dataType === DataType.Counting" 
+                class="reading-v2__total-value">
+              ${reading.totalCount | calculated:1}
+            </div>
+            <div 
+                if.bind="reading.dataType !== DataType.Counting" 
+                class="reading-v2__total-value">
+              ${reading.totalLength | calculated:0.01}
+            </div>
           </div>
-          <div if.bind="reading.dataType === DataType.Diameter">
-            <form-group 
-                orientation="horizontal">
-              <div slot="label">
-                Average Diameter
-              </div>
-            </form-group>
+          <div 
+              if.bind="reading.dataType === DataType.Diameter"
+              class="reading-v2__total">
+            <div class="reading-v2__total-label">
+              Average Diameter
+            </div>
+            <div class="reading-v2__total-value">
+              ${reading.averageDiameter | calculated:0.01}
+            </div>
           </div>
         </div>
         <div class="reading-v2__field-container" show.bind="isExpanded">

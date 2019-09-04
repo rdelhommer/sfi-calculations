@@ -5,6 +5,7 @@ import { DataType } from "../organism/organism.model";
 
 export interface ICountReading extends IReading {
   fields: ICountField[]
+  totalCount?: number
 }
 
 export class CountReading implements ICountReading {
@@ -37,6 +38,12 @@ export class CountReading implements ICountReading {
     if (this.fields.length <= READING_NUM_MIN_FIELDS) return
 
     this.fields.pop()
+  }
+
+  get totalCount(): number {
+    return this.fields
+      .map(x => x.count)
+      .sum()
   }
 
   get dataType(): DataType {

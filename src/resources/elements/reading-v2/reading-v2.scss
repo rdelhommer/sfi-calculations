@@ -17,20 +17,17 @@
     }
   }
 
-  &__reading-container {
-    label {
-      width: 130px;
-    }
+  &__total {
+    display: flex;
+    flex-direction: row;
   }
 
-  .form-group {
-    label {
-      white-space: nowrap;
-      margin-right: 10px;
-    }
+  &__total-label {
+    width: 130px;
+  }
 
-    input {
-      width: 70px;
-    }
+  &__total-value {
+    width: 50px;
+    text-align: center;
   }
 }

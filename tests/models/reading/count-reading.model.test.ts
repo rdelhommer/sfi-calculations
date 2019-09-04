@@ -93,6 +93,30 @@ describe('Models', () => {
         expect(test.isValid).toEqual(false)
       })
     })
+
+    describe('totalCount', () => {
+      test('should return null for no field data', () => {
+        let test = new CountReading()
+        test.fields = []
+
+        expect(test.totalCount).toBe(null)
+      })
+
+      test('should return the totalCount', () => {
+        let test = new CountReading();
+        test.fields = <any>[{
+          totalCount: 5
+        }, {
+          totalCount: null
+        }, {
+          totalCount: 10
+        }, {
+          totalCount: 7
+        }]
+
+        expect(test.totalCount).toBe(22);
+      })
+    })
   })
 })
 

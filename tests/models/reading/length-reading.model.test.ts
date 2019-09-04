@@ -97,6 +97,21 @@ describe('Models', () => {
 
         expect(test.totalLength).toBe(null)
       })
+
+      test('should return the totalLength', () => {
+        let test = new LengthReading();
+        test.fields = <any>[{
+          totalLength: 5
+        }, {
+          totalLength: null
+        }, {
+          totalLength: 10
+        }, {
+          totalLength: 7
+        }]
+
+        expect(test.totalLength).toBe(22);
+      })
     })
   })
 })
