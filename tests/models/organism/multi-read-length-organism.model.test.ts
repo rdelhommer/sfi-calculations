@@ -186,6 +186,7 @@ describe('Models', () => {
       })
 
       test('should ignore invalid field data', () => {
+
         let test = new MultiReadLengthOrganism(sample, {
           dilution: sample.mainDilution,
         })
@@ -194,7 +195,15 @@ describe('Models', () => {
         test.readings[0].totalLength = null
         test.readings[1].totalLength = null
 
-        expect(test.meanResult).toEqual(.7)
+        expect(test.meanResult).toEqual(1.16)
+      })
+
+      test('should return null for no data', () => {
+        let test = new MultiReadLengthOrganism(sample, {
+          dilution: sample.mainDilution,
+        })
+
+        expect(test.meanResult).toEqual(null)
       })
     })
 
@@ -205,14 +214,20 @@ describe('Models', () => {
         })
 
         test.readings = sampleData()
-        test.readings[0].totalLength = null
-        test.readings[1].totalLength = null
 
-        expect(test.stDevResult).toEqual(0.97)
+        expect(test.stDevResult).toEqual(0.75)
       })
 
       test('should ignore invalid field data', () => {
-        
+        let test = new MultiReadLengthOrganism(sample, {
+          dilution: sample.mainDilution,
+        })
+
+        test.readings = sampleData()
+        test.readings[0].totalLength = null
+        test.readings[1].totalLength = null
+
+        expect(test.stDevResult).toEqual(1.03)
       })
     })
   })

@@ -105,13 +105,13 @@ describe('Models', () => {
       test('should return the totalCount', () => {
         let test = new CountReading();
         test.fields = <any>[{
-          totalCount: 5
+          count: 5
         }, {
-          totalCount: null
+          count: null
         }, {
-          totalCount: 10
+          count: 10
         }, {
-          totalCount: 7
+          count: 7
         }]
 
         expect(test.totalCount).toBe(22);

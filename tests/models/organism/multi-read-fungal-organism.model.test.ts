@@ -5,6 +5,50 @@ import { FungalColor, CoverslipSize } from "../../../src/util/enums";
 import { ISampleInfoModel, SampleInfo } from "../../../src/models/sample.model";
 
 describe('Models', () => {
+
+  let placeholderField = {
+    lengthRawData: [], 
+    color: null, 
+    diameterRawData: []
+  }
+
+  let placeholders = {
+    dataType: null,
+    isValid: null,
+    addField: null,
+    tryRemoveField: null,
+    fields: [Object.assign({}, placeholderField), Object.assign({}, placeholderField), Object.assign({}, placeholderField), Object.assign({}, placeholderField), Object.assign({}, placeholderField)]
+  }
+
+  let sampleData: () => IFungalReading[] = () => {
+    return [{
+      totalLength: 0.5,
+      averageDiameter: 3,
+      totalVolume: 0.5 * 3,
+      ...placeholders
+    }, {
+      totalLength: 0.3,
+      averageDiameter: 2,
+      totalVolume: 0.3 * 2,
+      ...placeholders
+    }, {
+      totalLength: 0.05,
+      averageDiameter: 3.5,
+      totalVolume: 0.05 * 3.5,
+      ...placeholders
+    }, {
+      totalLength: 0.1,
+      averageDiameter: 3,
+      totalVolume: 0.1 * 3,
+      ...placeholders
+    }, {
+      totalLength: 0.7,
+      averageDiameter: 2.5,
+      totalVolume: 0.7 * 2.5,
+      ...placeholders
+    }]
+  }
+
   let sample: ISampleInfoModel = new SampleInfo({
     bacteriaDilution: 300,
     mainDilution: 5,
@@ -162,31 +206,77 @@ describe('Models', () => {
       })
     })
 
-    describe.skip('meanResult', () => {
+    describe('meanResult', () => {
       test('happy', () => {
-        throw 'TODO'
+        let test = new MultiReadFungalOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        });
+        test.readings = sampleData()
+
+        expect(test.meanResult).toBe(108)
       })
 
       test('should ignore invalid field data', () => {
-        throw 'TODO'
+        let test = new MultiReadFungalOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        });
+        test.readings = sampleData()
+        test.readings[0].totalLength = null
+        test.readings[0].averageDiameter = null
+        test.readings[0].totalVolume = null
+        test.readings[1].totalLength = null
+        test.readings[1].averageDiameter = null
+        test.readings[1].totalVolume = null
+
+        expect(test.meanResult).toBe(92)
       })
 
       test('should return null for no data', () => {
-        throw 'TODO'
+        let test = new MultiReadFungalOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        });
+
+        expect(test.meanResult).toBe(null)
       })
     })
 
-    describe.skip('stDevResult', () => {
+    describe('stDevResult', () => {
       test('happy', () => {
-        throw 'TODO'
+        let test = new MultiReadFungalOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        });
+        test.readings = sampleData()
+
+        expect(test.stDevResult).toBe(89)
       })
 
       test('should ignore invalid field data', () => {
-        throw 'TODO'
+        let test = new MultiReadFungalOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        });
+        test.readings = sampleData()
+        test.readings[0].totalLength = null
+        test.readings[0].averageDiameter = null
+        test.readings[0].totalVolume = null
+        test.readings[1].totalLength = null
+        test.readings[1].averageDiameter = null
+        test.readings[1].totalVolume = null
+
+        expect(test.stDevResult).toBe(118)
       })
 
       test('should return null for no data', () => {
-        throw 'TODO'       
+        let test = new MultiReadFungalOrganism(sample, {
+          dilution: 5,
+          organismName: 'test'
+        });
+
+        expect(test.stDevResult).toBe(null)
       })
     })
   })

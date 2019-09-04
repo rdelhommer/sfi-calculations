@@ -6,6 +6,9 @@ import { IReading } from "./reading.model";
 
 export interface IFungalReading extends IReading {
   fields: IFungalField[]
+  totalLength?: number
+  averageDiameter?: number
+  totalVolume?: number
 }
 
 export class FungalReading implements IFungalReading {
@@ -38,6 +41,22 @@ export class FungalReading implements IFungalReading {
     if (this.fields.length <= READING_NUM_MIN_FIELDS) return
 
     this.fields.pop()
+  }
+
+  get totalVolume(): number {
+    return this.fields
+      .map(x => x.totalVolume)
+      .sum()
+  }
+
+  get totalLength(): number {
+    return this.fields
+      .map(x => x.totalLength)
+      .sum()
+  }
+
+  get averageDiameter(): number {
+    return this.totalVolume / this.totalLength
   }
 
   get dataType(): DataType {

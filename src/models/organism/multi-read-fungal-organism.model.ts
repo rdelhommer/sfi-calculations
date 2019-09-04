@@ -6,6 +6,7 @@ import { IFungalReading, FungalReading } from '../reading/fungal-reading.model';
 import { IFungalField } from '../field/fungal-field.model';
 import { ISampleInfoModel } from '../sample.model';
 import { FungalColor, OomyceteColor } from '../../util/enums';
+import { round } from '../../util/misc';
 
 export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IModel {
   organismName: string;
@@ -49,26 +50,20 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
   }
 
   protected get _totalLengths(): number[] {
-    let fields: IFungalField[] = []
-    this.readings.forEach(x => fields = fields.concat(x.fields))
-
-    return fields.map(x => x.totalLength)
+    return this.readings
+      .map(x => x.totalLength)
       .filterNumbers()
   }
 
   protected get _averageDiameters(): number[] {
-    let fields: IFungalField[] = []
-    this.readings.forEach(x => fields = fields.concat(x.fields))
-
-    return fields.map(x => x.averageDiameter)
+    return this.readings
+      .map(x => x.averageDiameter)
       .filterNumbers()
   }
 
   protected get _totalVolumes(): number[] {
-    let fields: IFungalField[] = []
-    this.readings.forEach(x => fields = fields.concat(x.fields))
-
-    return fields.map(x => x.totalVolume)
+    return this.readings
+      .map(x => x.totalVolume)
       .filterNumbers()
   }
 
@@ -111,11 +106,15 @@ export class MultiReadFungalOrganism implements IOrganism<IFungalReading>, IMode
   }
 
   get meanResult(): number {
-    return this._lengthMeanCmPerG * Math.PI * (0.5 * this._averageDiameterCm)^2 * 3300000;
+    if (this._lengthMeanMm == null) return null
+
+    return Number(round(this._lengthMeanCmPerG * Math.PI * (0.5 * this._averageDiameterCm) * (0.5 * this._averageDiameterCm) * 3300000, 1).toFixed(0));
   }
 
   get stDevResult(): number {
-    return this._lengthStDevCmPerG * Math.PI * (0.5 * this._averageDiameterCm)^2 * 3300000;
+    if (this._lengthStDevMm == null) return null
+
+    return Number(round(this._lengthStDevCmPerG * Math.PI * (0.5 * this._averageDiameterCm) * (0.5 * this._averageDiameterCm) * 3300000, 1).toFixed(0));
   }
 
   get isValid(): boolean {

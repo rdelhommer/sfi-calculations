@@ -19,10 +19,23 @@ export function round(value: number, precision: number = 1) {
 declare global {
   interface Array<T> {
     filterNumbers: () => number[]
+    mapFilterNumber: (func: (x: T) => number) => T[]
     mean: () => number
     stDev: () => number
     sum: () => number
   }
+}
+
+Array.prototype.mapFilterNumber = function(func: (x: any) => number): any[] {
+  return this.filter(x => {
+    let filterOn = func(x)
+    if (filterOn == null) return false
+
+    let asNumber = Number(filterOn)
+    if (Number.isNaN(asNumber)) return false
+
+    return true
+  })
 }
 
 Array.prototype.filterNumbers = function() {

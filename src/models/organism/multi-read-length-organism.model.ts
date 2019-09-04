@@ -34,8 +34,8 @@ export class MultiReadLengthOrganism implements IOrganism<ILengthReading> {
 
   protected get _normalizedLengths(): number[] {
     return this.readings
+      .mapFilterNumber(x => x.totalLength)
       .map(x => x.totalLength / x.fields.length)
-      .filterNumbers()
   }
 
   protected get _lengthMeanMm(): number {
@@ -63,10 +63,14 @@ export class MultiReadLengthOrganism implements IOrganism<ILengthReading> {
   }
 
   get meanResult(): number {
+    if (this._lengthMeanMm == null) return null
+
     return Number(round(this._lengthMeanCmPerG * Math.PI * 0.00005 * 0.00005 * 230000, 0.01).toFixed(2))
   }
 
   get stDevResult(): number {
+    if (this._lengthStDevMm == null) return null
+
     return Number(round(this._lengthStDevCmPerG * Math.PI * 0.00005 * 0.00005 * 230000, 0.01).toFixed(2))
   }
 
