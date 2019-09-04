@@ -8,27 +8,27 @@
         <div class="reading-v2__reading-container" show.bind="!isExpanded">
           <div class="reading-v2__total">
             <div class="reading-v2__total-label">
-              ${reading.dataType === DataType.Counting ? 'Total Count' : 'Total Length'}
+              ${reading.dataType === DataType.Counting ? 'Total Count' : 'Total Length' & oneTime}
             </div>
             <div 
-                if.bind="reading.dataType === DataType.Counting" 
+                if.bind="reading.dataType === DataType.Counting & oneTime" 
                 class="reading-v2__total-value">
-              ${reading.totalCount | calculated:1}
+              ${totalCount | calculated:1}
             </div>
             <div 
-                if.bind="reading.dataType !== DataType.Counting" 
+                if.bind="reading.dataType !== DataType.Counting & oneTime" 
                 class="reading-v2__total-value">
-              ${reading.totalLength | calculated:0.01}
+              ${totalLength | calculated:0.01}
             </div>
           </div>
           <div 
-              if.bind="reading.dataType === DataType.Diameter"
+              if.bind="reading.dataType === DataType.Diameter & oneTime"
               class="reading-v2__total">
             <div class="reading-v2__total-label">
               Average Diameter
             </div>
             <div class="reading-v2__total-value">
-              ${reading.averageDiameter | calculated:0.01}
+              ${averageDiameter | calculated:0.01}
             </div>
           </div>
         </div>

@@ -5,15 +5,15 @@
         Field #
       </div>
       <div class="field-observation__cell field-observation__cell--header">
-        ${field.dataType === DataType.Counting ? 'Count' : 'Length'}
+        ${field.dataType === DataType.Counting ? 'Count' : 'Length' & oneTime}
       </div>
       <div 
-          if.bind="field.dataType === DataType.Diameter"
+          if.bind="field.dataType === DataType.Diameter & oneTime"
           class="field-observation__cell field-observation__cell--header">
         Diameter
       </div>
       <div 
-          if.bind="field.dataType === DataType.Diameter"
+          if.bind="field.dataType === DataType.Diameter & oneTime"
           class="field-observation__cell field-observation__cell--header">
         Color
       </div>
@@ -27,14 +27,14 @@
       <div 
           class="field-observation__cell"
           click.delegate="_onEdit()">
-        <span if.bind="field.dataType !== DataType.Counting">
+        <span if.bind="field.dataType !== DataType.Counting & oneTime">
           ${totalLength | calculated: 0.01}
         </span>
-        <span if.bind="field.dataType === DataType.Counting">
+        <span if.bind="field.dataType === DataType.Counting & oneTime">
           ${count | calculated: 1}
         </span>
       </div>
-      <div if.bind="field.dataType === DataType.Diameter">
+      <div if.bind="field.dataType === DataType.Diameter & oneTime">
         <div 
             class="field-observation__cell"
             click.delegate="_onEdit()">

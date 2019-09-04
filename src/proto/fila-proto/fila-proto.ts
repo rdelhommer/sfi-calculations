@@ -1,20 +1,19 @@
 import './fila-proto.scss'
+
 import { DialogService } from 'aurelia-dialog'
 import { inject } from 'aurelia-framework';
 import { FungalColor, OomyceteColor, CoverslipSize } from '../../util/enums';
 import { IZoomFieldModalModel, ZoomFieldModal } from '../../shared/zoom-field-modal/zoom-field-modal';
-import { FungalField } from '../../models/field/fungal-field.model';
-import { LengthField } from '../../models/field/length-field.model';
 import { DataType, IOrganism } from '../../models/organism/organism.model';
-import { CountField } from '../../models/field/count-field.model';
 import { MultiReadLengthOrganism } from '../../models/organism/multi-read-length-organism.model';
 import { ISampleInfoModel, SampleInfo } from '../../models/sample.model';
 import { MultiReadFungalOrganism } from '../../models/organism/multi-read-fungal-organism.model';
 import { MultiReadCountOrganism } from '../../models/organism/multi-read-count-organism.model';
-import { IReading } from '../../models/reading/reading.model';
 
 @inject(DialogService)
 export class FilaProto {
+  updateFlag: boolean = false
+
   stubSample: ISampleInfoModel = new SampleInfo({
     bacteriaDilution: 300,
     mainDilution: 5,
@@ -24,7 +23,7 @@ export class FilaProto {
     eyepieceFieldSize: 18
   })
 
-  organisms: IOrganism<IReading>[] = [
+  organisms: IOrganism[] = [
     new MultiReadLengthOrganism(this.stubSample, {
       dilution: this.stubSample.mainDilution
     }),
@@ -64,10 +63,6 @@ export class FilaProto {
 
   constructor(private dialogService: DialogService) { }
 
-  activate() {
-    
-  }
-
   addField() {
     this.organisms.forEach(o => o.readings.forEach(r => r.addField()))
   }
@@ -94,24 +89,21 @@ export class FilaProto {
     }
   }
 
-  collectData(readingNumber: number, fieldNumber: number, organismName: string, dataType: DataType) {
+  collectData(readingNumber: number, fieldNumber: number, organism: IOrganism) {
     return this.dialogService.open({
       viewModel: ZoomFieldModal,
       model: <IZoomFieldModalModel>{
         readingNumber,
         fieldNumber,
-        organismName,
-        dataType,
-        field: dataType === DataType.Counting 
-          ? new CountField()
-          : dataType === DataType.Diameter
-            ? new FungalField() 
-            : new LengthField()
+        organismName: organism.organismName,
+        dataType: organism.dataType,
+        field: organism.readings[readingNumber - 1].fields[fieldNumber - 1]
       }, 
       lock: true
     }).whenClosed(result => {
       if (result.wasCancelled) throw 'cancelled'
 
+      this.updateFlag = !this.updateFlag
       // TODO: Save returned data
     })
   }

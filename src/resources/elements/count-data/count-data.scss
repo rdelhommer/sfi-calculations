@@ -1,2 +1,9 @@
+@import '../../../sass/variables';
+
 .count-data  {
+  .form-group {
+    label {
+      margin-right: $spacing-base;
+    }
+  }
 }

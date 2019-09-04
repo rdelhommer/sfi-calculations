@@ -77,16 +77,18 @@
       <h2 class="fila-proto__organism-header">${organism.organismName}</h2>
       <reading-v2 
           repeat.for="reading of organism.readings"
-          organism-name.bind="organism.organismName"
+          organism-name.one-time="organism.organismName"
           reading-number.bind="$index + 1"
           reading.bind="reading"
-          fungi-color-enum.bind="organism.FungiColorEnum"
-          on-edit-field.call="collectData(readingNumber, fieldNumber, organism.organismName, organism.dataType)"
+          fungi-color-enum.one-time="organism.FungiColorEnum"
+          on-edit-field.call="collectData(readingNumber, fieldNumber, organism)"
           on-add-field.call="addField()"
           on-remove-field.call="removeField()"
           is-expanded.bind="isReadingExpanded[$index]">
       </reading-v2>
-      <biomass organism.bind="organism"></biomass>
+      <biomass 
+          organism.bind="organism"
+          update-flag.bind="updateFlag"></biomass>
     </div>
   </div>
 
