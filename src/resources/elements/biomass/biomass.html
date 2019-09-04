@@ -6,13 +6,17 @@
         <div class="biomass__calc-header">
           Mean
         </div>
-        1.23
+        <div class="biomass__calc-value">
+          ${organism.meanResult|calculated:0.01}
+        </div>
       </div>
       <div class="biomass__calc">
         <div class="biomass__calc-header">
           StDev
         </div>
-        0.45
+        <div class="biomass__calc-value">
+          ${organism.stDevResult|calculated:0.01}
+        </div>
       </div>
     </div>
   </card>
