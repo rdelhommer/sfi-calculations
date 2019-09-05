@@ -31,7 +31,12 @@ $nav-height: $spacing-base * 12;
     color: $color-white;
   }
 
+  nav-item {
+    height: 100%;
+  }
+
   .nav-item {
+    height: 100%;
     padding-left: $spacing-base * 2;
     padding-right: $spacing-base * 2;
 
@@ -39,6 +44,11 @@ $nav-height: $spacing-base * 12;
       text-decoration: none;
       font-size: $font-base * 1.25;
       color: $color-white-transparent;
+
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
 
       &:hover,
       &:focus {
