@@ -5,7 +5,14 @@
         ${organism.organismName}
       </h2>
       <div slot="body">
-        TODO: add input for nematode count
+        <form-group
+            type="number"
+            model.bind="organism.readings[0].fields[0].count"
+            on-changed.call="updated()">
+          <div slot="label">
+            Count
+          </div>
+        </form-group>
       </div>
     </card>
   </div>

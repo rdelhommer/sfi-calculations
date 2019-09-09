@@ -4,8 +4,9 @@
     
     <div class="nematodes__organism-container" repeat.for="organism of organisms">
       <nematode-reading
-          organism.bind="organism">
-      </nematode-reading>
+          organism.bind="organism"
+          on-update.call="onUpdate()">
+        </nematode-reading>
       <biomass 
           organism.bind="organism"
           update-flag.bind="updateFlag">
