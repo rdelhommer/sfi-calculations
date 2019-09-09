@@ -16,28 +16,6 @@
     text-align: center;
   }
 
-  &__actions {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-
-    border-radius: 4px;
-    border: 1px solid;
-
-    background: lightgray;
-
-    display: flex;
-    flex-direction: column;
-
-    padding: 10px;
-  }
-
-  &__action-button {
-    cursor: pointer;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
   h2:not(:first-of-type) {
     margin-top: 40px;
   }

@@ -22,6 +22,9 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/dropdown-button/dropdown-button'),
   PLATFORM.moduleName('resources/elements/nav/nav'),
   PLATFORM.moduleName('resources/elements/nav/nav-item/nav-item'),
+  PLATFORM.moduleName('resources/elements/toolbar/toolbar'),
+  PLATFORM.moduleName('resources/elements/toolbar/toolbar-item/toolbar-item'),
+  PLATFORM.moduleName('resources/elements/toolbar/toolbar-action/toolbar-action'),
 
   PLATFORM.moduleName('app/usage/usage'),
   PLATFORM.moduleName('app/data-tab/data-tab'),

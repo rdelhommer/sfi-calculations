@@ -1,77 +1,69 @@
 <template>
+  <toolbar>
+    <toolbar-item text="Expand">
+      <toolbar-action 
+          text="All" 
+          action.call="expand()">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #1"
+          action.call="expand(1)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #2"
+          action.call="expand(2)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #3"
+          action.call="expand(3)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #4"
+          action.call="expand(4)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #5"
+          action.call="expand(5)">
+      </toolbar-action>
+    </toolbar-item>
+    <toolbar-item text="Collapse">
+      <toolbar-action 
+          text="All" 
+          action.call="collapse()">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #1"
+          action.call="collapse(1)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #2"
+          action.call="collapse(2)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #3"
+          action.call="collapse(3)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #4"
+          action.call="collapse(4)">
+      </toolbar-action>
+      <toolbar-action 
+          text="Reading #5"
+          action.call="collapse(5)">
+      </toolbar-action>
+    </toolbar-item>
+    <toolbar-item text="Fields">
+      <toolbar-action 
+          text="Add"
+          action.call="addField()">
+      </toolbar-action>
+      <toolbar-action 
+          text="Remove"
+          action.call="removeField()">
+      </toolbar-action>
+    </toolbar-item>
+  </toolbar>
   <div class="fila-proto">
-    <div class="fila-proto__actions">
-      <dropdown-button greeting="Expand" class="fila-proto__action-button">
-        <button 
-            class="fila-proto__action-button" 
-            click.delegate="expand()">
-          All
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="expand(1)">
-          Reading #1
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="expand(2)">
-          Reading #2
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="expand(3)">
-          Reading #3
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="expand(4)">
-          Reading #4
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="expand(5)">
-          Reading #5
-        </button>
-      </dropdown-button>
-      <dropdown-button greeting="Collapse" class="fila-proto__action-button">
-        <button 
-            class="fila-proto__action-button" 
-            click.delegate="collapse()">
-          All
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="collapse(1)">
-          Reading #1
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="collapse(2)">
-          Reading #2
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="collapse(3)">
-          Reading #3
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="collapse(4)">
-          Reading #4
-        </button>
-        <button 
-            class="fila-proto__action-button"
-            click.delegate="collapse(5)">
-          Reading #5
-        </button>
-      </dropdown-button>
-      <button click.delegate="addField()" class="fila-proto__action-button">
-        Add Field
-      </button>
-      <button click.delegate="removeField()" class="fila-proto__action-button">
-        Remove Field
-      </button>
-    </div>
     <h1>Filamentous and Protozoan Organisms</h1>
     <div class="fila-proto__organism-container" repeat.for="organism of organisms">
       <h2 class="fila-proto__organism-header">${organism.organismName}</h2>
@@ -92,11 +84,4 @@
       </biomass>
     </div>
   </div>
-
-  <div style="margin-top:40px">
-      NOTE:
-      <br/>
-      Biomass calculations will be real-time calculations of the biomass mean and standard deviation (big green and gray columns on far right of spreadsheet)
-  </div>
-  
 </template>
