@@ -9,6 +9,9 @@
   &__heading {
     padding: 10px;
     border-bottom: 0.5px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     * {
       margin: 0px;

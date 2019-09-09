@@ -20,6 +20,13 @@ export class Proto {
         title: 'Home'
       }, 
       { 
+        route: 'nematodes',       
+        name: 'nematodes',       
+        moduleId: PLATFORM.moduleName('./nematodes/nematodes'),
+        nav: true, 
+        title: 'Nematodes'
+      },
+      { 
         route: 'fila-proto',            
         name: 'fila-proto',      
         moduleId: PLATFORM.moduleName('./fila-proto/fila-proto'), 

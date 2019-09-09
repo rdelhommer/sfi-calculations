@@ -1,0 +1,10 @@
+.nematodes {
+  &__organism-container {
+    display: flex;
+    margin-bottom: 10px;
+  
+    nematode-reading {
+      margin-right: 10px;
+    }
+  }
+}

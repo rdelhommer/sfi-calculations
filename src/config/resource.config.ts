@@ -5,6 +5,7 @@ export const globalResources = [
   PLATFORM.moduleName('resources/elements/tabs/tabs'),
   PLATFORM.moduleName('resources/elements/reading/reading'),
   PLATFORM.moduleName('resources/elements/reading-v2/reading-v2'),
+  PLATFORM.moduleName('resources/elements/nematode-reading/nematode-reading'),
   PLATFORM.moduleName('resources/elements/tooltip/tooltip'),
   PLATFORM.moduleName('resources/elements/editable/editable'),
   PLATFORM.moduleName('resources/elements/simple-data/simple-data'),

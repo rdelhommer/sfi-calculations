@@ -62,7 +62,6 @@ export class FilaProto {
   }
 
   constructor(private dialogService: DialogService) { 
-    console.log('object');
   }
 
   addField() {
