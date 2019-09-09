@@ -1,3 +1,5 @@
+@import '../../sass//variables.scss';
+
 .zoom-field {
   &__heading {
     margin: 0px;
@@ -5,7 +7,8 @@
 
   &__body {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     h5 {
       margin-bottom: 0px;
@@ -16,6 +19,12 @@
         width: 120px;
       }
     }
+  }
+
+  &__body-error {
+    color: red;
+    max-width: 250px;
+    margin-top: $spacing-base * 3;
   }
 
   &__body-section {

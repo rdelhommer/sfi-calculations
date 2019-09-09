@@ -1,6 +1,7 @@
 import { Aurelia, PLATFORM } from 'aurelia-framework'
 import { globalResources } from './config/resource.config';
 import { configureRootContainer } from './config/container.config';
+// import './util/validation';
 
 export function configure(aurelia: Aurelia) {
   aurelia.use

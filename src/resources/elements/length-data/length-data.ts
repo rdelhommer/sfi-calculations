@@ -1,9 +1,11 @@
 import './length-data.scss'
-import { bindable, computedFrom } from 'aurelia-framework';
+
+import { bindable, computedFrom, inject } from 'aurelia-framework';
 import { ILengthField } from '../../../models/field/length-field.model';
 
 export class LengthData {
   @bindable field: ILengthField
+
   updateFlag: boolean
 
   @computedFrom('updateFlag')
@@ -11,3 +13,4 @@ export class LengthData {
     return this.field.totalLength
   }
 }
+

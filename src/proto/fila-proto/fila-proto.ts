@@ -61,7 +61,9 @@ export class FilaProto {
     4: false,
   }
 
-  constructor(private dialogService: DialogService) { }
+  constructor(private dialogService: DialogService) { 
+    console.log('object');
+  }
 
   addField() {
     this.organisms.forEach(o => o.readings.forEach(r => r.addField()))

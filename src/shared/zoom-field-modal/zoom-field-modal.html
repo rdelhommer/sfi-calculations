@@ -23,6 +23,9 @@
             if.bind="dataType === DataType.Counting"
             count.bind="field.count">
         </count-data>
+        <div if.bind="isErrored" class="zoom-field__body-error">
+          Please use only numerical values.  If no organisms were observed please enter 0
+        </div>
       </div>
     </ux-dialog-body>
 
