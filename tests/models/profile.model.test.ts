@@ -60,7 +60,7 @@ describe('Models', () => {
           dataEntry: DataEntry.DataTab
         }
 
-        let test = new Profile(init)
+        let test = Profile.fromPartial(init)
 
         Object.keys(init).forEach(x => {
           if (x === 'address') return
@@ -74,7 +74,7 @@ describe('Models', () => {
           lineTwo: 'test line two'
         }
 
-        let test = new Profile({
+        let test = Profile.fromPartial({
           address
         })
 
@@ -87,7 +87,7 @@ describe('Models', () => {
       })
 
       test('should init default address', () => {
-        let test = new Profile()
+        let test = Profile.fromPartial()
 
         Object.keys(test.address).forEach(x => {
           expect(test.address[x]).toBe(undefined)
@@ -98,7 +98,7 @@ describe('Models', () => {
     })
 
     describe('isValid', () => {
-      let happyProfile: IProfileModel = {
+      let happyProfile: RecursivePartial<IProfileModel> = {
         name: 'test name',
         organization: 'test organization',
         email: 'test email',
@@ -110,12 +110,12 @@ describe('Models', () => {
       }
 
       test('happy', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
         expect(test.isValid).toBe(true)
       })
 
       test('no name', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
 
         test.name = ''
         expect(test.isValid).toBe(false)
@@ -128,7 +128,7 @@ describe('Models', () => {
       })
 
       test('no organization', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
 
         test.organization = ''
         expect(test.isValid).toBe(false)
@@ -141,7 +141,7 @@ describe('Models', () => {
       })
 
       test('no email', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
 
         test.email = ''
         expect(test.isValid).toBe(false)
@@ -154,7 +154,7 @@ describe('Models', () => {
       })
 
       test('no phone', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
 
         test.phone = ''
         expect(test.isValid).toBe(false)
@@ -167,7 +167,7 @@ describe('Models', () => {
       })
 
       test('invalid address', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
 
         test.address = {
           isValid: false,
@@ -183,7 +183,7 @@ describe('Models', () => {
       })
 
       test('no dataEntry', () => {
-        let test = new Profile(happyProfile)
+        let test = Profile.fromPartial(happyProfile)
 
         test.dataEntry = null
         expect(test.isValid).toBe(false)

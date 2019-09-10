@@ -1,5 +1,6 @@
 import { IModel } from "./base.model";
 import { DataEntry } from "../util/enums";
+import { ISuccessionRequirement, SuccessionRequirement } from "./succession/succession-requirement.model";
 
 export interface IAddress extends IModel {
   lineOne: string
@@ -26,24 +27,31 @@ export interface IProfileModel extends IModel {
   email?: string
   phone?: string
   dataEntry: DataEntry
+  successionRequirement: ISuccessionRequirement
 }
 
 export class Profile implements IProfileModel {
+  static fromPartial(init: RecursivePartial<IProfileModel> = { }): IProfileModel { 
+    let ret = new Profile()
+
+    ret.name = init.name
+    ret.organization= init.organization
+    ret.email = init.email
+    ret.phone = init.phone
+    ret.address = new Address(init.address) || new Address({})
+    ret.dataEntry = init.dataEntry || DataEntry.ReadingsTab
+    ret.successionRequirement = SuccessionRequirement.fromPartial(init.successionRequirement)
+
+    return ret
+  }
+
   name?: string;  
   organization?: string;
   address: IAddress;
   email?: string;
   phone?: string;
   dataEntry: DataEntry
-
-  constructor(init: RecursivePartial<IProfileModel> = { }) {
-    this.name = init.name
-    this.organization= init.organization
-    this.email = init.email
-    this.phone = init.phone
-    this.address = new Address(init.address) || new Address({})
-    this.dataEntry = init.dataEntry || DataEntry.ReadingsTab
-  }
+  successionRequirement: ISuccessionRequirement
 
   get isValid() {
     return !!this.name && this.name != null
@@ -52,5 +60,6 @@ export class Profile implements IProfileModel {
       && !!this.phone && this.phone != null
       && this.address.isValid
       && !!this.dataEntry
+      && this.successionRequirement.isValid
   }
 }

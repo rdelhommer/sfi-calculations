@@ -1,0 +1,75 @@
+<template>
+  <div class="settings">
+    <h1>
+      Settings
+      <span show.bind="showSaveSuccessful"> - Saved!</span>
+    </h1>
+    <div>
+      <form-wrap>
+        <form-header>
+          <h2 slot="title">
+            Profile
+          </h2>
+        </form-header>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.name">
+          <div slot="label">
+            Name
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.organization">
+          <div slot="label">
+            Organization
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.lineOne">
+          <div slot="label">
+            Address
+          </div>
+        </form-group>
+        <form-group 
+            orientation="horizontal" 
+            model.bind="profile.address.lineTwo">
+        </form-group>
+        <form-group 
+            type="email"
+            orientation="horizontal" 
+            model.bind="profile.email">
+          <div slot="label">
+            Email
+          </div>
+        </form-group>
+        <form-group 
+            type="phone"
+            orientation="horizontal" 
+            model.bind="profile.phone">
+          <div slot="label">
+            Phone
+          </div>
+        </form-group>
+        <form-header>
+          <h2 slot="title">
+            Succession Requirements
+          </h2>
+        </form-header>
+        TODO
+        <button
+            class="settings-tab__button"
+            type="submit"
+            click.delegate="saveProfile()">
+          Save
+        </button>
+        <button
+            class="settings-tab__button"
+            click.delegate="cancelChanges()">
+          Cancel
+        </button>
+      </form-wrap>
+    </div>
+  </div>
+</template>

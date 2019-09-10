@@ -1,0 +1,20 @@
+@import '../../sass/bases.scss';
+
+.settings {
+  .form-group {
+    margin-top: 5px;
+
+    label {
+      width: 150px;
+    }
+  
+    input {
+      width: 400px;
+    }
+  }
+
+  &__button {
+    margin-top: 10px;
+    @extend %button;
+  }
+}

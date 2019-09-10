@@ -32,6 +32,13 @@ export class Proto {
         moduleId: PLATFORM.moduleName('./fila-proto/fila-proto'), 
         nav: true, 
         title: 'Filamentous and Protozoa Data' 
+      },
+      { 
+        route: 'settings',            
+        name: 'settings',      
+        moduleId: PLATFORM.moduleName('./settings/settings'), 
+        nav: true, 
+        title: 'Settings'
       }
     ]);
   }

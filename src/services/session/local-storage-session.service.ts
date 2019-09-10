@@ -66,7 +66,7 @@ export class LocalStorageSession implements ISession {
 
   loadProfile(): IProfileModel {
     let raw = this.cache.get(ICache.Mode.Permanent, 'profile') || { }
-    return new Profile(raw);
+    return Profile.fromPartial(raw);
   }
 
   saveData(data: IDataModel): void {

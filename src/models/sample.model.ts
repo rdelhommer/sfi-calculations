@@ -102,7 +102,7 @@ export class Sample implements ISampleModel {
   sample: ISampleInfoModel;
 
   constructor(init: RecursivePartial<ISampleModel> = { }) {
-    this.observer = init.observer ? new Profile(init.observer) : new Profile({});
+    this.observer = init.observer ? Profile.fromPartial(init.observer) : Profile.fromPartial({});
     this.sample = init.sample ? new SampleInfo(init.sample) : new SampleInfo({})
   }
   
