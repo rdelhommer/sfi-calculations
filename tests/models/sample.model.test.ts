@@ -13,7 +13,7 @@ describe('Models', () => {
       })
 
       test('should initialize observer', () => {
-        let observer = new Profile({
+        let observer = Profile.fromPartial({
           email: 'blah@blah.com',
           name: 'asdf test',
           organization: 'test org'
